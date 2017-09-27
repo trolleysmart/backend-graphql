@@ -1,8 +1,8 @@
 {
   "name": "trolley-smart-backend-graphql",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Trolley Smart Backend Graphql",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "babel-node src/index.js",
     "build": "babel src --out-dir dist && npm run generate-graphql-schema",
