@@ -2,12 +2,12 @@
 
 import { GraphQLID, GraphQLFloat, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
-import multiBuyType from './MultiBuy';
+import MultiBuy from './MultiBuy';
 import unitPriceType from './UnitPrice';
 import Tag from './Tag';
 import Store from './Store';
 
-const Product = new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'Product',
   fields: {
     id: {
@@ -63,7 +63,7 @@ const Product = new GraphQLObjectType({
       resolve: _ => _.getIn(['priceDetails', 'wasPrice']),
     },
     multiBuy: {
-      type: multiBuyType,
+      type: MultiBuy,
       resolve: _ => _.getIn(['priceDetails', 'multiBuyInfo']),
     },
     unitPrice: {
@@ -93,5 +93,3 @@ const Product = new GraphQLObjectType({
   },
   interfaces: [NodeInterface],
 });
-
-export default Product;

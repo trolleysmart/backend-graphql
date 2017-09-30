@@ -6,8 +6,8 @@ import { connectionDefinitions } from 'graphql-relay';
 import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import { NodeInterface } from '../interface';
-import multiBuyType from './MultiBuy';
-import unitPriceType from './UnitPrice';
+import MultiBuy from './MultiBuy';
+import UnitPrice from './UnitPrice';
 import Tag from './Tag';
 import Store from './Store';
 import { storeLoaderByKey, tagLoaderByKey } from '../loader';
@@ -80,11 +80,11 @@ const ShoppingListItemType = new GraphQLObjectType({
       resolve: _ => _.getIn(['productPrice', 'priceDetails', 'wasPrice']),
     },
     multiBuy: {
-      type: multiBuyType,
+      type: MultiBuy,
       resolve: _ => _.getIn(['productPrice', 'priceDetails', 'multiBuyInfo']),
     },
     unitPrice: {
-      type: unitPriceType,
+      type: UnitPrice,
       resolve: _ => _.getIn(['productPrice', 'priceDetails', 'unitPrice']),
     },
     offerEndDate: {

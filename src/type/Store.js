@@ -31,7 +31,7 @@ const ParentStore = new GraphQLObjectType({
   interfaces: [NodeInterface],
 });
 
-const Store = new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'Store',
   fields: {
     id: {
@@ -75,5 +75,3 @@ const Store = new GraphQLObjectType({
   },
   interfaces: [NodeInterface],
 });
-
-export default Store;

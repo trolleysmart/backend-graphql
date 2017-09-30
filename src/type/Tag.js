@@ -39,7 +39,7 @@ const ParentTag = new GraphQLObjectType({
   interfaces: [NodeInterface],
 });
 
-const Tag = new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'Tag',
   fields: {
     id: {
@@ -91,5 +91,3 @@ const Tag = new GraphQLObjectType({
   },
   interfaces: [NodeInterface],
 });
-
-export default Tag;

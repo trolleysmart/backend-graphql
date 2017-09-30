@@ -1,7 +1,7 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
-  value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
 var _graphql = require('graphql');
@@ -17,68 +17,68 @@ var ParentStore = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
       resolve: function resolve(_) {
         return _.get('id');
-      },
+      }
     },
     key: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
         return _.get('key');
-      },
+      }
     },
     name: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
         return _.get('name');
-      },
+      }
     },
     imageUrl: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
         return _.get('imageUrl');
-      },
+      }
     },
     address: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
         return _.get('address');
-      },
-    },
+      }
+    }
   },
-  interfaces: [_interface.NodeInterface],
+  interfaces: [_interface.NodeInterface]
 });
 
-var Store = new _graphql.GraphQLObjectType({
+exports.default = new _graphql.GraphQLObjectType({
   name: 'Store',
   fields: {
     id: {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
       resolve: function resolve(_) {
         return _.get('id');
-      },
+      }
     },
     key: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
         return _.get('key');
-      },
+      }
     },
     name: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
         return _.get('name');
-      },
+      }
     },
     imageUrl: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
         return _.get('imageUrl');
-      },
+      }
     },
     address: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
         return _.get('address');
-      },
+      }
     },
     parentStore: {
       type: ParentStore,
@@ -96,10 +96,8 @@ var Store = new _graphql.GraphQLObjectType({
         }
 
         return null;
-      },
-    },
+      }
+    }
   },
-  interfaces: [_interface.NodeInterface],
+  interfaces: [_interface.NodeInterface]
 });
-
-exports.default = Store;
