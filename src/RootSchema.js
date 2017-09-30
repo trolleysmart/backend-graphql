@@ -1,12 +1,12 @@
 // @flow
 
 import { GraphQLSchema } from 'graphql';
-import { rootMutationType } from './mutation';
-import { rootQueryType } from './type';
+import { RootMutation } from './mutation';
+import { RootQuery } from './type';
 
 export default function getRootSchema() {
   return new GraphQLSchema({
-    query: rootQueryType,
-    mutation: rootMutationType,
+    query: RootQuery,
+    mutation: RootMutation,
   });
 }

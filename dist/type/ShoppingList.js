@@ -28,9 +28,9 @@ var _graphqlRelay = require('graphql-relay');
 
 var _interface = require('../interface');
 
-var _ShoppingListItems = require('./ShoppingListItems');
+var _ShoppingListItemConnection = require('./ShoppingListItemConnection');
 
-var _ShoppingListItems2 = _interopRequireDefault(_ShoppingListItems);
+var _ShoppingListItemConnection2 = _interopRequireDefault(_ShoppingListItemConnection);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -92,7 +92,7 @@ exports.default = new _graphql.GraphQLObjectType({
                   switch ((_context.prev = _context.next)) {
                     case 0:
                       _context.next = 2;
-                      return (0, _ShoppingListItems.getShoppingListItems)(Map({ first: 1000 }), _.get('id'), request.headers.authorization);
+                      return (0, _ShoppingListItemConnection.getShoppingListItems)(Map({ first: 1000 }), _.get('id'), request.headers.authorization);
 
                     case 2:
                       return _context.abrupt('return', _context.sent.count);
@@ -115,7 +115,7 @@ exports.default = new _graphql.GraphQLObjectType({
       })(),
     },
     shoppingListItems: {
-      type: _ShoppingListItems2.default.ShoppingListItemConnectionDefinition.connectionType,
+      type: _ShoppingListItemConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString,
@@ -140,7 +140,11 @@ exports.default = new _graphql.GraphQLObjectType({
                     case 0:
                       return _context2.abrupt(
                         'return',
-                        (0, _ShoppingListItems.getShoppingListItems)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization),
+                        (0, _ShoppingListItemConnection.getShoppingListItems)(
+                          _immutable2.default.fromJS(args),
+                          _.get('id'),
+                          request.headers.authorization,
+                        ),
                       );
 
                     case 1:

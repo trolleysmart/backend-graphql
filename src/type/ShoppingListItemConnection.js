@@ -1,124 +1,11 @@
 // @flow
 
 import Immutable, { List, Map, Range } from 'immutable';
-import { GraphQLID, GraphQLFloat, GraphQLList, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionDefinitions } from 'graphql-relay';
 import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
-import { NodeInterface } from '../interface';
-import MultiBuy from './MultiBuy';
-import UnitPrice from './UnitPrice';
-import Tag from './Tag';
-import Store from './Store';
 import { storeLoaderByKey, tagLoaderByKey } from '../loader';
-
-const ShoppingListItemType = new GraphQLObjectType({
-  name: 'ShoppingListItem',
-  fields: {
-    id: {
-      type: new GraphQLNonNull(GraphQLID),
-      resolve: _ => _.get('id'),
-    },
-    itemType: {
-      type: GraphQLString,
-      resolve: _ => _.get('itemType'),
-    },
-    stapleItemId: {
-      type: GraphQLID,
-      resolve: _ => _.get('stapleItemId'),
-    },
-    productPriceId: {
-      type: GraphQLID,
-      resolve: _ => _.get('productPriceId'),
-    },
-    name: {
-      type: GraphQLString,
-      resolve: _ => _.get('name'),
-    },
-    description: {
-      type: GraphQLString,
-      resolve: _ => _.get('description'),
-    },
-    imageUrl: {
-      type: GraphQLString,
-      resolve: _ => (_.get('stapleItemId') ? _.get('imageUrl') : _.getIn(['productPrice', 'imageUrl'])),
-    },
-    barcode: {
-      type: GraphQLString,
-      resolve: _ => _.getIn(['productPrice', 'barcode']),
-    },
-    size: {
-      type: GraphQLString,
-      resolve: _ => _.getIn(['productPrice', 'size']),
-    },
-    productPageUrl: {
-      type: GraphQLString,
-      resolve: _ => _.getIn(['productPrice', 'productPageUrl']),
-    },
-    specialType: {
-      type: GraphQLString,
-      resolve: _ => _.getIn(['productPrice', 'specialType']),
-    },
-    priceToDisplay: {
-      type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'priceToDisplay']),
-    },
-    saving: {
-      type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'saving']),
-    },
-    savingPercentage: {
-      type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'savingPercentage']),
-    },
-    currentPrice: {
-      type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'priceDetails', 'currentPrice']),
-    },
-    wasPrice: {
-      type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'priceDetails', 'wasPrice']),
-    },
-    multiBuy: {
-      type: MultiBuy,
-      resolve: _ => _.getIn(['productPrice', 'priceDetails', 'multiBuyInfo']),
-    },
-    unitPrice: {
-      type: UnitPrice,
-      resolve: _ => _.getIn(['productPrice', 'priceDetails', 'unitPrice']),
-    },
-    offerEndDate: {
-      type: GraphQLString,
-      resolve: (_) => {
-        const offerEndDate = _.getIn(['productPrice', 'offerEndDate']);
-
-        return offerEndDate ? offerEndDate.toISOString() : undefined;
-      },
-    },
-    quantity: {
-      type: GraphQLInt,
-      resolve: _ => _.get('quantity'),
-    },
-    comments: {
-      type: GraphQLString,
-      resolve: _ => _.get('comments'),
-    },
-    store: {
-      type: Store,
-      resolve: _ => _.get('store'),
-    },
-    tags: {
-      type: new GraphQLList(Tag),
-      resolve: _ => _.get('tags'),
-    },
-  },
-  interfaces: [NodeInterface],
-});
-
-const ShoppingListItemConnectionDefinition = connectionDefinitions({
-  name: 'ShoppingListItem',
-  nodeType: ShoppingListItemType,
-});
+import ShoppingListItem from './ShoppingListItem';
 
 const getShoppingListItemsMatchCriteria = async (searchArgs, shoppingListId, sessionToken) => {
   let shoppingListItems = List();
@@ -206,4 +93,7 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, sessionTo
   };
 };
 
-export default { ShoppingListItemType, ShoppingListItemConnectionDefinition };
+export default connectionDefinitions({
+  name: 'ShoppingListItem',
+  nodeType: ShoppingListItem,
+});

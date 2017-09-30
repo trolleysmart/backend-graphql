@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
-import ShoppingListItem, { getShoppingListItems } from './ShoppingListItems';
+import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
 
 export default new GraphQLObjectType({
   name: 'ShoppingList',
@@ -22,7 +22,7 @@ export default new GraphQLObjectType({
       resolve: async (_, args, request) => (await getShoppingListItems(Map({ first: 1000 }), _.get('id'), request.headers.authorization)).count,
     },
     shoppingListItems: {
-      type: ShoppingListItem.ShoppingListItemConnectionDefinition.connectionType,
+      type: ShoppingListItemConnection.connectionType,
       args: {
         ...connectionArgs,
         name: {

@@ -51,11 +51,6 @@ function _asyncToGenerator(fn) {
   };
 }
 
-var ShoppingListConnection = (0, _graphqlRelay.connectionDefinitions)({
-  name: 'ShoppingList',
-  nodeType: _ShoppingList2.default,
-});
-
 var getCriteria = function getCriteria(searchArgs, userId) {
   return (0, _immutable.Map)({
     ids: searchArgs.has('shoppingListIds') ? searchArgs.get('shoppingListIds') : undefined,
@@ -195,4 +190,7 @@ var getShoppingLists = (exports.getShoppingLists = (function() {
   };
 })());
 
-exports.default = ShoppingListConnection;
+exports.default = (0, _graphqlRelay.connectionDefinitions)({
+  name: 'ShoppingList',
+  nodeType: _ShoppingList2.default,
+});

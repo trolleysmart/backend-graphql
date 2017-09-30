@@ -1,5 +1,5 @@
 // @flow
 
 export ShoppingListConnection, { getShoppingLists } from './ShoppingListConnection';
-export ShoppingListItem, { getShoppingListItems } from './ShoppingListItems';
-export rootQueryType from './RootQuery';
+export ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
+export RootQuery from './RootQuery';

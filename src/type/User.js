@@ -5,7 +5,7 @@ import { GraphQLBoolean, GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNon
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
 import ShoppingListConnection, { getShoppingLists } from './ShoppingListConnection';
-import ShoppingListItem, { getShoppingListItems } from './ShoppingListItems';
+import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
 import ProductConnection, { getProducts } from './ProductConnection';
 import StapleItemConnection, { getStapleItems } from './StapleItemConnection';
 
@@ -30,7 +30,7 @@ export default new GraphQLObjectType({
       resolve: async (_, args, request) => getShoppingLists(Immutable.fromJS(args), _.get('id'), request.headers.authorization),
     },
     shoppingListItems: {
-      type: ShoppingListItem.ShoppingListItemConnectionDefinition.connectionType,
+      type: ShoppingListItemConnection.connectionType,
       args: {
         ...connectionArgs,
         shoppingListId: {

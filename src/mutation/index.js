@@ -1,3 +1,3 @@
 // @flow
 
-export rootMutationType from './RootMutation';
+export RootMutation from './RootMutation';

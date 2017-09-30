@@ -7,11 +7,6 @@ import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import Product from './Product';
 import { storeLoaderByKey, tagLoaderByKey } from '../loader';
 
-const ProductConnection = connectionDefinitions({
-  name: 'Product',
-  nodeType: Product,
-});
-
 const getCriteria = searchArgs =>
   Map({
     include_store: true,
@@ -117,4 +112,7 @@ export const getProducts = async (searchArgs, sessionToken) => {
   };
 };
 
-export default ProductConnection;
+export default connectionDefinitions({
+  name: 'Product',
+  nodeType: Product,
+});

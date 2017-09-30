@@ -1,14 +1,16 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
-exports.rootMutationType = undefined;
+exports.RootMutation = undefined;
 
-var _RootMutation = require('./RootMutation');
+var _RootMutation2 = require('./RootMutation');
 
-var _RootMutation2 = _interopRequireDefault(_RootMutation);
+var _RootMutation3 = _interopRequireDefault(_RootMutation2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-exports.rootMutationType = _RootMutation2.default;
+exports.RootMutation = _RootMutation3.default;

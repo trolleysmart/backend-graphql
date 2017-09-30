@@ -6,11 +6,6 @@ import { ShoppingListService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import ShoppingList from './ShoppingList';
 
-const ShoppingListConnection = connectionDefinitions({
-  name: 'ShoppingList',
-  nodeType: ShoppingList,
-});
-
 const getCriteria = (searchArgs, userId) =>
   Map({
     ids: searchArgs.has('shoppingListIds') ? searchArgs.get('shoppingListIds') : undefined,
@@ -57,4 +52,7 @@ export const getShoppingLists = async (searchArgs, userId, sessionToken) => {
   };
 };
 
-export default ShoppingListConnection;
+export default connectionDefinitions({
+  name: 'ShoppingList',
+  nodeType: ShoppingList,
+});

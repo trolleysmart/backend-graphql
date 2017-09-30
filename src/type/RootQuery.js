@@ -7,7 +7,7 @@ import ViewerType from './Viewer';
 import UserType from './User';
 import { NodeField } from '../interface';
 
-const rootQueryType = new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'Query',
   fields: {
     user: {
@@ -25,5 +25,3 @@ const rootQueryType = new GraphQLObjectType({
     node: NodeField,
   },
 });
-
-export default rootQueryType;

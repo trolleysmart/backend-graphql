@@ -55,11 +55,6 @@ function _asyncToGenerator(fn) {
   };
 }
 
-var StapleItemConnection = (0, _graphqlRelay.connectionDefinitions)({
-  name: 'StapleItem',
-  nodeType: _StapleItem2.default,
-});
-
 var getCriteria = function getCriteria(searchArgs, userId) {
   return (0, _immutable.Map)({
     include_tags: true,
@@ -244,4 +239,7 @@ var getStapleItems = (exports.getStapleItems = (function() {
   };
 })());
 
-exports.default = StapleItemConnection;
+exports.default = (0, _graphqlRelay.connectionDefinitions)({
+  name: 'StapleItem',
+  nodeType: _StapleItem2.default,
+});

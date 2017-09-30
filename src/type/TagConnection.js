@@ -6,11 +6,6 @@ import { TagService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import Tag from './Tag';
 
-const TagConnection = connectionDefinitions({
-  name: 'TagType',
-  nodeType: Tag,
-});
-
 const getCriteria = searchArgs =>
   Map({
     include_parentTag: true,
@@ -57,4 +52,7 @@ export const getTags = async (searchArgs, sessionToken) => {
   };
 };
 
-export default TagConnection;
+export default connectionDefinitions({
+  name: 'TagType',
+  nodeType: Tag,
+});

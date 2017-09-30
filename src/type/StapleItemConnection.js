@@ -7,11 +7,6 @@ import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import { tagLoaderByKey } from '../loader';
 import StapleItem from './StapleItem';
 
-const StapleItemConnection = connectionDefinitions({
-  name: 'StapleItem',
-  nodeType: StapleItem,
-});
-
 const getCriteria = (searchArgs, userId) =>
   Map({
     include_tags: true,
@@ -64,4 +59,7 @@ export const getStapleItems = async (searchArgs, userId, sessionToken) => {
   };
 };
 
-export default StapleItemConnection;
+export default connectionDefinitions({
+  name: 'StapleItem',
+  nodeType: StapleItem,
+});

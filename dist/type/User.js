@@ -32,9 +32,9 @@ var _ShoppingListConnection = require('./ShoppingListConnection');
 
 var _ShoppingListConnection2 = _interopRequireDefault(_ShoppingListConnection);
 
-var _ShoppingListItems = require('./ShoppingListItems');
+var _ShoppingListItemConnection = require('./ShoppingListItemConnection');
 
-var _ShoppingListItems2 = _interopRequireDefault(_ShoppingListItems);
+var _ShoppingListItemConnection2 = _interopRequireDefault(_ShoppingListItemConnection);
 
 var _ProductConnection = require('./ProductConnection');
 
@@ -128,7 +128,7 @@ exports.default = new _graphql.GraphQLObjectType({
       })(),
     },
     shoppingListItems: {
-      type: _ShoppingListItems2.default.ShoppingListItemConnectionDefinition.connectionType,
+      type: _ShoppingListItemConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         shoppingListId: {
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
@@ -156,7 +156,7 @@ exports.default = new _graphql.GraphQLObjectType({
                     case 0:
                       return _context2.abrupt(
                         'return',
-                        (0, _ShoppingListItems.getShoppingListItems)(
+                        (0, _ShoppingListItemConnection.getShoppingListItems)(
                           _immutable2.default.fromJS(args),
                           args.shoppingListId,
                           request.headers.authorization,
