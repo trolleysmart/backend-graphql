@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
-import ShoppingList, { getShoppingLists } from './ShoppingLists';
+import ShoppingListConnection, { getShoppingLists } from './ShoppingListConnection';
 import ShoppingListItem, { getShoppingListItems } from './ShoppingListItems';
 import ProductConnection, { getProducts } from './ProductConnection';
 import StapleItem, { getStapleItems } from './StapleItems';
@@ -17,7 +17,7 @@ export default new GraphQLObjectType({
       resolve: _ => _.get('id'),
     },
     shoppingLists: {
-      type: ShoppingList.ShoppingListConnectionDefinition.connectionType,
+      type: ShoppingListConnection.connectionType,
       args: {
         ...connectionArgs,
         name: {

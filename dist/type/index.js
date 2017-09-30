@@ -1,17 +1,17 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
-exports.rootQueryType = exports.StapleItem = exports.getShoppingListItems = exports.ShoppingListItem = exports.getShoppingLists = exports.ShoppingList = undefined;
+exports.rootQueryType = exports.StapleItem = exports.getShoppingListItems = exports.ShoppingListItem = exports.getShoppingLists = exports.ShoppingListConnection = undefined;
 
-var _ShoppingLists = require('./ShoppingLists');
+var _ShoppingListConnection2 = require('./ShoppingListConnection');
 
 Object.defineProperty(exports, 'getShoppingLists', {
   enumerable: true,
   get: function get() {
-    return _ShoppingLists.getShoppingLists;
-  }
+    return _ShoppingListConnection2.getShoppingLists;
+  },
 });
 
 var _ShoppingListItems = require('./ShoppingListItems');
@@ -20,10 +20,10 @@ Object.defineProperty(exports, 'getShoppingListItems', {
   enumerable: true,
   get: function get() {
     return _ShoppingListItems.getShoppingListItems;
-  }
+  },
 });
 
-var _ShoppingLists2 = _interopRequireDefault(_ShoppingLists);
+var _ShoppingListConnection3 = _interopRequireDefault(_ShoppingListConnection2);
 
 var _ShoppingListItems2 = _interopRequireDefault(_ShoppingListItems);
 
@@ -35,9 +35,11 @@ var _RootQuery = require('./RootQuery');
 
 var _RootQuery2 = _interopRequireDefault(_RootQuery);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-exports.ShoppingList = _ShoppingLists2.default;
+exports.ShoppingListConnection = _ShoppingListConnection3.default;
 exports.ShoppingListItem = _ShoppingListItems2.default;
 exports.StapleItem = _StapleItems2.default;
 exports.rootQueryType = _RootQuery2.default;
