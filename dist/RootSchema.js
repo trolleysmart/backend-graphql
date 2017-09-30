@@ -1,7 +1,7 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
-  value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 exports.default = getRootSchema;
 
@@ -14,6 +14,6 @@ var _type = require('./type');
 function getRootSchema() {
   return new _graphql.GraphQLSchema({
     query: _type.RootQuery,
-    mutation: _mutation.RootMutation,
+    mutation: _mutation.RootMutation
   });
 }

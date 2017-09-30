@@ -1,11 +1,16 @@
 // @flow
 
+import { Map } from 'immutable';
 import { GraphQLID, GraphQLFloat, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { ProductPriceService } from 'trolley-smart-parse-server-common';
 import { NodeInterface } from '../interface';
 import MultiBuy from './MultiBuy';
 import unitPriceType from './UnitPrice';
 import Tag from './Tag';
 import Store from './Store';
+
+export const getProduct = async (productId, sessionToken) =>
+  ProductPriceService.read(productId, Map({ include_store: true, include_tags: true, include_storeProduct: true }), sessionToken);
 
 export default new GraphQLObjectType({
   name: 'Product',

@@ -6,6 +6,7 @@ import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
 import ShoppingListConnection, { getShoppingLists } from './ShoppingListConnection';
 import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
+import Product, { getProduct } from './Product';
 import ProductConnection, { getProducts } from './ProductConnection';
 import StapleItemConnection, { getStapleItems } from './StapleItemConnection';
 
@@ -88,6 +89,15 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, args, request) => getProducts(Immutable.fromJS(args), request.headers.authorization),
+    },
+    product: {
+      type: Product,
+      args: {
+        productId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { productId }, request) => getProduct(productId, request.headers.authorization),
     },
   },
   interfaces: [NodeInterface],
