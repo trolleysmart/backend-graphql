@@ -31,9 +31,9 @@ var _Tag = require('./Tag');
 
 var _Tag2 = _interopRequireDefault(_Tag);
 
-var _Stores = require('./Stores');
+var _Store = require('./Store');
 
-var _Stores2 = _interopRequireDefault(_Stores);
+var _Store2 = _interopRequireDefault(_Store);
 
 var _loader = require('../loader');
 
@@ -203,7 +203,7 @@ var ShoppingListItemType = new _graphql.GraphQLObjectType({
       },
     },
     store: {
-      type: _Stores2.default.StoreType,
+      type: _Store2.default,
       resolve: function resolve(_) {
         return _.get('store');
       },

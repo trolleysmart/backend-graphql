@@ -9,7 +9,7 @@ import { NodeInterface } from '../interface';
 import multiBuyType from './MultiBuy';
 import unitPriceType from './UnitPrice';
 import Tag from './Tag';
-import Store from './Stores';
+import Store from './Store';
 import { storeLoaderByKey, tagLoaderByKey } from '../loader';
 
 const ProductType = new GraphQLObjectType({
@@ -88,7 +88,7 @@ const ProductType = new GraphQLObjectType({
       resolve: () => '',
     },
     store: {
-      type: Store.StoreType,
+      type: Store,
       resolve: _ => _.get('store'),
     },
     tags: {

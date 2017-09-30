@@ -32,9 +32,9 @@ var _TagConnection = require('./TagConnection');
 
 var _TagConnection2 = _interopRequireDefault(_TagConnection);
 
-var _Stores = require('./Stores');
+var _StoreConnection = require('./StoreConnection');
 
-var _Stores2 = _interopRequireDefault(_Stores);
+var _StoreConnection2 = _interopRequireDefault(_StoreConnection);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -120,7 +120,7 @@ exports.default = new _graphql.GraphQLObjectType({
       })(),
     },
     stores: {
-      type: _Stores2.default.StoreConnectionDefinition.connectionType,
+      type: _StoreConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString,
@@ -134,7 +134,10 @@ exports.default = new _graphql.GraphQLObjectType({
                 while (1) {
                   switch ((_context2.prev = _context2.next)) {
                     case 0:
-                      return _context2.abrupt('return', (0, _Stores.getStores)(_immutable2.default.fromJS(args), request.headers.authorization));
+                      return _context2.abrupt(
+                        'return',
+                        (0, _StoreConnection.getStores)(_immutable2.default.fromJS(args), request.headers.authorization),
+                      );
 
                     case 1:
                     case 'end':
