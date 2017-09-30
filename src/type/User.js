@@ -7,7 +7,7 @@ import { NodeInterface } from '../interface';
 import ShoppingListConnection, { getShoppingLists } from './ShoppingListConnection';
 import ShoppingListItem, { getShoppingListItems } from './ShoppingListItems';
 import ProductConnection, { getProducts } from './ProductConnection';
-import StapleItem, { getStapleItems } from './StapleItems';
+import StapleItemConnection, { getStapleItems } from './StapleItemConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -52,7 +52,7 @@ export default new GraphQLObjectType({
       resolve: async (_, args, request) => getShoppingListItems(Immutable.fromJS(args), args.shoppingListId, request.headers.authorization),
     },
     stapleItems: {
-      type: StapleItem.StapleItemConnectionDefinition.connectionType,
+      type: StapleItemConnection.connectionType,
       args: {
         ...connectionArgs,
         name: {

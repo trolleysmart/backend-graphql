@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
-exports.rootQueryType = exports.StapleItem = exports.getShoppingListItems = exports.ShoppingListItem = exports.getShoppingLists = exports.ShoppingListConnection = undefined;
+exports.rootQueryType = exports.getShoppingListItems = exports.ShoppingListItem = exports.getShoppingLists = exports.ShoppingListConnection = undefined;
 
 var _ShoppingListConnection2 = require('./ShoppingListConnection');
 
@@ -27,10 +27,6 @@ var _ShoppingListConnection3 = _interopRequireDefault(_ShoppingListConnection2);
 
 var _ShoppingListItems2 = _interopRequireDefault(_ShoppingListItems);
 
-var _StapleItems = require('./StapleItems');
-
-var _StapleItems2 = _interopRequireDefault(_StapleItems);
-
 var _RootQuery = require('./RootQuery');
 
 var _RootQuery2 = _interopRequireDefault(_RootQuery);
@@ -41,5 +37,4 @@ function _interopRequireDefault(obj) {
 
 exports.ShoppingListConnection = _ShoppingListConnection3.default;
 exports.ShoppingListItem = _ShoppingListItems2.default;
-exports.StapleItem = _StapleItems2.default;
 exports.rootQueryType = _RootQuery2.default;

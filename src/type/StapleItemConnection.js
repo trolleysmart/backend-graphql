@@ -1,48 +1,15 @@
 // @flow
 
 import Immutable, { Map, Range } from 'immutable';
-import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionDefinitions } from 'graphql-relay';
 import { StapleItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
-import { NodeInterface } from '../interface';
-import Tag from './Tag';
 import { tagLoaderByKey } from '../loader';
+import StapleItem from './StapleItem';
 
-const StapleItemType = new GraphQLObjectType({
+const StapleItemConnection = connectionDefinitions({
   name: 'StapleItem',
-  fields: {
-    id: {
-      type: new GraphQLNonNull(GraphQLID),
-      resolve: _ => _.get('id'),
-    },
-    name: {
-      type: GraphQLString,
-      resolve: _ => _.get('name'),
-    },
-    description: {
-      type: GraphQLString,
-      resolve: _ => _.get('description'),
-    },
-    imageUrl: {
-      type: GraphQLString,
-      resolve: _ => _.get('imageUrl'),
-    },
-    popular: {
-      type: GraphQLBoolean,
-      resolve: _ => (_.has('popular') ? _.get('popular') : false),
-    },
-    tags: {
-      type: new GraphQLList(Tag),
-      resolve: _ => _.get('tags'),
-    },
-  },
-  interfaces: [NodeInterface],
-});
-
-const StapleItemConnectionDefinition = connectionDefinitions({
-  name: 'StapleItem',
-  nodeType: StapleItemType,
+  nodeType: StapleItem,
 });
 
 const getCriteria = (searchArgs, userId) =>
@@ -97,4 +64,4 @@ export const getStapleItems = async (searchArgs, userId, sessionToken) => {
   };
 };
 
-export default { StapleItemType, StapleItemConnectionDefinition };
+export default StapleItemConnection;

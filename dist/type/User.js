@@ -40,9 +40,9 @@ var _ProductConnection = require('./ProductConnection');
 
 var _ProductConnection2 = _interopRequireDefault(_ProductConnection);
 
-var _StapleItems = require('./StapleItems');
+var _StapleItemConnection = require('./StapleItemConnection');
 
-var _StapleItems2 = _interopRequireDefault(_StapleItems);
+var _StapleItemConnection2 = _interopRequireDefault(_StapleItemConnection);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -181,7 +181,7 @@ exports.default = new _graphql.GraphQLObjectType({
       })(),
     },
     stapleItems: {
-      type: _StapleItems2.default.StapleItemConnectionDefinition.connectionType,
+      type: _StapleItemConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString,
@@ -200,7 +200,7 @@ exports.default = new _graphql.GraphQLObjectType({
                     case 0:
                       return _context3.abrupt(
                         'return',
-                        (0, _StapleItems.getStapleItems)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization),
+                        (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization),
                       );
 
                     case 1:
