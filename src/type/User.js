@@ -6,7 +6,7 @@ import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
 import ShoppingList, { getShoppingLists } from './ShoppingLists';
 import ShoppingListItem, { getShoppingListItems } from './ShoppingListItems';
-import Product, { getProducts } from './Products';
+import ProductConnection, { getProducts } from './ProductConnection';
 import StapleItem, { getStapleItems } from './StapleItems';
 
 export default new GraphQLObjectType({
@@ -65,7 +65,7 @@ export default new GraphQLObjectType({
       resolve: async (_, args, request) => getStapleItems(Immutable.fromJS(args), _.get('id'), request.headers.authorization),
     },
     products: {
-      type: Product.ProductConnectionDefinition.connectionType,
+      type: ProductConnection.connectionType,
       args: {
         ...connectionArgs,
         name: {
