@@ -6,7 +6,7 @@ import { connectionArgs, connectionDefinitions } from 'graphql-relay';
 import { ShoppingListService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import { NodeInterface } from '../interface';
-import ShoppingListItem, { getShoppingListItems } from './ShoppingListItem';
+import ShoppingListItem, { getShoppingListItems } from './ShoppingListItems';
 
 const ShoppingListType = new GraphQLObjectType({
   name: 'ShoppingList',

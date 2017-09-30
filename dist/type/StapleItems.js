@@ -19,9 +19,9 @@ var _Common = require('./Common');
 
 var _interface = require('../interface');
 
-var _Tag = require('./Tag');
+var _Tags = require('./Tags');
 
-var _Tag2 = _interopRequireDefault(_Tag);
+var _Tags2 = _interopRequireDefault(_Tags);
 
 var _loader = require('../loader');
 
@@ -63,7 +63,7 @@ var StapleItemType = new _graphql.GraphQLObjectType({
       }
     },
     tags: {
-      type: new _graphql.GraphQLList(_Tag2.default.TagType),
+      type: new _graphql.GraphQLList(_Tags2.default.TagType),
       resolve: function resolve(_) {
         return _.get('tags');
       }

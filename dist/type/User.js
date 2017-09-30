@@ -16,21 +16,21 @@ var _graphqlRelay = require('graphql-relay');
 
 var _interface = require('../interface');
 
-var _ShoppingList = require('./ShoppingList');
+var _ShoppingLists = require('./ShoppingLists');
 
-var _ShoppingList2 = _interopRequireDefault(_ShoppingList);
+var _ShoppingLists2 = _interopRequireDefault(_ShoppingLists);
 
-var _ShoppingListItem = require('./ShoppingListItem');
+var _ShoppingListItems = require('./ShoppingListItems');
 
-var _ShoppingListItem2 = _interopRequireDefault(_ShoppingListItem);
+var _ShoppingListItems2 = _interopRequireDefault(_ShoppingListItems);
 
-var _Product = require('./Product');
+var _Products = require('./Products');
 
-var _Product2 = _interopRequireDefault(_Product);
+var _Products2 = _interopRequireDefault(_Products);
 
-var _StapleItem = require('./StapleItem');
+var _StapleItems = require('./StapleItems');
 
-var _StapleItem2 = _interopRequireDefault(_StapleItem);
+var _StapleItems2 = _interopRequireDefault(_StapleItems);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46,7 +46,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }
     },
     shoppingLists: {
-      type: _ShoppingList2.default.ShoppingListConnectionDefinition.connectionType,
+      type: _ShoppingLists2.default.ShoppingListConnectionDefinition.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString
@@ -61,7 +61,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  return _context.abrupt('return', (0, _ShoppingList.getShoppingLists)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization));
+                  return _context.abrupt('return', (0, _ShoppingLists.getShoppingLists)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -77,7 +77,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }()
     },
     shoppingListItems: {
-      type: _ShoppingListItem2.default.ShoppingListItemConnectionDefinition.connectionType,
+      type: _ShoppingListItems2.default.ShoppingListItemConnectionDefinition.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         shoppingListId: {
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
@@ -101,7 +101,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', (0, _ShoppingListItem.getShoppingListItems)(_immutable2.default.fromJS(args), args.shoppingListId, request.headers.authorization));
+                  return _context2.abrupt('return', (0, _ShoppingListItems.getShoppingListItems)(_immutable2.default.fromJS(args), args.shoppingListId, request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -117,7 +117,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }()
     },
     stapleItems: {
-      type: _StapleItem2.default.StapleItemConnectionDefinition.connectionType,
+      type: _StapleItems2.default.StapleItemConnectionDefinition.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString
@@ -132,7 +132,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', (0, _StapleItem.getStapleItems)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization));
+                  return _context3.abrupt('return', (0, _StapleItems.getStapleItems)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -148,7 +148,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }()
     },
     products: {
-      type: _Product2.default.ProductConnectionDefinition.connectionType,
+      type: _Products2.default.ProductConnectionDefinition.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString
@@ -175,7 +175,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', (0, _Product.getProducts)(_immutable2.default.fromJS(args), request.headers.authorization));
+                  return _context4.abrupt('return', (0, _Products.getProducts)(_immutable2.default.fromJS(args), request.headers.authorization));
 
                 case 1:
                 case 'end':

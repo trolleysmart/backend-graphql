@@ -6,7 +6,7 @@ import { connectionDefinitions } from 'graphql-relay';
 import { StapleItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import { NodeInterface } from '../interface';
-import Tag from './Tag';
+import Tag from './Tags';
 import { tagLoaderByKey } from '../loader';
 
 const StapleItemType = new GraphQLObjectType({

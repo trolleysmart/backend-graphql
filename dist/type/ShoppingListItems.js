@@ -27,13 +27,13 @@ var _UnitPrice = require('./UnitPrice');
 
 var _UnitPrice2 = _interopRequireDefault(_UnitPrice);
 
-var _Tag = require('./Tag');
+var _Tags = require('./Tags');
 
-var _Tag2 = _interopRequireDefault(_Tag);
+var _Tags2 = _interopRequireDefault(_Tags);
 
-var _Store = require('./Store');
+var _Stores = require('./Stores');
 
-var _Store2 = _interopRequireDefault(_Store);
+var _Stores2 = _interopRequireDefault(_Stores);
 
 var _loader = require('../loader');
 
@@ -173,13 +173,13 @@ var ShoppingListItemType = new _graphql.GraphQLObjectType({
       }
     },
     store: {
-      type: _Store2.default.StoreType,
+      type: _Stores2.default.StoreType,
       resolve: function resolve(_) {
         return _.get('store');
       }
     },
     tags: {
-      type: new _graphql.GraphQLList(_Tag2.default.TagType),
+      type: new _graphql.GraphQLList(_Tags2.default.TagType),
       resolve: function resolve(_) {
         return _.get('tags');
       }

@@ -5,35 +5,35 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.rootQueryType = exports.Product = exports.StapleItem = exports.getShoppingListItems = exports.ShoppingListItem = exports.getShoppingLists = exports.ShoppingList = undefined;
 
-var _ShoppingList2 = require('./ShoppingList');
+var _ShoppingLists = require('./ShoppingLists');
 
 Object.defineProperty(exports, 'getShoppingLists', {
   enumerable: true,
   get: function get() {
-    return _ShoppingList2.getShoppingLists;
+    return _ShoppingLists.getShoppingLists;
   }
 });
 
-var _ShoppingListItem2 = require('./ShoppingListItem');
+var _ShoppingListItems = require('./ShoppingListItems');
 
 Object.defineProperty(exports, 'getShoppingListItems', {
   enumerable: true,
   get: function get() {
-    return _ShoppingListItem2.getShoppingListItems;
+    return _ShoppingListItems.getShoppingListItems;
   }
 });
 
-var _ShoppingList3 = _interopRequireDefault(_ShoppingList2);
+var _ShoppingLists2 = _interopRequireDefault(_ShoppingLists);
 
-var _ShoppingListItem3 = _interopRequireDefault(_ShoppingListItem2);
+var _ShoppingListItems2 = _interopRequireDefault(_ShoppingListItems);
 
-var _StapleItem2 = require('./StapleItem');
+var _StapleItems = require('./StapleItems');
 
-var _StapleItem3 = _interopRequireDefault(_StapleItem2);
+var _StapleItems2 = _interopRequireDefault(_StapleItems);
 
-var _Product2 = require('./Product');
+var _Products = require('./Products');
 
-var _Product3 = _interopRequireDefault(_Product2);
+var _Products2 = _interopRequireDefault(_Products);
 
 var _RootQuery = require('./RootQuery');
 
@@ -41,8 +41,8 @@ var _RootQuery2 = _interopRequireDefault(_RootQuery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.ShoppingList = _ShoppingList3.default;
-exports.ShoppingListItem = _ShoppingListItem3.default;
-exports.StapleItem = _StapleItem3.default;
-exports.Product = _Product3.default;
+exports.ShoppingList = _ShoppingLists2.default;
+exports.ShoppingListItem = _ShoppingListItems2.default;
+exports.StapleItem = _StapleItems2.default;
+exports.Product = _Products2.default;
 exports.rootQueryType = _RootQuery2.default;

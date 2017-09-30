@@ -16,13 +16,13 @@ var _graphqlRelay = require('graphql-relay');
 
 var _interface = require('../interface');
 
-var _Tag = require('./Tag');
+var _Tags = require('./Tags');
 
-var _Tag2 = _interopRequireDefault(_Tag);
+var _Tags2 = _interopRequireDefault(_Tags);
 
-var _Store = require('./Store');
+var _Stores = require('./Stores');
 
-var _Store2 = _interopRequireDefault(_Store);
+var _Stores2 = _interopRequireDefault(_Stores);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,7 +38,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }
     },
     tags: {
-      type: _Tag2.default.TagConnectionDefinition.connectionType,
+      type: _Tags2.default.TagConnectionDefinition.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString
@@ -56,7 +56,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  return _context.abrupt('return', (0, _Tag.getTags)(_immutable2.default.fromJS(args), request.headers.authorization));
+                  return _context.abrupt('return', (0, _Tags.getTags)(_immutable2.default.fromJS(args), request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -72,7 +72,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }()
     },
     stores: {
-      type: _Store2.default.StoreConnectionDefinition.connectionType,
+      type: _Stores2.default.StoreConnectionDefinition.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString
@@ -84,7 +84,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', (0, _Store.getStores)(_immutable2.default.fromJS(args), request.headers.authorization));
+                  return _context2.abrupt('return', (0, _Stores.getStores)(_immutable2.default.fromJS(args), request.headers.authorization));
 
                 case 1:
                 case 'end':

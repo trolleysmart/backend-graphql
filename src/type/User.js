@@ -4,10 +4,10 @@ import Immutable from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
-import ShoppingList, { getShoppingLists } from './ShoppingList';
-import ShoppingListItem, { getShoppingListItems } from './ShoppingListItem';
-import Product, { getProducts } from './Product';
-import StapleItem, { getStapleItems } from './StapleItem';
+import ShoppingList, { getShoppingLists } from './ShoppingLists';
+import ShoppingListItem, { getShoppingListItems } from './ShoppingListItems';
+import Product, { getProducts } from './Products';
+import StapleItem, { getStapleItems } from './StapleItems';
 
 export default new GraphQLObjectType({
   name: 'User',

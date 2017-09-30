@@ -4,8 +4,8 @@ import Immutable from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
-import Tag, { getTags } from './Tag';
-import Store, { getStores } from './Store';
+import Tag, { getTags } from './Tags';
+import Store, { getStores } from './Stores';
 
 export default new GraphQLObjectType({
   name: 'Viewer',
