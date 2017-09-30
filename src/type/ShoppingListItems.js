@@ -8,7 +8,7 @@ import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import { NodeInterface } from '../interface';
 import multiBuyType from './MultiBuy';
 import unitPriceType from './UnitPrice';
-import Tag from './Tags';
+import Tag from './Tag';
 import Store from './Stores';
 import { storeLoaderByKey, tagLoaderByKey } from '../loader';
 
@@ -108,7 +108,7 @@ const ShoppingListItemType = new GraphQLObjectType({
       resolve: _ => _.get('store'),
     },
     tags: {
-      type: new GraphQLList(Tag.TagType),
+      type: new GraphQLList(Tag),
       resolve: _ => _.get('tags'),
     },
   },

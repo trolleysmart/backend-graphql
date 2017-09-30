@@ -6,7 +6,7 @@ import { connectionDefinitions } from 'graphql-relay';
 import { StapleItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import { NodeInterface } from '../interface';
-import Tag from './Tags';
+import Tag from './Tag';
 import { tagLoaderByKey } from '../loader';
 
 const StapleItemType = new GraphQLObjectType({
@@ -33,7 +33,7 @@ const StapleItemType = new GraphQLObjectType({
       resolve: _ => (_.has('popular') ? _.get('popular') : false),
     },
     tags: {
-      type: new GraphQLList(Tag.TagType),
+      type: new GraphQLList(Tag),
       resolve: _ => _.get('tags'),
     },
   },

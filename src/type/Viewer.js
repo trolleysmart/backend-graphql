@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
-import Tag, { getTags } from './Tags';
+import TagConnection, { getTags } from './TagConnection';
 import Store, { getStores } from './Stores';
 
 export default new GraphQLObjectType({
@@ -15,7 +15,7 @@ export default new GraphQLObjectType({
       resolve: _ => _.get('id'),
     },
     tags: {
-      type: Tag.TagConnectionDefinition.connectionType,
+      type: TagConnection.connectionType,
       args: {
         ...connectionArgs,
         name: {
