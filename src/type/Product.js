@@ -10,7 +10,7 @@ import Tag from './Tag';
 import Store from './Store';
 
 export const getProduct = async (productId, sessionToken) =>
-  ProductPriceService.read(productId, Map({ include_store: true, include_tags: true, include_storeProduct: true }), sessionToken);
+  new ProductPriceService().read(productId, Map({ include_store: true, include_tags: true, include_storeProduct: true }), sessionToken);
 
 export default new GraphQLObjectType({
   name: 'Product',

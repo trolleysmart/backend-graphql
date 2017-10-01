@@ -39,7 +39,7 @@ var getProduct = exports.getProduct = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', _trolleySmartParseServerCommon.ProductPriceService.read(productId, (0, _immutable.Map)({ include_store: true, include_tags: true, include_storeProduct: true }), sessionToken));
+            return _context.abrupt('return', new _trolleySmartParseServerCommon.ProductPriceService().read(productId, (0, _immutable.Map)({ include_store: true, include_tags: true, include_storeProduct: true }), sessionToken));
 
           case 1:
           case 'end':
