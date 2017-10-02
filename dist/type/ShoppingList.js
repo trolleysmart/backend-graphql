@@ -48,7 +48,7 @@ exports.default = new _graphql.GraphQLObjectType({
               switch (_context.prev = _context.next) {
                 case 0:
                   _context.next = 2;
-                  return (0, _ShoppingListItemConnection.getShoppingListItems)(Map({ first: 1000 }), _.get('id'), request.headers.authorization);
+                  return (0, _ShoppingListItemConnection.getShoppingListItems)((0, _immutable.Map)({ first: 1000 }), _.get('id'), request.headers.authorization);
 
                 case 2:
                   return _context.abrupt('return', _context.sent.count);

@@ -1,6 +1,6 @@
 // @flow
 
-import Immutable from 'immutable';
+import Immutable, { Map } from 'immutable';
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
