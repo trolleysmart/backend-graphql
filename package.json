@@ -1,6 +1,6 @@
 {
   "name": "trolley-smart-backend-graphql",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "description": "Trolley Smart Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
@@ -20,10 +20,6 @@
   "author": "Micro Business ltd<micro.business.ltd@gmail.com>",
   "homepage": "https://bitbucket.org/microbusiness/trolley-smart-backend-graphql#readme",
   "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-stage-0": "^6.24.1",
     "bluebird": "^3.5.0",
     "dataloader": "^1.3.0",
     "graphql": "^0.11.6",
@@ -35,7 +31,11 @@
     "trolley-smart-parse-server-common": "^1.0.0-alpha.20"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
