@@ -329,7 +329,8 @@ type UpdateShoppingListPayload {
 
 type User implements Node {
   id: ID!
-  shoppingLists(after: String, first: Int, before: String, last: Int, name: String, shoppingListIds: [ID]): ShoppingListConnection
+  shoppingLists(after: String, first: Int, before: String, last: Int, name: String, shoppingListIds: [ID!]): ShoppingListConnection
+  shoppingList(shoppingListId: ID!): ShoppingList
   shoppingListItems(after: String, first: Int, before: String, last: Int, shoppingListId: ID!, name: String, addedByUserId: ID, tagKeys: [String], storeKeys: [String]): ShoppingListItemConnection
   stapleItems(after: String, first: Int, before: String, last: Int, name: String, tagKeys: [String]): StapleItemConnection
   products(after: String, first: Int, before: String, last: Int, name: String, description: String, sortOption: String, tagKeys: [String], storeKeys: [String], special: Boolean): ProductConnection

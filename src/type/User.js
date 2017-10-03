@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
+import ShoppingList, { getShoppingList } from './ShoppingList';
 import ShoppingListConnection, { getShoppingLists } from './ShoppingListConnection';
 import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
 import Product, { getProduct } from './Product';
@@ -25,10 +26,19 @@ export default new GraphQLObjectType({
           type: GraphQLString,
         },
         shoppingListIds: {
-          type: new GraphQLList(GraphQLID),
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
       },
       resolve: async (_, args, request) => getShoppingLists(Immutable.fromJS(args), _.get('id'), request.headers.authorization),
+    },
+    shoppingList: {
+      type: ShoppingList,
+      args: {
+        shoppingListId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { shoppingListId }, request) => getShoppingList(shoppingListId, request.headers.authorization),
     },
     shoppingListItems: {
       type: ShoppingListItemConnection.connectionType,

@@ -3,8 +3,11 @@
 import Immutable, { Map } from 'immutable';
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
+import { ShoppingListService } from 'trolley-smart-parse-server-common';
 import { NodeInterface } from '../interface';
 import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
+
+export const getShoppingList = async (shoppingListId, sessionToken) => new ShoppingListService().read(shoppingListId, null, sessionToken);
 
 export default new GraphQLObjectType({
   name: 'ShoppingList',

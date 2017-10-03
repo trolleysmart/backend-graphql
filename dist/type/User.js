@@ -16,6 +16,10 @@ var _graphqlRelay = require('graphql-relay');
 
 var _interface = require('../interface');
 
+var _ShoppingList = require('./ShoppingList');
+
+var _ShoppingList2 = _interopRequireDefault(_ShoppingList);
+
 var _ShoppingListConnection = require('./ShoppingListConnection');
 
 var _ShoppingListConnection2 = _interopRequireDefault(_ShoppingListConnection);
@@ -56,7 +60,7 @@ exports.default = new _graphql.GraphQLObjectType({
           type: _graphql.GraphQLString
         },
         shoppingListIds: {
-          type: new _graphql.GraphQLList(_graphql.GraphQLID)
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
         }
       }),
       resolve: function () {
@@ -80,6 +84,35 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
+    shoppingList: {
+      type: _ShoppingList2.default,
+      args: {
+        shoppingListId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, _ref3, request) {
+          var shoppingListId = _ref3.shoppingListId;
+          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  return _context2.abrupt('return', (0, _ShoppingList.getShoppingList)(shoppingListId, request.headers.authorization));
+
+                case 1:
+                case 'end':
+                  return _context2.stop();
+              }
+            }
+          }, _callee2, undefined);
+        }));
+
+        return function resolve(_x4, _x5, _x6) {
+          return _ref2.apply(this, arguments);
+        };
+      }()
+    },
     shoppingListItems: {
       type: _ShoppingListItemConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
@@ -100,23 +133,23 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, request) {
-          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, request) {
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
-              switch (_context2.prev = _context2.next) {
+              switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context2.abrupt('return', (0, _ShoppingListItemConnection.getShoppingListItems)(_immutable2.default.fromJS(args), args.shoppingListId, request.headers.authorization));
+                  return _context3.abrupt('return', (0, _ShoppingListItemConnection.getShoppingListItems)(_immutable2.default.fromJS(args), args.shoppingListId, request.headers.authorization));
 
                 case 1:
                 case 'end':
-                  return _context2.stop();
+                  return _context3.stop();
               }
             }
-          }, _callee2, undefined);
+          }, _callee3, undefined);
         }));
 
-        return function resolve(_x4, _x5, _x6) {
-          return _ref2.apply(this, arguments);
+        return function resolve(_x7, _x8, _x9) {
+          return _ref4.apply(this, arguments);
         };
       }()
     },
@@ -131,23 +164,23 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, request) {
-          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, request) {
+          return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
-              switch (_context3.prev = _context3.next) {
+              switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context3.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization));
+                  return _context4.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization));
 
                 case 1:
                 case 'end':
-                  return _context3.stop();
+                  return _context4.stop();
               }
             }
-          }, _callee3, undefined);
+          }, _callee4, undefined);
         }));
 
-        return function resolve(_x7, _x8, _x9) {
-          return _ref3.apply(this, arguments);
+        return function resolve(_x10, _x11, _x12) {
+          return _ref5.apply(this, arguments);
         };
       }()
     },
@@ -174,23 +207,23 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, request) {
-          return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, request) {
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
-              switch (_context4.prev = _context4.next) {
+              switch (_context5.prev = _context5.next) {
                 case 0:
-                  return _context4.abrupt('return', (0, _ProductConnection.getProducts)(_immutable2.default.fromJS(args), request.headers.authorization));
+                  return _context5.abrupt('return', (0, _ProductConnection.getProducts)(_immutable2.default.fromJS(args), request.headers.authorization));
 
                 case 1:
                 case 'end':
-                  return _context4.stop();
+                  return _context5.stop();
               }
             }
-          }, _callee4, undefined);
+          }, _callee5, undefined);
         }));
 
-        return function resolve(_x10, _x11, _x12) {
-          return _ref4.apply(this, arguments);
+        return function resolve(_x13, _x14, _x15) {
+          return _ref6.apply(this, arguments);
         };
       }()
     },
@@ -202,24 +235,24 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       },
       resolve: function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, _ref6, request) {
-          var productId = _ref6.productId;
-          return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, _ref8, request) {
+          var productId = _ref8.productId;
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
-              switch (_context5.prev = _context5.next) {
+              switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context5.abrupt('return', (0, _Product.getProduct)(productId, request.headers.authorization));
+                  return _context6.abrupt('return', (0, _Product.getProduct)(productId, request.headers.authorization));
 
                 case 1:
                 case 'end':
-                  return _context5.stop();
+                  return _context6.stop();
               }
             }
-          }, _callee5, undefined);
+          }, _callee6, undefined);
         }));
 
-        return function resolve(_x13, _x14, _x15) {
-          return _ref5.apply(this, arguments);
+        return function resolve(_x16, _x17, _x18) {
+          return _ref7.apply(this, arguments);
         };
       }()
     }
