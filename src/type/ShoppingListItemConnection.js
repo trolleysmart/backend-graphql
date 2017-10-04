@@ -40,6 +40,19 @@ const getShoppingListItemsMatchCriteria = async (searchArgs, shoppingListId, ses
 };
 
 export const getShoppingListItems = async (searchArgs, shoppingListId, sessionToken) => {
+  if (!shoppingListId) {
+    return {
+      edges: [],
+      count: 0,
+      pageInfo: {
+        startCursor: 'cursor not available',
+        endCursor: 'cursor not available',
+        hasPreviousPage: false,
+        hasNextPage: false,
+      },
+    };
+  }
+
   const finalSearchArgs = searchArgs
     .merge(
       searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
