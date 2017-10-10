@@ -25,24 +25,21 @@ const addProductPriceToShoppingList = async (productPriceId, userId, shoppingLis
   );
 };
 
-const addProductPricesToShoppingList = async (productPriceIds, user, shoppingListId, sessionToken) => {
+const addProductPricesToShoppingList = async (productPriceIds, userLoaderBySessionToken, shoppingListId, sessionToken) => {
   if (productPriceIds.isEmpty()) {
     return List();
   }
 
+  const user = await userLoaderBySessionToken.load(sessionToken);
   const acl = ParseWrapperService.createACL(user);
   const productPriceIdsWithoutDuplicate = productPriceIds
     .groupBy(_ => _)
     .map(_ => _.first())
     .valueSeq();
 
-  return Immutable.fromJS(
-    await Promise.all(
-      productPriceIdsWithoutDuplicate
-        .map(async productPriceId => addProductPriceToShoppingList(productPriceId, user.id, shoppingListId, acl, sessionToken))
-        .toArray(),
-    ),
-  );
+  return Immutable.fromJS(await Promise.all(productPriceIdsWithoutDuplicate
+    .map(async productPriceId => addProductPriceToShoppingList(productPriceId, user.id, shoppingListId, acl, sessionToken))
+    .toArray()));
 };
 
 export default addProductPricesToShoppingList;

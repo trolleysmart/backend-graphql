@@ -3,8 +3,8 @@
 import Immutable, { List, Map } from 'immutable';
 import { GraphQLID, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
-import { UserService } from 'micro-business-parse-server-common';
 import { getShoppingListById, removeItemsFromShoppingList } from './ShoppingListHelper';
+import { createUserLoaderBySessionToken } from '../loader';
 
 export default mutationWithClientMutationId({
   name: 'RemoveItemsFromShoppingList',
@@ -25,9 +25,14 @@ export default mutationWithClientMutationId({
       // Trying to read the shopping list to make sure user has access to...
       await getShoppingListById(shoppingListId, sessionToken);
 
-      const userId = (await UserService.getUserForProvidedSessionToken(sessionToken)).id;
+      const userLoaderBySessionToken = createUserLoaderBySessionToken();
 
-      await removeItemsFromShoppingList(shoppingListItemIds ? Immutable.fromJS(shoppingListItemIds) : List(), userId, shoppingListId, sessionToken);
+      await removeItemsFromShoppingList(
+        shoppingListItemIds ? Immutable.fromJS(shoppingListItemIds) : List(),
+        userLoaderBySessionToken,
+        shoppingListId,
+        sessionToken,
+      );
 
       return Map();
     } catch (ex) {

@@ -46,27 +46,24 @@ const addStapleItemToShoppingList = async (stapleItemId, userId, shoppingListId,
   );
 };
 
-export const addStapleItemsToShoppingList = async (stapleItemIds, user, shoppingListId, sessionToken) => {
+export const addStapleItemsToShoppingList = async (stapleItemIds, userLoaderBySessionToken, shoppingListId, sessionToken) => {
   if (stapleItemIds.isEmpty()) {
     return List();
   }
 
+  const user = await userLoaderBySessionToken.load(sessionToken);
   const acl = ParseWrapperService.createACL(user);
   const stapleItemIdsWithoutDuplicate = stapleItemIds
     .groupBy(_ => _)
     .map(_ => _.first())
     .valueSeq();
 
-  return Immutable.fromJS(
-    await Promise.all(
-      stapleItemIdsWithoutDuplicate
-        .map(async stapleItemId => addStapleItemToShoppingList(stapleItemId, user.id, shoppingListId, acl, sessionToken))
-        .toArray(),
-    ),
-  );
+  return Immutable.fromJS(await Promise.all(stapleItemIdsWithoutDuplicate
+    .map(async stapleItemId => addStapleItemToShoppingList(stapleItemId, user.id, shoppingListId, acl, sessionToken))
+    .toArray()));
 };
 
-export const addNewStapleItemsToShoppingList = async (names, user, shoppingListId, sessionToken) => {
+export const addNewStapleItemsToShoppingList = async (names, userLoaderBySessionToken, shoppingListId, sessionToken) => {
   if (names.isEmpty()) {
     return List();
   }
@@ -82,42 +79,39 @@ export const addNewStapleItemsToShoppingList = async (names, user, shoppingListI
     return List();
   }
 
+  const user = await userLoaderBySessionToken.load(sessionToken);
   const acl = ParseWrapperService.createACL(user);
   const stapleItemService = new StapleItemService();
 
-  return Immutable.fromJS(
-    await Promise.all(
-      trimmedNamesWithoutDuplicate
-        .map(async (name) => {
-          const stapleItems = await getStapleItems(name, user.id, sessionToken);
-          let stapleItemId;
+  return Immutable.fromJS(await Promise.all(trimmedNamesWithoutDuplicate
+    .map(async (name) => {
+      const stapleItems = await getStapleItems(name, user.id, sessionToken);
+      let stapleItemId;
 
-          if (stapleItems.isEmpty()) {
-            const stapleTemplateItems = await getStapleTemplateItems(name, sessionToken);
+      if (stapleItems.isEmpty()) {
+        const stapleTemplateItems = await getStapleTemplateItems(name, sessionToken);
 
-            if (stapleTemplateItems.isEmpty()) {
-              stapleItemId = await stapleItemService.create(Map({ userId: user.id, name, addedByUser: true }), acl, sessionToken);
-            } else {
-              const stapleTemplateItem = stapleTemplateItems.first();
+        if (stapleTemplateItems.isEmpty()) {
+          stapleItemId = await stapleItemService.create(Map({ userId: user.id, name, addedByUser: true }), acl, sessionToken);
+        } else {
+          const stapleTemplateItem = stapleTemplateItems.first();
 
-              stapleItemId = await stapleItemService.create(
-                Map({
-                  name: stapleTemplateItem.get('name'),
-                  description: stapleTemplateItem.get('description'),
-                  imageUrl: stapleTemplateItem.get('imageUrl'),
-                  userId: user.id,
-                }),
-                acl,
-                sessionToken,
-              );
-            }
-          } else {
-            stapleItemId = stapleItems.first().get('id');
-          }
+          stapleItemId = await stapleItemService.create(
+            Map({
+              name: stapleTemplateItem.get('name'),
+              description: stapleTemplateItem.get('description'),
+              imageUrl: stapleTemplateItem.get('imageUrl'),
+              userId: user.id,
+            }),
+            acl,
+            sessionToken,
+          );
+        }
+      } else {
+        stapleItemId = stapleItems.first().get('id');
+      }
 
-          return addStapleItemToShoppingList(stapleItemId, user.id, shoppingListId, acl, sessionToken);
-        })
-        .toArray(),
-    ),
-  );
+      return addStapleItemToShoppingList(stapleItemId, user.id, shoppingListId, acl, sessionToken);
+    })
+    .toArray()));
 };

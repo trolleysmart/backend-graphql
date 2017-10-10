@@ -8,8 +8,6 @@ var _immutable = require('immutable');
 
 var _graphql = require('graphql');
 
-var _microBusinessParseServerCommon = require('micro-business-parse-server-common');
-
 var _Viewer = require('./Viewer');
 
 var _Viewer2 = _interopRequireDefault(_Viewer);
@@ -19,6 +17,8 @@ var _User = require('./User');
 var _User2 = _interopRequireDefault(_User);
 
 var _interface = require('../interface');
+
+var _loader = require('../loader');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31,19 +31,20 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _User2.default,
       resolve: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, request) {
-          var user;
+          var userLoaderBySessionToken, userId;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  _context.next = 2;
-                  return _microBusinessParseServerCommon.UserService.getUserForProvidedSessionToken(request.headers.authorization);
+                  userLoaderBySessionToken = (0, _loader.createUserLoaderBySessionToken)();
+                  _context.next = 3;
+                  return userLoaderBySessionToken.load(request.headers.authorization);
 
-                case 2:
-                  user = _context.sent;
-                  return _context.abrupt('return', (0, _immutable.Map)({ id: user.id }));
+                case 3:
+                  userId = _context.sent.id;
+                  return _context.abrupt('return', (0, _immutable.Map)({ id: userId, userLoaderBySessionToken: userLoaderBySessionToken }));
 
-                case 4:
+                case 5:
                 case 'end':
                   return _context.stop();
               }

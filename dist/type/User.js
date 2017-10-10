@@ -69,7 +69,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  return _context.abrupt('return', (0, _ShoppingListConnection.getShoppingLists)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization));
+                  return _context.abrupt('return', (0, _ShoppingListConnection.getShoppingLists)(_immutable2.default.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -169,7 +169,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('id'), request.headers.authorization));
+                  return _context4.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization));
 
                 case 1:
                 case 'end':

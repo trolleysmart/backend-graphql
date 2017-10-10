@@ -2,10 +2,10 @@
 
 import { Map } from 'immutable';
 import { GraphQLObjectType } from 'graphql';
-import { UserService } from 'micro-business-parse-server-common';
 import ViewerType from './Viewer';
 import UserType from './User';
 import { NodeField } from '../interface';
+import { createUserLoaderBySessionToken } from '../loader';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -13,9 +13,10 @@ export default new GraphQLObjectType({
     user: {
       type: UserType,
       resolve: async (_, args, request) => {
-        const user = await UserService.getUserForProvidedSessionToken(request.headers.authorization);
+        const userLoaderBySessionToken = createUserLoaderBySessionToken();
+        const userId = (await userLoaderBySessionToken.load(request.headers.authorization)).id;
 
-        return Map({ id: user.id });
+        return Map({ id: userId, userLoaderBySessionToken });
       },
     },
     viewer: {

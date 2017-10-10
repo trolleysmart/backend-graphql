@@ -29,7 +29,7 @@ export default new GraphQLObjectType({
           type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
       },
-      resolve: async (_, args, request) => getShoppingLists(Immutable.fromJS(args), _.get('id'), request.headers.authorization),
+      resolve: async (_, args, request) => getShoppingLists(Immutable.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization),
     },
     shoppingList: {
       type: ShoppingList,
@@ -73,7 +73,7 @@ export default new GraphQLObjectType({
           type: new GraphQLList(GraphQLString),
         },
       },
-      resolve: async (_, args, request) => getStapleItems(Immutable.fromJS(args), _.get('id'), request.headers.authorization),
+      resolve: async (_, args, request) => getStapleItems(Immutable.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization),
     },
     products: {
       type: ProductConnection.connectionType,

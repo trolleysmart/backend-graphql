@@ -21,17 +21,15 @@ export const tagLoaderById = new Dataloader(async (ids) => {
 export const tagLoaderByKey = new Dataloader(async (keys) => {
   const tagService = new TagService();
 
-  return Promise.all(
-    keys.map(async (key) => {
-      const tags = await tagService.search(getCriteria(key));
+  return Promise.all(keys.map(async (key) => {
+    const tags = await tagService.search(getCriteria(key));
 
-      if (tags.isEmpty()) {
-        throw new Error(`Tag not found with provided key: ${key}`);
-      } else if (tags.count() > 1) {
-        throw new Error(`Multiple tag found with provided key: ${key}`);
-      }
+    if (tags.isEmpty()) {
+      throw new Error(`Tag not found with provided key: ${key}`);
+    } else if (tags.count() > 1) {
+      throw new Error(`Multiple tag found with provided key: ${key}`);
+    }
 
-      return tags.first();
-    }),
-  );
+    return tags.first();
+  }));
 });

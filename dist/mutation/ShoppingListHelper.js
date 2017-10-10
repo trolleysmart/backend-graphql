@@ -102,8 +102,8 @@ var getShoppingListById = exports.getShoppingListById = function () {
 }();
 
 var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(shoppingListItemIds, userId, shoppingListId, sessionToken) {
-    var shoppingListItems, productPriceIds, stapleItemIds, shoppingListItemService, itemsToRemove, _itemsToRemove;
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(shoppingListItemIds, userLoaderBySessionToken, shoppingListId, sessionToken) {
+    var shoppingListItemsPromises, allShoppingListItems, shoppingListItems, productPriceIds, stapleItemIds, shoppingListItemService, itemsToRemovePromises, itemsToRemove, userId, _itemsToRemovePromises, _itemsToRemove, _userId;
 
     return regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) {
@@ -117,20 +117,19 @@ var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function
             return _context5.abrupt('return');
 
           case 2:
-            _context5.t0 = _immutable2.default;
-            _context5.next = 5;
-            return Promise.all(shoppingListItemIds.map(function (id) {
+            shoppingListItemsPromises = shoppingListItemIds.map(function (id) {
               return getShoppingListItemById(id, sessionToken);
-            }).toArray());
+            }).toArray();
+            _context5.t0 = _immutable2.default;
+            _context5.next = 6;
+            return Promise.all(shoppingListItemsPromises);
 
-          case 5:
+          case 6:
             _context5.t1 = _context5.sent;
-
-            _context5.t2 = function (shoppingListItem) {
-              return shoppingListItem.get('shoppingListId').localeCompare(shoppingListId) === 0;
-            };
-
-            shoppingListItems = _context5.t0.fromJS.call(_context5.t0, _context5.t1).filter(_context5.t2);
+            allShoppingListItems = _context5.t0.fromJS.call(_context5.t0, _context5.t1);
+            shoppingListItems = allShoppingListItems.filter(function (item) {
+              return item.get('shoppingListId').localeCompare(shoppingListId) === 0;
+            });
             productPriceIds = shoppingListItems.filter(function (_) {
               return _.get('productPriceId');
             }).map(function (_) {
@@ -152,55 +151,67 @@ var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function
             shoppingListItemService = new _trolleySmartParseServerCommon.ShoppingListItemService();
 
             if (productPriceIds.isEmpty()) {
-              _context5.next = 20;
+              _context5.next = 25;
               break;
             }
 
-            _context5.t3 = _immutable2.default;
-            _context5.next = 15;
-            return Promise.all(productPriceIds.map(function (productPriceId) {
+            itemsToRemovePromises = productPriceIds.map(function (productPriceId) {
               return getAllShoppingListItemsContainProvidedProductPrice(productPriceId, shoppingListId, sessionToken);
-            }).toArray());
+            }).toArray();
+            _context5.t2 = _immutable2.default;
+            _context5.next = 17;
+            return Promise.all(itemsToRemovePromises);
 
-          case 15:
-            _context5.t4 = _context5.sent;
+          case 17:
+            _context5.t3 = _context5.sent;
 
-            _context5.t5 = function (_) {
+            _context5.t4 = function (_) {
               return _;
             };
 
-            itemsToRemove = _context5.t3.fromJS.call(_context5.t3, _context5.t4).flatMap(_context5.t5);
-            _context5.next = 20;
+            itemsToRemove = _context5.t2.fromJS.call(_context5.t2, _context5.t3).flatMap(_context5.t4);
+            _context5.next = 22;
+            return userLoaderBySessionToken.load(sessionToken);
+
+          case 22:
+            userId = _context5.sent.id;
+            _context5.next = 25;
             return Promise.all(itemsToRemove.map(function (item) {
               return shoppingListItemService.update(item.set('removedByUserId', userId), sessionToken);
             }).toArray());
 
-          case 20:
+          case 25:
             if (stapleItemIds.isEmpty()) {
-              _context5.next = 29;
+              _context5.next = 38;
               break;
             }
 
-            _context5.t6 = _immutable2.default;
-            _context5.next = 24;
-            return Promise.all(stapleItemIds.map(function (stapleItemId) {
+            _itemsToRemovePromises = stapleItemIds.map(function (stapleItemId) {
               return getAllShoppingListItemsContainProvidedStapleItem(stapleItemId, shoppingListId, sessionToken);
-            }).toArray());
+            }).toArray();
+            _context5.t5 = _immutable2.default;
+            _context5.next = 30;
+            return Promise.all(_itemsToRemovePromises);
 
-          case 24:
-            _context5.t7 = _context5.sent;
+          case 30:
+            _context5.t6 = _context5.sent;
 
-            _context5.t8 = function (_) {
+            _context5.t7 = function (_) {
               return _;
             };
 
-            _itemsToRemove = _context5.t6.fromJS.call(_context5.t6, _context5.t7).flatMap(_context5.t8);
-            _context5.next = 29;
+            _itemsToRemove = _context5.t5.fromJS.call(_context5.t5, _context5.t6).flatMap(_context5.t7);
+            _context5.next = 35;
+            return userLoaderBySessionToken.load(sessionToken);
+
+          case 35:
+            _userId = _context5.sent.id;
+            _context5.next = 38;
             return Promise.all(_itemsToRemove.map(function (item) {
-              return shoppingListItemService.update(item.set('removedByUserId', userId), sessionToken);
+              return shoppingListItemService.update(item.set('removedByUserId', _userId), sessionToken);
             }).toArray());
 
-          case 29:
+          case 38:
           case 'end':
             return _context5.stop();
         }
@@ -214,14 +225,20 @@ var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function
 }();
 
 var addShoppingList = exports.addShoppingList = function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(name, user, sessionToken) {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(name, userLoaderBySessionToken, sessionToken) {
+    var user;
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
+            _context6.next = 2;
+            return userLoaderBySessionToken.load(sessionToken);
+
+          case 2:
+            user = _context6.sent;
             return _context6.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().create((0, _immutable.Map)({ name: name, user: user, status: 'A' }), _microBusinessParseServerCommon.ParseWrapperService.createACL(user), sessionToken));
 
-          case 1:
+          case 4:
           case 'end':
             return _context6.stop();
         }

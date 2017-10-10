@@ -5,6 +5,7 @@ import { connectionDefinitions } from 'graphql-relay';
 import { ShoppingListService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import ShoppingList from './ShoppingList';
+import { addShoppingList } from '../mutation';
 
 const getCriteria = (searchArgs, userId) =>
   Map({
@@ -28,9 +29,19 @@ const getShoppingListMatchCriteria = async (searchArgs, userId, sessionToken, li
     sessionToken,
   );
 
-export const getShoppingLists = async (searchArgs, userId, sessionToken) => {
-  const count = await getShoppingListCountMatchCriteria(searchArgs, userId, sessionToken);
-  const { limit, skip, hasNextPage, hasPreviousPage } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
+export const getShoppingLists = async (searchArgs, userLoaderBySessionToken, sessionToken) => {
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
+  let count = await getShoppingListCountMatchCriteria(searchArgs, userId, sessionToken);
+
+  // Creating the default shopping list if no shopping list exists
+  if (count === 0) {
+    await addShoppingList('My List', userLoaderBySessionToken, sessionToken);
+    count = 1;
+  }
+
+  const {
+    limit, skip, hasNextPage, hasPreviousPage,
+  } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const shoppingLists = await getShoppingListMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
   const indexedShoppingLists = shoppingLists.zip(Range(skip, skip + limit));
   const edges = indexedShoppingLists.map(indexedItem => ({

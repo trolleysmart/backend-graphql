@@ -79,18 +79,16 @@ const getProductPriceMatchCriteria = async (searchArgs, sessionToken, limit, ski
 
 export const getProducts = async (searchArgs, sessionToken) => {
   const finalSearchArgs = searchArgs
-    .merge(
-      searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
-        ? Map({ storeIds: Immutable.fromJS(await storeLoaderByKey.loadMany(searchArgs.get('storeKeys').toJS())).map(store => store.get('id')) })
-        : Map(),
-    )
-    .merge(
-      searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
-        ? Map({ tagIds: Immutable.fromJS(await tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')) })
-        : Map(),
-    );
+    .merge(searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
+      ? Map({ storeIds: Immutable.fromJS(await storeLoaderByKey.loadMany(searchArgs.get('storeKeys').toJS())).map(store => store.get('id')) })
+      : Map())
+    .merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
+      ? Map({ tagIds: Immutable.fromJS(await tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')) })
+      : Map());
   const count = await getProductPriceCountMatchCriteria(finalSearchArgs, sessionToken);
-  const { limit, skip, hasNextPage, hasPreviousPage } = getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  const {
+    limit, skip, hasNextPage, hasPreviousPage,
+  } = getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
   const productPriceItems = await getProductPriceMatchCriteria(finalSearchArgs, sessionToken, limit, skip);
   const indexedProductPriceItems = productPriceItems.zip(Range(skip, skip + limit));
   const edges = indexedProductPriceItems.map(indexedItem => ({

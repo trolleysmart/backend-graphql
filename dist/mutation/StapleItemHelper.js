@@ -137,8 +137,8 @@ var addStapleItemToShoppingList = function () {
 }();
 
 var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(stapleItemIds, user, shoppingListId, sessionToken) {
-    var acl, stapleItemIdsWithoutDuplicate;
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(stapleItemIds, userLoaderBySessionToken, shoppingListId, sessionToken) {
+    var user, acl, stapleItemIdsWithoutDuplicate;
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
@@ -151,6 +151,11 @@ var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = functi
             return _context6.abrupt('return', (0, _immutable.List)());
 
           case 2:
+            _context6.next = 4;
+            return userLoaderBySessionToken.load(sessionToken);
+
+          case 4:
+            user = _context6.sent;
             acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
             stapleItemIdsWithoutDuplicate = stapleItemIds.groupBy(function (_) {
               return _;
@@ -158,7 +163,7 @@ var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = functi
               return _.first();
             }).valueSeq();
             _context6.t0 = _immutable2.default;
-            _context6.next = 7;
+            _context6.next = 10;
             return Promise.all(stapleItemIdsWithoutDuplicate.map(function () {
               var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(stapleItemId) {
                 return regeneratorRuntime.wrap(function _callee5$(_context5) {
@@ -180,11 +185,11 @@ var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = functi
               };
             }()).toArray());
 
-          case 7:
+          case 10:
             _context6.t1 = _context6.sent;
             return _context6.abrupt('return', _context6.t0.fromJS.call(_context6.t0, _context6.t1));
 
-          case 9:
+          case 12:
           case 'end':
             return _context6.stop();
         }
@@ -198,8 +203,8 @@ var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = functi
 }();
 
 var addNewStapleItemsToShoppingList = exports.addNewStapleItemsToShoppingList = function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(names, user, shoppingListId, sessionToken) {
-    var trimmedNamesWithoutDuplicate, acl, stapleItemService;
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(names, userLoaderBySessionToken, shoppingListId, sessionToken) {
+    var trimmedNamesWithoutDuplicate, user, acl, stapleItemService;
     return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
         switch (_context8.prev = _context8.next) {
@@ -228,10 +233,15 @@ var addNewStapleItemsToShoppingList = exports.addNewStapleItemsToShoppingList = 
             return _context8.abrupt('return', (0, _immutable.List)());
 
           case 5:
+            _context8.next = 7;
+            return userLoaderBySessionToken.load(sessionToken);
+
+          case 7:
+            user = _context8.sent;
             acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
             stapleItemService = new _trolleySmartParseServerCommon.StapleItemService();
             _context8.t0 = _immutable2.default;
-            _context8.next = 10;
+            _context8.next = 13;
             return Promise.all(trimmedNamesWithoutDuplicate.map(function () {
               var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(name) {
                 var stapleItems, stapleItemId, stapleTemplateItems, stapleTemplateItem;
@@ -306,11 +316,11 @@ var addNewStapleItemsToShoppingList = exports.addNewStapleItemsToShoppingList = 
               };
             }()).toArray());
 
-          case 10:
+          case 13:
             _context8.t1 = _context8.sent;
             return _context8.abrupt('return', _context8.t0.fromJS.call(_context8.t0, _context8.t1));
 
-          case 12:
+          case 15:
           case 'end':
             return _context8.stop();
         }

@@ -17,6 +17,8 @@ var _ShoppingList = require('./ShoppingList');
 
 var _ShoppingList2 = _interopRequireDefault(_ShoppingList);
 
+var _mutation = require('../mutation');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -76,23 +78,41 @@ var getShoppingListMatchCriteria = function () {
 }();
 
 var getShoppingLists = exports.getShoppingLists = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, userId, sessionToken) {
-    var count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, shoppingLists, indexedShoppingLists, edges, firstEdge, lastEdge;
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, userLoaderBySessionToken, sessionToken) {
+    var userId, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, shoppingLists, indexedShoppingLists, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return getShoppingListCountMatchCriteria(searchArgs, userId, sessionToken);
+            return userLoaderBySessionToken.load(sessionToken);
 
           case 2:
+            userId = _context3.sent.id;
+            _context3.next = 5;
+            return getShoppingListCountMatchCriteria(searchArgs, userId, sessionToken);
+
+          case 5:
             count = _context3.sent;
+
+            if (!(count === 0)) {
+              _context3.next = 10;
+              break;
+            }
+
+            _context3.next = 9;
+            return (0, _mutation.addShoppingList)('My List', userLoaderBySessionToken, sessionToken);
+
+          case 9:
+            count = 1;
+
+          case 10:
             _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(searchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
-            _context3.next = 6;
+            _context3.next = 13;
             return getShoppingListMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 
-          case 6:
+          case 13:
             shoppingLists = _context3.sent;
             indexedShoppingLists = shoppingLists.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedShoppingLists.map(function (indexedItem) {
@@ -114,7 +134,7 @@ var getShoppingLists = exports.getShoppingLists = function () {
               }
             });
 
-          case 12:
+          case 19:
           case 'end':
             return _context3.stop();
         }

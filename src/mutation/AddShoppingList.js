@@ -3,9 +3,9 @@
 import { List, Map } from 'immutable';
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
-import { UserService } from 'micro-business-parse-server-common';
 import { ShoppingListConnection, getShoppingLists } from '../type';
 import { addShoppingList } from './ShoppingListHelper';
+import { createUserLoaderBySessionToken } from '../loader';
 
 export default mutationWithClientMutationId({
   name: 'AddShoppingList',
@@ -25,10 +25,12 @@ export default mutationWithClientMutationId({
   mutateAndGetPayload: async ({ name }, request) => {
     try {
       const sessionToken = request.headers.authorization;
-      const user = await UserService.getUserForProvidedSessionToken(sessionToken);
-      const shoppingListId = await addShoppingList(name, user, sessionToken);
+      const userLoaderBySessionToken = createUserLoaderBySessionToken();
+      const shoppingListId = await addShoppingList(name, userLoaderBySessionToken, sessionToken);
 
-      return Map({ shoppingList: (await getShoppingLists(Map({ shoppingListIds: List.of(shoppingListId) }), user.id, sessionToken)).edges[0] });
+      return Map({
+        shoppingList: (await getShoppingLists(Map({ shoppingListIds: List.of(shoppingListId) }), userLoaderBySessionToken, sessionToken)).edges[0],
+      });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
     }

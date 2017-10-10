@@ -74,8 +74,8 @@ var addProductPriceToShoppingList = function () {
 }();
 
 var addProductPricesToShoppingList = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(productPriceIds, user, shoppingListId, sessionToken) {
-    var acl, productPriceIdsWithoutDuplicate;
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(productPriceIds, userLoaderBySessionToken, shoppingListId, sessionToken) {
+    var user, acl, productPriceIdsWithoutDuplicate;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
@@ -88,6 +88,11 @@ var addProductPricesToShoppingList = function () {
             return _context4.abrupt('return', (0, _immutable.List)());
 
           case 2:
+            _context4.next = 4;
+            return userLoaderBySessionToken.load(sessionToken);
+
+          case 4:
+            user = _context4.sent;
             acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
             productPriceIdsWithoutDuplicate = productPriceIds.groupBy(function (_) {
               return _;
@@ -95,7 +100,7 @@ var addProductPricesToShoppingList = function () {
               return _.first();
             }).valueSeq();
             _context4.t0 = _immutable2.default;
-            _context4.next = 7;
+            _context4.next = 10;
             return Promise.all(productPriceIdsWithoutDuplicate.map(function () {
               var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(productPriceId) {
                 return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -117,11 +122,11 @@ var addProductPricesToShoppingList = function () {
               };
             }()).toArray());
 
-          case 7:
+          case 10:
             _context4.t1 = _context4.sent;
             return _context4.abrupt('return', _context4.t0.fromJS.call(_context4.t0, _context4.t1));
 
-          case 9:
+          case 12:
           case 'end':
             return _context4.stop();
         }

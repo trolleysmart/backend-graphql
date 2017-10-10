@@ -32,7 +32,9 @@ const getStoresMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
 
 export const getStores = async (searchArgs, sessionToken) => {
   const count = await getStoresCountMatchCriteria(searchArgs, sessionToken);
-  const { limit, skip, hasNextPage, hasPreviousPage } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  const {
+    limit, skip, hasNextPage, hasPreviousPage,
+  } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const stores = await getStoresMatchCriteria(searchArgs, sessionToken, limit, skip);
   const indexedStores = stores.zip(Range(skip, skip + limit));
 

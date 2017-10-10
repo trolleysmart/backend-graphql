@@ -54,16 +54,12 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, sessionTo
   }
 
   const finalSearchArgs = searchArgs
-    .merge(
-      searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
-        ? Map({ storeIds: Immutable.fromJS(await storeLoaderByKey.loadMany(searchArgs.get('storeKeys').toJS())).map(store => store.get('id')) })
-        : Map(),
-    )
-    .merge(
-      searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
-        ? Map({ tagIds: Immutable.fromJS(await tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')) })
-        : Map(),
-    );
+    .merge(searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
+      ? Map({ storeIds: Immutable.fromJS(await storeLoaderByKey.loadMany(searchArgs.get('storeKeys').toJS())).map(store => store.get('id')) })
+      : Map())
+    .merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
+      ? Map({ tagIds: Immutable.fromJS(await tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')) })
+      : Map());
   const shoppingListItems = await getShoppingListItemsMatchCriteria(finalSearchArgs, shoppingListId, sessionToken);
   const stapleItems = shoppingListItems.filter(item => item.get('stapleItem')).groupBy(item => item.get('stapleItemId'));
   const productPrices = shoppingListItems.filter(item => item.get('productPrice')).groupBy(item => item.get('productPriceId'));
@@ -74,15 +70,15 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, sessionTo
 
       return groupedStapleItems.first().merge(Map({ quantity: groupedStapleItems.count(), itemType: 'StapleItem' }));
     })
-    .concat(
-      productPrices.keySeq().map((key) => {
-        const groupedProductPrices = productPrices.get(key);
+    .concat(productPrices.keySeq().map((key) => {
+      const groupedProductPrices = productPrices.get(key);
 
-        return groupedProductPrices.first().merge(Map({ quantity: groupedProductPrices.count(), itemType: 'ProductPrice' }));
-      }),
-    );
+      return groupedProductPrices.first().merge(Map({ quantity: groupedProductPrices.count(), itemType: 'ProductPrice' }));
+    }));
   const count = allShoppingListItems.count();
-  const { limit, skip, hasNextPage, hasPreviousPage } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  const {
+    limit, skip, hasNextPage, hasPreviousPage,
+  } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const indexedList = allShoppingListItems
     .skip(skip)
     .take(limit)

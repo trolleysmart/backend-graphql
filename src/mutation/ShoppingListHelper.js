@@ -14,14 +14,14 @@ const getAllShoppingListItemsContainProvidedStapleItem = async (stapleItemId, sh
 
 export const getShoppingListById = async (id, sessionToken) => new ShoppingListService().read(id, null, sessionToken);
 
-export const removeItemsFromShoppingList = async (shoppingListItemIds, userId, shoppingListId, sessionToken) => {
+export const removeItemsFromShoppingList = async (shoppingListItemIds, userLoaderBySessionToken, shoppingListId, sessionToken) => {
   if (shoppingListItemIds.isEmpty()) {
     return;
   }
 
-  const shoppingListItems = Immutable.fromJS(
-    await Promise.all(shoppingListItemIds.map(id => getShoppingListItemById(id, sessionToken)).toArray()),
-  ).filter(shoppingListItem => shoppingListItem.get('shoppingListId').localeCompare(shoppingListId) === 0);
+  const shoppingListItemsPromises = shoppingListItemIds.map(id => getShoppingListItemById(id, sessionToken)).toArray();
+  const allShoppingListItems = Immutable.fromJS(await Promise.all(shoppingListItemsPromises));
+  const shoppingListItems = allShoppingListItems.filter(item => item.get('shoppingListId').localeCompare(shoppingListId) === 0);
   const productPriceIds = shoppingListItems
     .filter(_ => _.get('productPriceId'))
     .map(_ => _.get('productPriceId'))
@@ -40,30 +40,31 @@ export const removeItemsFromShoppingList = async (shoppingListItemIds, userId, s
   const shoppingListItemService = new ShoppingListItemService();
 
   if (!productPriceIds.isEmpty()) {
-    const itemsToRemove = Immutable.fromJS(
-      await Promise.all(
-        productPriceIds
-          .map(productPriceId => getAllShoppingListItemsContainProvidedProductPrice(productPriceId, shoppingListId, sessionToken))
-          .toArray(),
-      ),
-    ).flatMap(_ => _);
+    const itemsToRemovePromises = productPriceIds
+      .map(productPriceId => getAllShoppingListItemsContainProvidedProductPrice(productPriceId, shoppingListId, sessionToken))
+      .toArray();
+    const itemsToRemove = Immutable.fromJS(await Promise.all(itemsToRemovePromises)).flatMap(_ => _);
 
+    const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
     await Promise.all(itemsToRemove.map(item => shoppingListItemService.update(item.set('removedByUserId', userId), sessionToken)).toArray());
   }
 
   if (!stapleItemIds.isEmpty()) {
-    const itemsToRemove = Immutable.fromJS(
-      await Promise.all(
-        stapleItemIds.map(stapleItemId => getAllShoppingListItemsContainProvidedStapleItem(stapleItemId, shoppingListId, sessionToken)).toArray(),
-      ),
-    ).flatMap(_ => _);
+    const itemsToRemovePromises = stapleItemIds
+      .map(stapleItemId => getAllShoppingListItemsContainProvidedStapleItem(stapleItemId, shoppingListId, sessionToken))
+      .toArray();
+    const itemsToRemove = Immutable.fromJS(await Promise.all(itemsToRemovePromises)).flatMap(_ => _);
 
+    const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
     await Promise.all(itemsToRemove.map(item => shoppingListItemService.update(item.set('removedByUserId', userId), sessionToken)).toArray());
   }
 };
 
-export const addShoppingList = async (name, user, sessionToken) =>
-  new ShoppingListService().create(Map({ name, user, status: 'A' }), ParseWrapperService.createACL(user), sessionToken);
+export const addShoppingList = async (name, userLoaderBySessionToken, sessionToken) => {
+  const user = await userLoaderBySessionToken.load(sessionToken);
+
+  return new ShoppingListService().create(Map({ name, user, status: 'A' }), ParseWrapperService.createACL(user), sessionToken);
+};
 
 export const updateShoppingList = async (shoppingListId, name, sessionToken) => {
   const shoppingListService = new ShoppingListService();

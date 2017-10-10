@@ -29,7 +29,9 @@ const getTagsMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
 
 export const getTags = async (searchArgs, sessionToken) => {
   const count = await getTagsCountMatchCriteria(searchArgs, sessionToken);
-  const { limit, skip, hasNextPage, hasPreviousPage } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  const {
+    limit, skip, hasNextPage, hasPreviousPage,
+  } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const tags = await getTagsMatchCriteria(searchArgs, sessionToken, limit, skip);
   const indexedTags = tags.zip(Range(skip, skip + limit));
   const edges = indexedTags.map(indexedItem => ({
