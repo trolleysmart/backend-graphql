@@ -4,8 +4,7 @@ import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import { ShoppingListService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
-import ShoppingList from './ShoppingList';
-import { addShoppingList, setUserDefaultShoppingList } from '../mutation';
+import ShoppingList, { createUserDefaultShoppingList } from './ShoppingList';
 
 const getCriteria = (searchArgs, userId) =>
   Map({
@@ -35,11 +34,7 @@ export const getShoppingLists = async (searchArgs, userLoaderBySessionToken, ses
 
   // Creating the default shopping list if no shopping list exists
   if (count === 0) {
-    await setUserDefaultShoppingList(
-      await addShoppingList('My List', userLoaderBySessionToken, sessionToken),
-      userLoaderBySessionToken,
-      sessionToken,
-    );
+    createUserDefaultShoppingList(userLoaderBySessionToken, sessionToken);
     count = 1;
   }
 

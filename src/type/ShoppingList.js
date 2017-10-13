@@ -3,11 +3,34 @@
 import Immutable, { Map } from 'immutable';
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
-import { ShoppingListService } from 'trolley-smart-parse-server-common';
+import { DefaultShoppingListService, ShoppingListService } from 'trolley-smart-parse-server-common';
 import { NodeInterface } from '../interface';
 import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
+import { addShoppingList, setUserDefaultShoppingList } from '../mutation';
+
+export const createUserDefaultShoppingList = async (userLoaderBySessionToken, sessionToken) => {
+  const shoppingListId = await addShoppingList('My List', userLoaderBySessionToken, sessionToken);
+
+  await setUserDefaultShoppingList(shoppingListId, userLoaderBySessionToken, sessionToken);
+
+  return shoppingListId;
+};
 
 export const getShoppingList = async (shoppingListId, sessionToken) => new ShoppingListService().read(shoppingListId, null, sessionToken);
+
+export const getUserDefaultShoppingList = async (userLoaderBySessionToken, sessionToken) => {
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
+  const defaultShoppingListService = new DefaultShoppingListService();
+  const defaultShoppingLists = await defaultShoppingListService.search(Map({ conditions: Map({ userId }) }), sessionToken);
+
+  if (defaultShoppingLists.isEmpty()) {
+    return getShoppingList(await createUserDefaultShoppingList(userLoaderBySessionToken, sessionToken), sessionToken);
+  } else if (defaultShoppingLists.count() === 1) {
+    return getShoppingList(defaultShoppingLists.first().getId(), sessionToken);
+  }
+
+  throw new Error('Multiple default shopping lists found.');
+};
 
 export default new GraphQLObjectType({
   name: 'ShoppingList',
