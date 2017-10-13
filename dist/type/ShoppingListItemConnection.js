@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getShoppingListItems = undefined;
+exports.getUserDefaultShoppingListItems = exports.getShoppingListItems = undefined;
 
 var _immutable = require('immutable');
 
@@ -20,6 +20,8 @@ var _loader = require('../loader');
 var _ShoppingListItem = require('./ShoppingListItem');
 
 var _ShoppingListItem2 = _interopRequireDefault(_ShoppingListItem);
+
+var _ShoppingList = require('./ShoppingList');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -229,6 +231,33 @@ var getShoppingListItems = exports.getShoppingListItems = function () {
 
   return function getShoppingListItems(_x4, _x5, _x6) {
     return _ref2.apply(this, arguments);
+  };
+}();
+
+var getUserDefaultShoppingListItems = exports.getUserDefaultShoppingListItems = function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, userLoaderBySessionToken, sessionToken) {
+    var shoppingListId;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return (0, _ShoppingList.getUserDefaultShoppingListId)(userLoaderBySessionToken, sessionToken);
+
+          case 2:
+            shoppingListId = _context3.sent;
+            return _context3.abrupt('return', getShoppingListItems(searchArgs, shoppingListId, sessionToken));
+
+          case 4:
+          case 'end':
+            return _context3.stop();
+        }
+      }
+    }, _callee3, undefined);
+  }));
+
+  return function getUserDefaultShoppingListItems(_x7, _x8, _x9) {
+    return _ref3.apply(this, arguments);
   };
 }();
 

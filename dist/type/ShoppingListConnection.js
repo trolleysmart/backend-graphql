@@ -17,8 +17,6 @@ var _ShoppingList = require('./ShoppingList');
 
 var _ShoppingList2 = _interopRequireDefault(_ShoppingList);
 
-var _mutation = require('../mutation');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -96,31 +94,18 @@ var getShoppingLists = exports.getShoppingLists = function () {
           case 5:
             count = _context3.sent;
 
-            if (!(count === 0)) {
-              _context3.next = 16;
-              break;
+
+            // Creating the default shopping list if no shopping list exists
+            if (count === 0) {
+              (0, _ShoppingList.createUserDefaultShoppingList)(userLoaderBySessionToken, sessionToken);
+              count = 1;
             }
 
-            _context3.t0 = _mutation.setUserDefaultShoppingList;
-            _context3.next = 10;
-            return (0, _mutation.addShoppingList)('My List', userLoaderBySessionToken, sessionToken);
-
-          case 10:
-            _context3.t1 = _context3.sent;
-            _context3.t2 = userLoaderBySessionToken;
-            _context3.t3 = sessionToken;
-            _context3.next = 15;
-            return (0, _context3.t0)(_context3.t1, _context3.t2, _context3.t3);
-
-          case 15:
-            count = 1;
-
-          case 16:
             _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(searchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
-            _context3.next = 19;
+            _context3.next = 10;
             return getShoppingListMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 
-          case 19:
+          case 10:
             shoppingLists = _context3.sent;
             indexedShoppingLists = shoppingLists.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedShoppingLists.map(function (indexedItem) {
@@ -142,7 +127,7 @@ var getShoppingLists = exports.getShoppingLists = function () {
               }
             });
 
-          case 25:
+          case 16:
           case 'end':
             return _context3.stop();
         }

@@ -18,19 +18,21 @@ export const createUserDefaultShoppingList = async (userLoaderBySessionToken, se
 
 export const getShoppingList = async (shoppingListId, sessionToken) => new ShoppingListService().read(shoppingListId, null, sessionToken);
 
-export const getUserDefaultShoppingList = async (userLoaderBySessionToken, sessionToken) => {
+export const getUserDefaultShoppingListId = async (userLoaderBySessionToken, sessionToken) => {
   const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
-  const defaultShoppingListService = new DefaultShoppingListService();
-  const defaultShoppingLists = await defaultShoppingListService.search(Map({ conditions: Map({ userId }) }), sessionToken);
+  const defaultShoppingLists = await new DefaultShoppingListService().search(Map({ conditions: Map({ userId }) }), sessionToken);
 
   if (defaultShoppingLists.isEmpty()) {
-    return getShoppingList(await createUserDefaultShoppingList(userLoaderBySessionToken, sessionToken), sessionToken);
+    return createUserDefaultShoppingList(userLoaderBySessionToken, sessionToken);
   } else if (defaultShoppingLists.count() === 1) {
-    return getShoppingList(defaultShoppingLists.first().getId(), sessionToken);
+    return defaultShoppingLists.first().getId();
   }
 
   throw new Error('Multiple default shopping lists found.');
 };
+
+export const getUserDefaultShoppingList = async (userLoaderBySessionToken, sessionToken) =>
+  getShoppingList(await getUserDefaultShoppingListId(userLoaderBySessionToken, sessionToken));
 
 export default new GraphQLObjectType({
   name: 'ShoppingList',

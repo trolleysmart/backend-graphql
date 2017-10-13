@@ -6,6 +6,7 @@ import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import { storeLoaderByKey, tagLoaderByKey } from '../loader';
 import ShoppingListItem from './ShoppingListItem';
+import { getUserDefaultShoppingListId } from './ShoppingList';
 
 const getShoppingListItemsMatchCriteria = async (searchArgs, shoppingListId, sessionToken) => {
   let shoppingListItems = List();
@@ -100,6 +101,12 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, sessionTo
       hasNextPage,
     },
   };
+};
+
+export const getUserDefaultShoppingListItems = async (searchArgs, userLoaderBySessionToken, sessionToken) => {
+  const shoppingListId = await getUserDefaultShoppingListId(userLoaderBySessionToken, sessionToken);
+
+  return getShoppingListItems(searchArgs, shoppingListId, sessionToken);
 };
 
 export default connectionDefinitions({

@@ -6,7 +6,7 @@ import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
 import ShoppingList, { getUserDefaultShoppingList, getShoppingList } from './ShoppingList';
 import ShoppingListConnection, { getShoppingLists } from './ShoppingListConnection';
-import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
+import ShoppingListItemConnection, { getUserDefaultShoppingListItems, getShoppingListItems } from './ShoppingListItemConnection';
 import Product, { getProduct } from './Product';
 import ProductConnection, { getProducts } from './ProductConnection';
 import StapleItemConnection, { getStapleItems } from './StapleItemConnection';
@@ -43,6 +43,26 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, { shoppingListId }, request) => getShoppingList(shoppingListId, request.headers.authorization),
+    },
+    defaultShoppingListItems: {
+      type: ShoppingListItemConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        name: {
+          type: GraphQLString,
+        },
+        addedByUserId: {
+          type: GraphQLID,
+        },
+        tagKeys: {
+          type: new GraphQLList(GraphQLString),
+        },
+        storeKeys: {
+          type: new GraphQLList(GraphQLString),
+        },
+      },
+      resolve: async (_, args, request) =>
+        getUserDefaultShoppingListItems(Immutable.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization),
     },
     shoppingListItems: {
       type: ShoppingListItemConnection.connectionType,

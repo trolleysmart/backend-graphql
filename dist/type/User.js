@@ -84,21 +84,15 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    shoppingList: {
+    defaultShoppingList: {
       type: _ShoppingList2.default,
-      args: {
-        shoppingListId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
-      },
       resolve: function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, _ref3, request) {
-          var shoppingListId = _ref3.shoppingListId;
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, request) {
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', (0, _ShoppingList.getShoppingList)(shoppingListId, request.headers.authorization));
+                  return _context2.abrupt('return', (0, _ShoppingList.getUserDefaultShoppingList)(_.get('userLoaderBySessionToken'), request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -110,6 +104,72 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x4, _x5, _x6) {
           return _ref2.apply(this, arguments);
+        };
+      }()
+    },
+    shoppingList: {
+      type: _ShoppingList2.default,
+      args: {
+        shoppingListId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref4, request) {
+          var shoppingListId = _ref4.shoppingListId;
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  return _context3.abrupt('return', (0, _ShoppingList.getShoppingList)(shoppingListId, request.headers.authorization));
+
+                case 1:
+                case 'end':
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, undefined);
+        }));
+
+        return function resolve(_x7, _x8, _x9) {
+          return _ref3.apply(this, arguments);
+        };
+      }()
+    },
+    defaultShoppingListItems: {
+      type: _ShoppingListItemConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        name: {
+          type: _graphql.GraphQLString
+        },
+        addedByUserId: {
+          type: _graphql.GraphQLID
+        },
+        tagKeys: {
+          type: new _graphql.GraphQLList(_graphql.GraphQLString)
+        },
+        storeKeys: {
+          type: new _graphql.GraphQLList(_graphql.GraphQLString)
+        }
+      }),
+      resolve: function () {
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, request) {
+          return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            while (1) {
+              switch (_context4.prev = _context4.next) {
+                case 0:
+                  return _context4.abrupt('return', (0, _ShoppingListItemConnection.getUserDefaultShoppingListItems)(_immutable2.default.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization));
+
+                case 1:
+                case 'end':
+                  return _context4.stop();
+              }
+            }
+          }, _callee4, undefined);
+        }));
+
+        return function resolve(_x10, _x11, _x12) {
+          return _ref5.apply(this, arguments);
         };
       }()
     },
@@ -133,23 +193,23 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, request) {
-          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, request) {
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
-              switch (_context3.prev = _context3.next) {
+              switch (_context5.prev = _context5.next) {
                 case 0:
-                  return _context3.abrupt('return', (0, _ShoppingListItemConnection.getShoppingListItems)(_immutable2.default.fromJS(args), args.shoppingListId, request.headers.authorization));
+                  return _context5.abrupt('return', (0, _ShoppingListItemConnection.getShoppingListItems)(_immutable2.default.fromJS(args), args.shoppingListId, request.headers.authorization));
 
                 case 1:
                 case 'end':
-                  return _context3.stop();
+                  return _context5.stop();
               }
             }
-          }, _callee3, undefined);
+          }, _callee5, undefined);
         }));
 
-        return function resolve(_x7, _x8, _x9) {
-          return _ref4.apply(this, arguments);
+        return function resolve(_x13, _x14, _x15) {
+          return _ref6.apply(this, arguments);
         };
       }()
     },
@@ -164,23 +224,23 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, request) {
-          return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, request) {
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
-              switch (_context4.prev = _context4.next) {
+              switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context4.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization));
+                  return _context6.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization));
 
                 case 1:
                 case 'end':
-                  return _context4.stop();
+                  return _context6.stop();
               }
             }
-          }, _callee4, undefined);
+          }, _callee6, undefined);
         }));
 
-        return function resolve(_x10, _x11, _x12) {
-          return _ref5.apply(this, arguments);
+        return function resolve(_x16, _x17, _x18) {
+          return _ref7.apply(this, arguments);
         };
       }()
     },
@@ -207,23 +267,23 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, request) {
-          return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, request) {
+          return regeneratorRuntime.wrap(function _callee7$(_context7) {
             while (1) {
-              switch (_context5.prev = _context5.next) {
+              switch (_context7.prev = _context7.next) {
                 case 0:
-                  return _context5.abrupt('return', (0, _ProductConnection.getProducts)(_immutable2.default.fromJS(args), request.headers.authorization));
+                  return _context7.abrupt('return', (0, _ProductConnection.getProducts)(_immutable2.default.fromJS(args), request.headers.authorization));
 
                 case 1:
                 case 'end':
-                  return _context5.stop();
+                  return _context7.stop();
               }
             }
-          }, _callee5, undefined);
+          }, _callee7, undefined);
         }));
 
-        return function resolve(_x13, _x14, _x15) {
-          return _ref6.apply(this, arguments);
+        return function resolve(_x19, _x20, _x21) {
+          return _ref8.apply(this, arguments);
         };
       }()
     },
@@ -235,24 +295,24 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       },
       resolve: function () {
-        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, _ref8, request) {
-          var productId = _ref8.productId;
-          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, _ref10, request) {
+          var productId = _ref10.productId;
+          return regeneratorRuntime.wrap(function _callee8$(_context8) {
             while (1) {
-              switch (_context6.prev = _context6.next) {
+              switch (_context8.prev = _context8.next) {
                 case 0:
-                  return _context6.abrupt('return', (0, _Product.getProduct)(productId, request.headers.authorization));
+                  return _context8.abrupt('return', (0, _Product.getProduct)(productId, request.headers.authorization));
 
                 case 1:
                 case 'end':
-                  return _context6.stop();
+                  return _context8.stop();
               }
             }
-          }, _callee6, undefined);
+          }, _callee8, undefined);
         }));
 
-        return function resolve(_x16, _x17, _x18) {
-          return _ref7.apply(this, arguments);
+        return function resolve(_x22, _x23, _x24) {
+          return _ref9.apply(this, arguments);
         };
       }()
     }
