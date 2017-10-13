@@ -2,7 +2,7 @@
 
 import Immutable, { Map } from 'immutable';
 import { ParseWrapperService } from 'micro-business-parse-server-common';
-import { ShoppingListService, ShoppingListItemService } from 'trolley-smart-parse-server-common';
+import { DefaultShoppingListService, ShoppingListService, ShoppingListItemService } from 'trolley-smart-parse-server-common';
 
 const getShoppingListItemById = async (id, sessionToken) => new ShoppingListItemService().read(id, null, sessionToken);
 
@@ -82,4 +82,18 @@ export const removeShoppingList = async (shoppingListId, sessionToken) => {
   const shoppingList = await shoppingListService.read(shoppingListId, null, sessionToken);
 
   return shoppingListService.update(shoppingList.set('status', 'I'), sessionToken);
+};
+
+export const setUserDefaultShoppingList = async (shoppingListId, userLoaderBySessionToken, sessionToken) => {
+  const user = await userLoaderBySessionToken.load(sessionToken);
+  const defaultShoppingListService = new DefaultShoppingListService();
+  const defaultShoppingLists = await defaultShoppingListService.search(Map({ conditions: Map({ userId: user.id }) }), sessionToken);
+
+  if (defaultShoppingLists.isEmpty()) {
+    return defaultShoppingListService.create(Map({ user, shoppingListId }), ParseWrapperService.createACL(user), sessionToken);
+  } else if (defaultShoppingLists.count() === 1) {
+    return defaultShoppingListService.update(defaultShoppingLists.first().set('shoppingListId', shoppingListId), sessionToken);
+  }
+
+  throw new Error('Multiple default shopping lists found.');
 };

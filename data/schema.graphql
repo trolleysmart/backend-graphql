@@ -29,12 +29,13 @@ type MultiBuy {
 }
 
 type Mutation {
-  addShoppingList(input: AddShoppingListInput!): AddShoppingListPayload
-  removeShoppingList(input: RemoveShoppingListInput!): RemoveShoppingListPayload
-  updateShoppingList(input: UpdateShoppingListInput!): UpdateShoppingListPayload
   addItemsToShoppingList(input: AddItemsToShoppingListInput!): AddItemsToShoppingListPayload
+  addShoppingList(input: AddShoppingListInput!): AddShoppingListPayload
   removeItemsFromShoppingList(input: RemoveItemsFromShoppingListInput!): RemoveItemsFromShoppingListPayload
+  removeShoppingList(input: RemoveShoppingListInput!): RemoveShoppingListPayload
+  setUserDefaultShoppingList(input: SetUserDefaultShoppingListInput!): SetUserDefaultShoppingListPayload
   submitUserFeedback(input: SubmitUserFeedbackInput!): SubmitUserFeedbackPayload
+  updateShoppingList(input: UpdateShoppingListInput!): UpdateShoppingListPayload
 }
 
 # An object with an ID
@@ -144,6 +145,16 @@ input RemoveShoppingListInput {
 }
 
 type RemoveShoppingListPayload {
+  errorMessage: String
+  clientMutationId: String
+}
+
+input SetUserDefaultShoppingListInput {
+  shoppingListId: ID!
+  clientMutationId: String
+}
+
+type SetUserDefaultShoppingListPayload {
   errorMessage: String
   clientMutationId: String
 }

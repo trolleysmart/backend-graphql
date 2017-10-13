@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.removeShoppingList = exports.updateShoppingList = exports.addShoppingList = exports.removeItemsFromShoppingList = exports.getShoppingListById = undefined;
+exports.setUserDefaultShoppingList = exports.removeShoppingList = exports.updateShoppingList = exports.addShoppingList = exports.removeItemsFromShoppingList = exports.getShoppingListById = undefined;
 
 var _immutable = require('immutable');
 
@@ -313,5 +313,55 @@ var removeShoppingList = exports.removeShoppingList = function () {
 
   return function removeShoppingList(_x21, _x22) {
     return _ref8.apply(this, arguments);
+  };
+}();
+
+var setUserDefaultShoppingList = exports.setUserDefaultShoppingList = function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(shoppingListId, userLoaderBySessionToken, sessionToken) {
+    var user, defaultShoppingListService, defaultShoppingLists;
+    return regeneratorRuntime.wrap(function _callee9$(_context9) {
+      while (1) {
+        switch (_context9.prev = _context9.next) {
+          case 0:
+            _context9.next = 2;
+            return userLoaderBySessionToken.load(sessionToken);
+
+          case 2:
+            user = _context9.sent;
+            defaultShoppingListService = new _trolleySmartParseServerCommon.DefaultShoppingListService();
+            _context9.next = 6;
+            return defaultShoppingListService.search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ userId: user.id }) }), sessionToken);
+
+          case 6:
+            defaultShoppingLists = _context9.sent;
+
+            if (!defaultShoppingLists.isEmpty()) {
+              _context9.next = 11;
+              break;
+            }
+
+            return _context9.abrupt('return', defaultShoppingListService.create((0, _immutable.Map)({ user: user, shoppingListId: shoppingListId }), _microBusinessParseServerCommon.ParseWrapperService.createACL(user), sessionToken));
+
+          case 11:
+            if (!(defaultShoppingLists.count() === 1)) {
+              _context9.next = 13;
+              break;
+            }
+
+            return _context9.abrupt('return', defaultShoppingListService.update(defaultShoppingLists.first().set('shoppingListId', shoppingListId), sessionToken));
+
+          case 13:
+            throw new Error('Multiple default shopping lists found.');
+
+          case 14:
+          case 'end':
+            return _context9.stop();
+        }
+      }
+    }, _callee9, undefined);
+  }));
+
+  return function setUserDefaultShoppingList(_x23, _x24, _x25) {
+    return _ref9.apply(this, arguments);
   };
 }();
