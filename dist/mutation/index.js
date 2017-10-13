@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addShoppingList = exports.RootMutation = undefined;
+exports.setUserDefaultShoppingList = exports.addShoppingList = exports.RootMutation = undefined;
 
 var _ShoppingListHelper = require('./ShoppingListHelper');
 
@@ -11,6 +11,12 @@ Object.defineProperty(exports, 'addShoppingList', {
   enumerable: true,
   get: function get() {
     return _ShoppingListHelper.addShoppingList;
+  }
+});
+Object.defineProperty(exports, 'setUserDefaultShoppingList', {
+  enumerable: true,
+  get: function get() {
+    return _ShoppingListHelper.setUserDefaultShoppingList;
   }
 });
 
