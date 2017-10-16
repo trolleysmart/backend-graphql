@@ -25,11 +25,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'SubmitUserFeedback',
   inputFields: {
-    feedback: { type: _graphql.GraphQLString }
+    feedback: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) }
   },
   outputFields: {
     errorMessage: {
-      type: _graphql.GraphQLString
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('errorMessage');
+      }
     }
   },
   mutateAndGetPayload: function () {
@@ -40,22 +43,32 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              _context.prev = 0;
               sessionToken = request.headers.authorization;
               userLoaderBySessionToken = (0, _loader.createUserLoaderBySessionToken)();
-              _context.next = 4;
+              _context.next = 5;
               return userLoaderBySessionToken.load(sessionToken);
 
-            case 4:
+            case 5:
               user = _context.sent;
               acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
-              return _context.abrupt('return', new _trolleySmartParseServerCommon.UserFeedbackService().create((0, _immutable.Map)({ userId: user.id, feedback: _immutable2.default.fromJS(JSON.parse(feedback)) }), acl, sessionToken));
+              _context.next = 9;
+              return new _trolleySmartParseServerCommon.UserFeedbackService().create((0, _immutable.Map)({ userId: user.id, feedback: _immutable2.default.fromJS(JSON.parse(feedback)) }), acl, sessionToken);
 
-            case 7:
+            case 9:
+              return _context.abrupt('return', (0, _immutable.Map)());
+
+            case 12:
+              _context.prev = 12;
+              _context.t0 = _context['catch'](0);
+              return _context.abrupt('return', (0, _immutable.Map)({ errorMessage: _context.t0 instanceof Error ? _context.t0.message : _context.t0 }));
+
+            case 15:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined);
+      }, _callee, undefined, [[0, 12]]);
     }));
 
     return function mutateAndGetPayload(_x, _x2) {

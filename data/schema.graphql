@@ -283,7 +283,7 @@ type StoreTypeEdge {
 }
 
 input SubmitUserFeedbackInput {
-  feedback: String
+  feedback: String!
   clientMutationId: String
 }
 
