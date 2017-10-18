@@ -25,7 +25,7 @@ export const getUserDefaultShoppingListId = async (userLoaderBySessionToken, ses
   if (defaultShoppingLists.isEmpty()) {
     return createUserDefaultShoppingList(userLoaderBySessionToken, sessionToken);
   } else if (defaultShoppingLists.count() === 1) {
-    return defaultShoppingLists.first().getId();
+    return defaultShoppingLists.first().get('id');
   }
 
   throw new Error('Multiple default shopping lists found.');
