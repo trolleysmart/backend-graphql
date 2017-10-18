@@ -112,7 +112,7 @@ var getUserDefaultShoppingListId = exports.getUserDefaultShoppingListId = functi
               break;
             }
 
-            return _context3.abrupt('return', defaultShoppingLists.first().get('id'));
+            return _context3.abrupt('return', defaultShoppingLists.first().get('shoppingListId'));
 
           case 12:
             throw new Error('Multiple default shopping lists found.');
