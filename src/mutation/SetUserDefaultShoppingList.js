@@ -1,9 +1,10 @@
 // @flow
 
 import { Map } from 'immutable';
-import { GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import { setUserDefaultShoppingList } from './ShoppingListHelper';
+import { ShoppingListItemConnection, getShoppingListItems } from '../type';
 import { createUserLoaderBySessionToken } from '../loader';
 
 export default mutationWithClientMutationId({
@@ -15,6 +16,10 @@ export default mutationWithClientMutationId({
     errorMessage: {
       type: GraphQLString,
     },
+    shoppingListItems: {
+      type: new GraphQLList(ShoppingListItemConnection.edgeType),
+      resolve: _ => _.get('shoppingListItems'),
+    },
   },
   mutateAndGetPayload: async ({ shoppingListId }, request) => {
     try {
@@ -23,7 +28,9 @@ export default mutationWithClientMutationId({
 
       await setUserDefaultShoppingList(shoppingListId, userLoaderBySessionToken, sessionToken);
 
-      return Map();
+      const shoppingListItems = (await getShoppingListItems(Map({ first: 1000 }), shoppingListId, sessionToken)).edges;
+
+      return Map({ shoppingListItems });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
     }

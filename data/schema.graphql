@@ -156,6 +156,7 @@ input SetUserDefaultShoppingListInput {
 
 type SetUserDefaultShoppingListPayload {
   errorMessage: String
+  shoppingListItems: [ShoppingListItemEdge]
   clientMutationId: String
 }
 
