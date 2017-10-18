@@ -142,9 +142,10 @@ var getUserDefaultShoppingList = exports.getUserDefaultShoppingList = function (
 
           case 3:
             _context4.t1 = _context4.sent;
-            return _context4.abrupt('return', (0, _context4.t0)(_context4.t1));
+            _context4.t2 = sessionToken;
+            return _context4.abrupt('return', (0, _context4.t0)(_context4.t1, _context4.t2));
 
-          case 5:
+          case 6:
           case 'end':
             return _context4.stop();
         }

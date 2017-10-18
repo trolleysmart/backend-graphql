@@ -1,6 +1,6 @@
 {
   "name": "trolley-smart-backend-graphql",
-  "version": "1.0.0-alpha.23",
+  "version": "1.0.0-alpha.24",
   "description": "Trolley Smart Backend Graphql",
   "main": "dist/index.js",
   "scripts": {

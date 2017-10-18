@@ -32,7 +32,7 @@ export const getUserDefaultShoppingListId = async (userLoaderBySessionToken, ses
 };
 
 export const getUserDefaultShoppingList = async (userLoaderBySessionToken, sessionToken) =>
-  getShoppingList(await getUserDefaultShoppingListId(userLoaderBySessionToken, sessionToken));
+  getShoppingList(await getUserDefaultShoppingListId(userLoaderBySessionToken, sessionToken), sessionToken);
 
 export default new GraphQLObjectType({
   name: 'ShoppingList',
