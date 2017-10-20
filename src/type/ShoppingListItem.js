@@ -36,55 +36,71 @@ export default new GraphQLObjectType({
     },
     imageUrl: {
       type: GraphQLString,
-      resolve: _ => (_.get('stapleItemId') ? _.get('imageUrl') : _.getIn(['productPrice', 'imageUrl'])),
+      resolve: (_) => {
+        if (_.get('stapleItemId')) {
+          return _.get('imageUrl');
+        }
+
+        if (!_.hasIn(['productPrice', 'imageUrl'])) {
+          return undefined;
+        }
+
+        return _.getIn(['productPrice', 'imageUrl']);
+      },
     },
     barcode: {
       type: GraphQLString,
-      resolve: _ => _.getIn(['productPrice', 'barcode']),
+      resolve: _ => (_.hasIn(['productPrice', 'barcode']) ? _.getIn(['productPrice', 'barcode']) : undefined),
     },
     size: {
       type: GraphQLString,
-      resolve: _ => _.getIn(['productPrice', 'size']),
+      resolve: _ => (_.hasIn(['productPrice', 'size']) ? _.getIn(['productPrice', 'size']) : undefined),
     },
     productPageUrl: {
       type: GraphQLString,
-      resolve: _ => _.getIn(['productPrice', 'productPageUrl']),
+      resolve: _ => (_.hasIn(['productPrice', 'productPageUrl']) ? _.getIn(['productPrice', 'productPageUrl']) : undefined),
     },
     specialType: {
       type: GraphQLString,
-      resolve: _ => _.getIn(['productPrice', 'specialType']),
+      resolve: _ => (_.hasIn(['productPrice', 'specialType']) ? _.getIn(['productPrice', 'specialType']) : undefined),
     },
     priceToDisplay: {
       type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'priceToDisplay']),
+      resolve: _ => (_.hasIn(['productPrice', 'priceToDisplay']) ? _.getIn(['productPrice', 'priceToDisplay']) : undefined),
     },
     saving: {
       type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'saving']),
+      resolve: _ => (_.hasIn(['productPrice', 'saving']) ? _.getIn(['productPrice', 'saving']) : undefined),
     },
     savingPercentage: {
       type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'savingPercentage']),
+      resolve: _ => (_.hasIn(['productPrice', 'savingPercentage']) ? _.getIn(['productPrice', 'savingPercentage']) : undefined),
     },
     currentPrice: {
       type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'priceDetails', 'currentPrice']),
+      resolve: _ =>
+        (_.hasIn(['productPrice', 'priceDetails', 'currentPrice']) ? _.getIn(['productPrice', 'priceDetails', 'currentPrice']) : undefined),
     },
     wasPrice: {
       type: GraphQLFloat,
-      resolve: _ => _.getIn(['productPrice', 'priceDetails', 'wasPrice']),
+      resolve: _ => (_.hasIn(['productPrice', 'priceDetails', 'wasprice']) ? _.getIn(['productPrice', 'priceDetails', 'wasPrice']) : undefined),
     },
     multiBuy: {
       type: MultiBuy,
-      resolve: _ => _.getIn(['productPrice', 'priceDetails', 'multiBuyInfo']),
+      resolve: _ =>
+        (_.hasIn(['productPrice', 'priceDetails', 'multiBuyInfo']) ? _.getIn(['productPrice', 'priceDetails', 'multiBuyInfo']) : undefined),
     },
     unitPrice: {
       type: UnitPrice,
-      resolve: _ => _.getIn(['productPrice', 'priceDetails', 'unitPrice']),
+      resolve: _ => (_.hasIn(['productPrice', 'priceDetails', 'unitPrice']) ? _.getIn(['productPrice', 'priceDetails', 'unitPrice']) : undefined),
     },
     offerEndDate: {
       type: GraphQLString,
       resolve: (_) => {
+        if (!_.hasIn(['productPrice', 'offerEndDate'])) {
+          return undefined;
+        }
+
         const offerEndDate = _.getIn(['productPrice', 'offerEndDate']);
 
         return offerEndDate ? offerEndDate.toISOString() : undefined;

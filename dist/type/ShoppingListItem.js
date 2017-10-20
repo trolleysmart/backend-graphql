@@ -68,78 +68,90 @@ exports.default = new _graphql.GraphQLObjectType({
     imageUrl: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.get('stapleItemId') ? _.get('imageUrl') : _.getIn(['productPrice', 'imageUrl']);
+        if (_.get('stapleItemId')) {
+          return _.get('imageUrl');
+        }
+
+        if (!_.hasIn(['productPrice', 'imageUrl'])) {
+          return undefined;
+        }
+
+        return _.getIn(['productPrice', 'imageUrl']);
       }
     },
     barcode: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'barcode']);
+        return _.hasIn(['productPrice', 'barcode']) ? _.getIn(['productPrice', 'barcode']) : undefined;
       }
     },
     size: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'size']);
+        return _.hasIn(['productPrice', 'size']) ? _.getIn(['productPrice', 'size']) : undefined;
       }
     },
     productPageUrl: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'productPageUrl']);
+        return _.hasIn(['productPrice', 'productPageUrl']) ? _.getIn(['productPrice', 'productPageUrl']) : undefined;
       }
     },
     specialType: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'specialType']);
+        return _.hasIn(['productPrice', 'specialType']) ? _.getIn(['productPrice', 'specialType']) : undefined;
       }
     },
     priceToDisplay: {
       type: _graphql.GraphQLFloat,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'priceToDisplay']);
+        return _.hasIn(['productPrice', 'priceToDisplay']) ? _.getIn(['productPrice', 'priceToDisplay']) : undefined;
       }
     },
     saving: {
       type: _graphql.GraphQLFloat,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'saving']);
+        return _.hasIn(['productPrice', 'saving']) ? _.getIn(['productPrice', 'saving']) : undefined;
       }
     },
     savingPercentage: {
       type: _graphql.GraphQLFloat,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'savingPercentage']);
+        return _.hasIn(['productPrice', 'savingPercentage']) ? _.getIn(['productPrice', 'savingPercentage']) : undefined;
       }
     },
     currentPrice: {
       type: _graphql.GraphQLFloat,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'priceDetails', 'currentPrice']);
+        return _.hasIn(['productPrice', 'priceDetails', 'currentPrice']) ? _.getIn(['productPrice', 'priceDetails', 'currentPrice']) : undefined;
       }
     },
     wasPrice: {
       type: _graphql.GraphQLFloat,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'priceDetails', 'wasPrice']);
+        return _.hasIn(['productPrice', 'priceDetails', 'wasprice']) ? _.getIn(['productPrice', 'priceDetails', 'wasPrice']) : undefined;
       }
     },
     multiBuy: {
       type: _MultiBuy2.default,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'priceDetails', 'multiBuyInfo']);
+        return _.hasIn(['productPrice', 'priceDetails', 'multiBuyInfo']) ? _.getIn(['productPrice', 'priceDetails', 'multiBuyInfo']) : undefined;
       }
     },
     unitPrice: {
       type: _UnitPrice2.default,
       resolve: function resolve(_) {
-        return _.getIn(['productPrice', 'priceDetails', 'unitPrice']);
+        return _.hasIn(['productPrice', 'priceDetails', 'unitPrice']) ? _.getIn(['productPrice', 'priceDetails', 'unitPrice']) : undefined;
       }
     },
     offerEndDate: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
+        if (!_.hasIn(['productPrice', 'offerEndDate'])) {
+          return undefined;
+        }
+
         var offerEndDate = _.getIn(['productPrice', 'offerEndDate']);
 
         return offerEndDate ? offerEndDate.toISOString() : undefined;
