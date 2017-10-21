@@ -25,23 +25,62 @@ export default new GraphQLObjectType({
     },
     description: {
       type: GraphQLString,
-      resolve: _ => _.get('description'),
+      resolve: async (_, args, { dataLoaders }) => {
+        if (!_.has('storeId')) {
+          return '';
+        }
+
+        const storeKey = await dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+
+        if (productSearchConfig.get('storesKeyToExcludeProductsDescriptions').find(key => key.localeCompare(storeKey) === 0)) {
+          return '';
+        }
+
+        return _.get('description');
+      },
     },
     imageUrl: {
       type: GraphQLString,
-      resolve: _ => _.getIn(['storeProduct', 'imageUrl']),
+      resolve: async (_, args, { dataLoaders }) => {
+        if (!_.has('storeId')) {
+          return '';
+        }
+
+        const storeKey = await dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+
+        if (productSearchConfig.get('storesKeyToExcludeProductsImages').find(key => key.localeCompare(storeKey) === 0)) {
+          return '';
+        }
+
+        return _.get('imageUrl');
+      },
     },
     barcode: {
       type: GraphQLString,
-      resolve: _ => _.getIn(['storeProduct', 'barcode']),
+      resolve: _ => _.get('barcode'),
     },
     size: {
       type: GraphQLString,
-      resolve: _ => _.getIn(['storeProduct', 'size']),
+      resolve: _ => _.get('size'),
     },
     productPageUrl: {
       type: GraphQLString,
-      resolve: _ => _.get('productPageUrl'),
+      resolve: async (_, args, { dataLoaders }) => {
+        if (!_.has('storeId')) {
+          return '';
+        }
+
+        const storeKey = await dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+
+        if (productSearchConfig.get('storesKeyToExcludeProductsPageUrls').find(key => key.localeCompare(storeKey) === 0)) {
+          return '';
+        }
+
+        return _.get('productPageUrl');
+      },
     },
     specialType: {
       type: GraphQLString,
@@ -80,7 +119,7 @@ export default new GraphQLObjectType({
       resolve: (_) => {
         const offerEndDate = _.get('offerEndDate');
 
-        return offerEndDate ? offerEndDate.toISOString() : undefined;
+        return offerEndDate ? offerEndDate.toISOString() : null;
       },
     },
     comments: {

@@ -71,33 +71,177 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     description: {
       type: _graphql.GraphQLString,
-      resolve: function resolve(_) {
-        return _.get('description');
-      }
+      resolve: function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
+          var dataLoaders = _ref3.dataLoaders;
+          var storeKey, productSearchConfig;
+          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  if (_.has('storeId')) {
+                    _context2.next = 2;
+                    break;
+                  }
+
+                  return _context2.abrupt('return', '');
+
+                case 2:
+                  _context2.next = 4;
+                  return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+
+                case 4:
+                  storeKey = _context2.sent;
+                  _context2.next = 7;
+                  return dataLoaders.get('configLoader').load('productSearch');
+
+                case 7:
+                  productSearchConfig = _context2.sent;
+
+                  if (!productSearchConfig.get('storesKeyToExcludeProductsDescriptions').find(function (key) {
+                    return key.localeCompare(storeKey) === 0;
+                  })) {
+                    _context2.next = 10;
+                    break;
+                  }
+
+                  return _context2.abrupt('return', '');
+
+                case 10:
+                  return _context2.abrupt('return', _.get('description'));
+
+                case 11:
+                case 'end':
+                  return _context2.stop();
+              }
+            }
+          }, _callee2, undefined);
+        }));
+
+        return function resolve(_x3, _x4, _x5) {
+          return _ref2.apply(this, arguments);
+        };
+      }()
     },
     imageUrl: {
       type: _graphql.GraphQLString,
-      resolve: function resolve(_) {
-        return _.getIn(['storeProduct', 'imageUrl']);
-      }
+      resolve: function () {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
+          var dataLoaders = _ref5.dataLoaders;
+          var storeKey, productSearchConfig;
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  if (_.has('storeId')) {
+                    _context3.next = 2;
+                    break;
+                  }
+
+                  return _context3.abrupt('return', '');
+
+                case 2:
+                  _context3.next = 4;
+                  return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+
+                case 4:
+                  storeKey = _context3.sent;
+                  _context3.next = 7;
+                  return dataLoaders.get('configLoader').load('productSearch');
+
+                case 7:
+                  productSearchConfig = _context3.sent;
+
+                  if (!productSearchConfig.get('storesKeyToExcludeProductsImages').find(function (key) {
+                    return key.localeCompare(storeKey) === 0;
+                  })) {
+                    _context3.next = 10;
+                    break;
+                  }
+
+                  return _context3.abrupt('return', '');
+
+                case 10:
+                  return _context3.abrupt('return', _.get('imageUrl'));
+
+                case 11:
+                case 'end':
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, undefined);
+        }));
+
+        return function resolve(_x6, _x7, _x8) {
+          return _ref4.apply(this, arguments);
+        };
+      }()
     },
     barcode: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.getIn(['storeProduct', 'barcode']);
+        return _.get('barcode');
       }
     },
     size: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.getIn(['storeProduct', 'size']);
+        return _.get('size');
       }
     },
     productPageUrl: {
       type: _graphql.GraphQLString,
-      resolve: function resolve(_) {
-        return _.get('productPageUrl');
-      }
+      resolve: function () {
+        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref7) {
+          var dataLoaders = _ref7.dataLoaders;
+          var storeKey, productSearchConfig;
+          return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            while (1) {
+              switch (_context4.prev = _context4.next) {
+                case 0:
+                  if (_.has('storeId')) {
+                    _context4.next = 2;
+                    break;
+                  }
+
+                  return _context4.abrupt('return', '');
+
+                case 2:
+                  _context4.next = 4;
+                  return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+
+                case 4:
+                  storeKey = _context4.sent;
+                  _context4.next = 7;
+                  return dataLoaders.get('configLoader').load('productSearch');
+
+                case 7:
+                  productSearchConfig = _context4.sent;
+
+                  if (!productSearchConfig.get('storesKeyToExcludeProductsPageUrls').find(function (key) {
+                    return key.localeCompare(storeKey) === 0;
+                  })) {
+                    _context4.next = 10;
+                    break;
+                  }
+
+                  return _context4.abrupt('return', '');
+
+                case 10:
+                  return _context4.abrupt('return', _.get('productPageUrl'));
+
+                case 11:
+                case 'end':
+                  return _context4.stop();
+              }
+            }
+          }, _callee4, undefined);
+        }));
+
+        return function resolve(_x9, _x10, _x11) {
+          return _ref6.apply(this, arguments);
+        };
+      }()
     },
     specialType: {
       type: _graphql.GraphQLString,
@@ -152,7 +296,7 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         var offerEndDate = _.get('offerEndDate');
 
-        return offerEndDate ? offerEndDate.toISOString() : undefined;
+        return offerEndDate ? offerEndDate.toISOString() : null;
       }
     },
     comments: {
