@@ -21,7 +21,7 @@ const getCriteria = async (searchArgs, dataLoaders) => {
     })
       .merge(productSearchConfig.get('returnCrawledProducts') ? Map() : Map({ createdByCrawler: false }))
       .merge(productSearchConfig.get('returnProductsOnSpecialOnly') ? Map({ special: true }) : Map())
-      .merge(!productSearchConfig.get('returnProductsOnSpecialOnly') && searchArgs.has('special') ? Map() : Map({ special: searchArgs.get('special') }))
+      .merge(!productSearchConfig.get('returnProductsOnSpecialOnly') && searchArgs.has('special') ? Map({ special: searchArgs.get('special') }) : Map())
       .merge(searchArgs.has('tagIds') ? Map() : Map({ tagIds: searchArgs.get('tagIds') }))
       .merge(searchArgs.has('storeIds') ? Map() : Map({ storeIds: searchArgs.get('storeIds') })),
   });
