@@ -74,7 +74,7 @@ var addProductPriceToShoppingList = function () {
 }();
 
 var addProductPricesToShoppingList = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(productPriceIds, userLoaderBySessionToken, shoppingListId, sessionToken) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(productPriceIds, dataLoaders, shoppingListId, sessionToken) {
     var user, acl, productPriceIdsWithoutDuplicate;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
@@ -89,7 +89,7 @@ var addProductPricesToShoppingList = function () {
 
           case 2:
             _context4.next = 4;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 4:
             user = _context4.sent;

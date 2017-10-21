@@ -7,8 +7,10 @@ import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import Product from './Product';
 import { storeLoaderByKey, tagLoaderByKey } from '../loader';
 
-const getCriteria = searchArgs =>
-  Map({
+const getCriteria = async (searchArgs, dataLoaders) => {
+  const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+
+  return Map({
     include_store: true,
     include_tags: true,
     include_storeProduct: true,
@@ -16,11 +18,14 @@ const getCriteria = searchArgs =>
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
       contains_descriptions: convertStringArgumentToSet(searchArgs.get('description')),
       status: 'A',
-      special: searchArgs.has('special') ? searchArgs.get('special') : undefined,
-      tagIds: searchArgs.get('tagIds') ? searchArgs.get('tagIds') : undefined,
-      storeIds: searchArgs.get('storeIds') ? searchArgs.get('storeIds') : undefined,
-    }),
+    })
+      .merge(productSearchConfig.get('returnCrawledProducts') ? Map() : Map({ createdByCrawler: true }))
+      .merge(productSearchConfig.get('returnProductsOnSpecialOnly') ? Map() : Map({ notEqual_special: 'none' }))
+      .merge(!productSearchConfig.get('returnProductsOnSpecialOnly') && searchArgs.has('special') ? Map() : Map({ special: searchArgs.get('special') }))
+      .merge(searchArgs.has('tagIds') ? Map() : Map({ tagIds: searchArgs.get('tagIds') }))
+      .merge(searchArgs.has('storeIds') ? Map() : Map({ storeIds: searchArgs.get('storeIds') })),
   });
+};
 
 const addSortOptionToCriteria = (criteria, sortOption) => {
   if (sortOption && sortOption.localeCompare('PriceDescending') === 0) {
@@ -66,18 +71,18 @@ const addSortOptionToCriteria = (criteria, sortOption) => {
   return criteria.set('orderByFieldAscending', 'name');
 };
 
-const getProductPriceCountMatchCriteria = async (searchArgs, sessionToken) =>
-  new ProductPriceService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken);
+const getProductPriceCountMatchCriteria = async (searchArgs, dataLoaders, sessionToken) =>
+  new ProductPriceService().count(addSortOptionToCriteria(await getCriteria(searchArgs, dataLoaders), searchArgs.get('sortOption')), sessionToken);
 
-const getProductPriceMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
+const getProductPriceMatchCriteria = async (searchArgs, dataLoaders, sessionToken, limit, skip) =>
   new ProductPriceService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption'))
+    addSortOptionToCriteria(await getCriteria(searchArgs, dataLoaders), searchArgs.get('sortOption'))
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,
   );
 
-export const getProducts = async (searchArgs, sessionToken) => {
+export const getProducts = async (searchArgs, dataLoaders, sessionToken) => {
   const finalSearchArgs = searchArgs
     .merge(searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
       ? Map({ storeIds: Immutable.fromJS(await storeLoaderByKey.loadMany(searchArgs.get('storeKeys').toJS())).map(store => store.get('id')) })
@@ -85,11 +90,11 @@ export const getProducts = async (searchArgs, sessionToken) => {
     .merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
       ? Map({ tagIds: Immutable.fromJS(await tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')) })
       : Map());
-  const count = await getProductPriceCountMatchCriteria(finalSearchArgs, sessionToken);
+  const count = await getProductPriceCountMatchCriteria(finalSearchArgs, dataLoaders, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
   } = getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
-  const productPriceItems = await getProductPriceMatchCriteria(finalSearchArgs, sessionToken, limit, skip);
+  const productPriceItems = await getProductPriceMatchCriteria(finalSearchArgs, dataLoaders, sessionToken, limit, skip);
   const indexedProductPriceItems = productPriceItems.zip(Range(skip, skip + limit));
   const edges = indexedProductPriceItems.map(indexedItem => ({
     node: indexedItem[0],

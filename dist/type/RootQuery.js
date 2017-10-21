@@ -31,20 +31,21 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _User2.default,
       resolve: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, request) {
-          var userLoaderBySessionToken, userId;
+          var configLoader, userLoaderBySessionToken, userId;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
+                  configLoader = (0, _loader.createConfigLoader)();
                   userLoaderBySessionToken = (0, _loader.createUserLoaderBySessionToken)();
-                  _context.next = 3;
+                  _context.next = 4;
                   return userLoaderBySessionToken.load(request.headers.authorization);
 
-                case 3:
+                case 4:
                   userId = _context.sent.id;
-                  return _context.abrupt('return', (0, _immutable.Map)({ id: userId, userLoaderBySessionToken: userLoaderBySessionToken }));
+                  return _context.abrupt('return', (0, _immutable.Map)({ id: userId, dataLoaders: (0, _immutable.Map)({ configLoader: configLoader, userLoaderBySessionToken: userLoaderBySessionToken }) }));
 
-                case 5:
+                case 6:
                 case 'end':
                   return _context.stop();
               }

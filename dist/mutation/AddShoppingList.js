@@ -40,22 +40,22 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   mutateAndGetPayload: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, request) {
       var name = _ref2.name;
-      var sessionToken, userLoaderBySessionToken, shoppingListId;
+      var sessionToken, dataLoaders, shoppingListId;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
               sessionToken = request.headers.authorization;
-              userLoaderBySessionToken = (0, _loader.createUserLoaderBySessionToken)();
+              dataLoaders = (0, _immutable.Map)({ userLoaderBySessionToken: (0, _loader.createUserLoaderBySessionToken)() });
               _context.next = 5;
-              return (0, _ShoppingListHelper.addShoppingList)(name, userLoaderBySessionToken, sessionToken);
+              return (0, _ShoppingListHelper.addShoppingList)(name, dataLoaders, sessionToken);
 
             case 5:
               shoppingListId = _context.sent;
               _context.t0 = _immutable.Map;
               _context.next = 9;
-              return (0, _type.getShoppingLists)((0, _immutable.Map)({ shoppingListIds: _immutable.List.of(shoppingListId) }), userLoaderBySessionToken, sessionToken);
+              return (0, _type.getShoppingLists)((0, _immutable.Map)({ shoppingListIds: _immutable.List.of(shoppingListId) }), dataLoaders, sessionToken);
 
             case 9:
               _context.t1 = _context.sent.edges[0];

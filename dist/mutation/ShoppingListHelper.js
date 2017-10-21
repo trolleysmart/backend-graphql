@@ -102,7 +102,7 @@ var getShoppingListById = exports.getShoppingListById = function () {
 }();
 
 var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(shoppingListItemIds, userLoaderBySessionToken, shoppingListId, sessionToken) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(shoppingListItemIds, dataLoaders, shoppingListId, sessionToken) {
     var shoppingListItemsPromises, allShoppingListItems, shoppingListItems, productPriceIds, stapleItemIds, shoppingListItemService, itemsToRemovePromises, itemsToRemove, userId, _itemsToRemovePromises, _itemsToRemove, _userId;
 
     return regeneratorRuntime.wrap(function _callee5$(_context5) {
@@ -171,7 +171,7 @@ var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function
 
             itemsToRemove = _context5.t2.fromJS.call(_context5.t2, _context5.t3).flatMap(_context5.t4);
             _context5.next = 22;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 22:
             userId = _context5.sent.id;
@@ -202,7 +202,7 @@ var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function
 
             _itemsToRemove = _context5.t5.fromJS.call(_context5.t5, _context5.t6).flatMap(_context5.t7);
             _context5.next = 35;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 35:
             _userId = _context5.sent.id;
@@ -225,14 +225,14 @@ var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function
 }();
 
 var addShoppingList = exports.addShoppingList = function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(name, userLoaderBySessionToken, sessionToken) {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(name, dataLoaders, sessionToken) {
     var user;
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 2:
             user = _context6.sent;
@@ -317,14 +317,14 @@ var removeShoppingList = exports.removeShoppingList = function () {
 }();
 
 var setUserDefaultShoppingList = exports.setUserDefaultShoppingList = function () {
-  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(shoppingListId, userLoaderBySessionToken, sessionToken) {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(shoppingListId, dataLoaders, sessionToken) {
     var user, defaultShoppingListService, defaultShoppingLists;
     return regeneratorRuntime.wrap(function _callee9$(_context9) {
       while (1) {
         switch (_context9.prev = _context9.next) {
           case 0:
             _context9.next = 2;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 2:
             user = _context9.sent;

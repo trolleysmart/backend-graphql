@@ -69,7 +69,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  return _context.abrupt('return', (0, _ShoppingListConnection.getShoppingLists)(_immutable2.default.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization));
+                  return _context.abrupt('return', (0, _ShoppingListConnection.getShoppingLists)(_immutable2.default.fromJS(args), _.get('dataLoaders'), request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -92,7 +92,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', (0, _ShoppingList.getUserDefaultShoppingList)(_.get('userLoaderBySessionToken'), request.headers.authorization));
+                  return _context2.abrupt('return', (0, _ShoppingList.getUserDefaultShoppingList)(_.get('dataLoaders'), request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -158,7 +158,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', (0, _ShoppingListItemConnection.getUserDefaultShoppingListItems)(_immutable2.default.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization));
+                  return _context4.abrupt('return', (0, _ShoppingListItemConnection.getUserDefaultShoppingListItems)(_immutable2.default.fromJS(args), _.get('dataLoaders'), request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -229,7 +229,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('userLoaderBySessionToken'), request.headers.authorization));
+                  return _context6.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('dataLoaders'), request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -272,7 +272,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context7.prev = _context7.next) {
                 case 0:
-                  return _context7.abrupt('return', (0, _ProductConnection.getProducts)(_immutable2.default.fromJS(args), request.headers.authorization));
+                  return _context7.abrupt('return', (0, _ProductConnection.getProducts)(_immutable2.default.fromJS(args), _.get('dataLoaders'), request.headers.authorization));
 
                 case 1:
                 case 'end':

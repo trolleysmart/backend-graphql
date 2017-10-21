@@ -235,14 +235,14 @@ var getShoppingListItems = exports.getShoppingListItems = function () {
 }();
 
 var getUserDefaultShoppingListItems = exports.getUserDefaultShoppingListItems = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, userLoaderBySessionToken, sessionToken) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
     var shoppingListId;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return (0, _ShoppingList.getUserDefaultShoppingListId)(userLoaderBySessionToken, sessionToken);
+            return (0, _ShoppingList.getUserDefaultShoppingListId)(dataLoaders, sessionToken);
 
           case 2:
             shoppingListId = _context3.sent;

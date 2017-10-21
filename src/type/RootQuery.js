@@ -5,7 +5,7 @@ import { GraphQLObjectType } from 'graphql';
 import ViewerType from './Viewer';
 import UserType from './User';
 import { NodeField } from '../interface';
-import { createUserLoaderBySessionToken } from '../loader';
+import { createConfigLoader, createUserLoaderBySessionToken } from '../loader';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -13,10 +13,11 @@ export default new GraphQLObjectType({
     user: {
       type: UserType,
       resolve: async (_, args, request) => {
+        const configLoader = createConfigLoader();
         const userLoaderBySessionToken = createUserLoaderBySessionToken();
         const userId = (await userLoaderBySessionToken.load(request.headers.authorization)).id;
 
-        return Map({ id: userId, dataLoaders: Map({ userLoaderBySessionToken }) });
+        return Map({ id: userId, dataLoaders: Map({ configLoader, userLoaderBySessionToken }) });
       },
     },
     viewer: {

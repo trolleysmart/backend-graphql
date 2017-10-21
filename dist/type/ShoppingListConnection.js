@@ -76,7 +76,7 @@ var getShoppingListMatchCriteria = function () {
 }();
 
 var getShoppingLists = exports.getShoppingLists = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, userLoaderBySessionToken, sessionToken) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
     var userId, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, shoppingLists, indexedShoppingLists, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -84,7 +84,7 @@ var getShoppingLists = exports.getShoppingLists = function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 2:
             userId = _context3.sent.id;
@@ -97,7 +97,7 @@ var getShoppingLists = exports.getShoppingLists = function () {
 
             // Creating the default shopping list if no shopping list exists
             if (count === 0) {
-              (0, _ShoppingList.createUserDefaultShoppingList)(userLoaderBySessionToken, sessionToken);
+              (0, _ShoppingList.createUserDefaultShoppingList)(dataLoaders, sessionToken);
               count = 1;
             }
 

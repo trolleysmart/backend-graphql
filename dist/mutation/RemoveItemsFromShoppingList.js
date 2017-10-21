@@ -38,7 +38,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, request) {
       var shoppingListId = _ref2.shoppingListId,
           shoppingListItemIds = _ref2.shoppingListItemIds;
-      var sessionToken, userLoaderBySessionToken;
+      var sessionToken, dataLoaders;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -52,9 +52,9 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
               return (0, _ShoppingListHelper.getShoppingListById)(shoppingListId, sessionToken);
 
             case 4:
-              userLoaderBySessionToken = (0, _loader.createUserLoaderBySessionToken)();
+              dataLoaders = (0, _immutable.Map)({ userLoaderBySessionToken: (0, _loader.createUserLoaderBySessionToken)() });
               _context.next = 7;
-              return (0, _ShoppingListHelper.removeItemsFromShoppingList)(shoppingListItemIds ? _immutable2.default.fromJS(shoppingListItemIds) : (0, _immutable.List)(), userLoaderBySessionToken, shoppingListId, sessionToken);
+              return (0, _ShoppingListHelper.removeItemsFromShoppingList)(shoppingListItemIds ? _immutable2.default.fromJS(shoppingListItemIds) : (0, _immutable.List)(), dataLoaders, shoppingListId, sessionToken);
 
             case 7:
               return _context.abrupt('return', (0, _immutable.Map)());

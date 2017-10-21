@@ -122,7 +122,7 @@ export default new GraphQLObjectType({
           type: GraphQLBoolean,
         },
       },
-      resolve: async (_, args, request) => getProducts(Immutable.fromJS(args), request.headers.authorization),
+      resolve: async (_, args, request) => getProducts(Immutable.fromJS(args), _.get('dataLoaders'), request.headers.authorization),
     },
     product: {
       type: Product,

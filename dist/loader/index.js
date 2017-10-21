@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createUserLoaderBySessionToken = exports.tagLoaderByKey = exports.tagLoaderById = exports.storeLoaderByKey = exports.storeLoaderById = undefined;
+exports.createConfigLoader = exports.createUserLoaderBySessionToken = exports.tagLoaderByKey = exports.tagLoaderById = exports.storeLoaderByKey = exports.storeLoaderById = undefined;
 
 var _StoreLoader = require('./StoreLoader');
 
@@ -39,6 +39,11 @@ var _UserLoader = require('./UserLoader');
 
 var _UserLoader2 = _interopRequireDefault(_UserLoader);
 
+var _ConfigLoader = require('./ConfigLoader');
+
+var _ConfigLoader2 = _interopRequireDefault(_ConfigLoader);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.createUserLoaderBySessionToken = _UserLoader2.default;
+exports.createConfigLoader = _ConfigLoader2.default;

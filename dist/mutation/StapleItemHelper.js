@@ -137,7 +137,7 @@ var addStapleItemToShoppingList = function () {
 }();
 
 var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(stapleItemIds, userLoaderBySessionToken, shoppingListId, sessionToken) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(stapleItemIds, dataLoaders, shoppingListId, sessionToken) {
     var user, acl, stapleItemIdsWithoutDuplicate;
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
@@ -152,7 +152,7 @@ var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = functi
 
           case 2:
             _context6.next = 4;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 4:
             user = _context6.sent;
@@ -203,7 +203,7 @@ var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = functi
 }();
 
 var addNewStapleItemsToShoppingList = exports.addNewStapleItemsToShoppingList = function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(names, userLoaderBySessionToken, shoppingListId, sessionToken) {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(names, dataLoaders, shoppingListId, sessionToken) {
     var trimmedNamesWithoutDuplicate, user, acl, stapleItemService;
     return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
@@ -234,7 +234,7 @@ var addNewStapleItemsToShoppingList = exports.addNewStapleItemsToShoppingList = 
 
           case 5:
             _context8.next = 7;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 7:
             user = _context8.sent;

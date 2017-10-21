@@ -81,7 +81,7 @@ var getStapleItemsMatchCriteria = function () {
 }();
 
 var getStapleItems = exports.getStapleItems = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, userLoaderBySessionToken, sessionToken) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
     var userId, finalSearchArgs, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, stapleItems, indexedStapleItems, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -89,7 +89,7 @@ var getStapleItems = exports.getStapleItems = function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 2:
             userId = _context3.sent.id;

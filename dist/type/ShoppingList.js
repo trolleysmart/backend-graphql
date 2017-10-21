@@ -30,19 +30,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var createUserDefaultShoppingList = exports.createUserDefaultShoppingList = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(userLoaderBySessionToken, sessionToken) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dataLoaders, sessionToken) {
     var shoppingListId;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return (0, _mutation.addShoppingList)('My List', userLoaderBySessionToken, sessionToken);
+            return (0, _mutation.addShoppingList)('My List', dataLoaders, sessionToken);
 
           case 2:
             shoppingListId = _context.sent;
             _context.next = 5;
-            return (0, _mutation.setUserDefaultShoppingList)(shoppingListId, userLoaderBySessionToken, sessionToken);
+            return (0, _mutation.setUserDefaultShoppingList)(shoppingListId, dataLoaders, sessionToken);
 
           case 5:
             return _context.abrupt('return', shoppingListId);
@@ -82,14 +82,14 @@ var getShoppingList = exports.getShoppingList = function () {
 }();
 
 var getUserDefaultShoppingListId = exports.getUserDefaultShoppingListId = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(userLoaderBySessionToken, sessionToken) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dataLoaders, sessionToken) {
     var userId, defaultShoppingLists;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return userLoaderBySessionToken.load(sessionToken);
+            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
           case 2:
             userId = _context3.sent.id;
@@ -104,7 +104,7 @@ var getUserDefaultShoppingListId = exports.getUserDefaultShoppingListId = functi
               break;
             }
 
-            return _context3.abrupt('return', createUserDefaultShoppingList(userLoaderBySessionToken, sessionToken));
+            return _context3.abrupt('return', createUserDefaultShoppingList(dataLoaders, sessionToken));
 
           case 10:
             if (!(defaultShoppingLists.count() === 1)) {
@@ -131,14 +131,14 @@ var getUserDefaultShoppingListId = exports.getUserDefaultShoppingListId = functi
 }();
 
 var getUserDefaultShoppingList = exports.getUserDefaultShoppingList = function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(userLoaderBySessionToken, sessionToken) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dataLoaders, sessionToken) {
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.t0 = getShoppingList;
             _context4.next = 3;
-            return getUserDefaultShoppingListId(userLoaderBySessionToken, sessionToken);
+            return getUserDefaultShoppingListId(dataLoaders, sessionToken);
 
           case 3:
             _context4.t1 = _context4.sent;

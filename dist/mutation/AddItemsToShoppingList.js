@@ -56,7 +56,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
           productPriceIds = _ref2.productPriceIds,
           stapleItemIds = _ref2.stapleItemIds,
           newStapleItemNames = _ref2.newStapleItemNames;
-      var sessionToken, finalProductPriceIds, finalStapleItemIds, userLoaderBySessionToken, newShoppingListItemIds, shoppingListItems, shoppingListItemsToReturn;
+      var sessionToken, finalProductPriceIds, finalStapleItemIds, dataLoaders, newShoppingListItemIds, shoppingListItems, shoppingListItemsToReturn;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -72,10 +72,10 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
             case 4:
               finalProductPriceIds = productPriceIds ? _immutable2.default.fromJS(productPriceIds) : (0, _immutable.List)();
               finalStapleItemIds = stapleItemIds ? _immutable2.default.fromJS(stapleItemIds) : (0, _immutable.List)();
-              userLoaderBySessionToken = (0, _loader.createUserLoaderBySessionToken)();
+              dataLoaders = (0, _immutable.Map)({ userLoaderBySessionToken: (0, _loader.createUserLoaderBySessionToken)() });
               _context.t0 = _immutable2.default;
               _context.next = 10;
-              return Promise.all([(0, _ProductPriceHelper2.default)(finalProductPriceIds, userLoaderBySessionToken, shoppingListId, sessionToken), (0, _StapleItemHelper.addStapleItemsToShoppingList)(finalStapleItemIds, userLoaderBySessionToken, shoppingListId, sessionToken), (0, _StapleItemHelper.addNewStapleItemsToShoppingList)(newStapleItemNames ? _immutable2.default.fromJS(newStapleItemNames) : (0, _immutable.List)(), userLoaderBySessionToken, shoppingListId, sessionToken)]);
+              return Promise.all([(0, _ProductPriceHelper2.default)(finalProductPriceIds, dataLoaders, shoppingListId, sessionToken), (0, _StapleItemHelper.addStapleItemsToShoppingList)(finalStapleItemIds, dataLoaders, shoppingListId, sessionToken), (0, _StapleItemHelper.addNewStapleItemsToShoppingList)(newStapleItemNames ? _immutable2.default.fromJS(newStapleItemNames) : (0, _immutable.List)(), dataLoaders, shoppingListId, sessionToken)]);
 
             case 10:
               _context.t1 = _context.sent[2];
