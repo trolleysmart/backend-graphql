@@ -15,8 +15,6 @@ var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common'
 
 var _Common = require('./Common');
 
-var _loader = require('../loader');
-
 var _StapleItem = require('./StapleItem');
 
 var _StapleItem2 = _interopRequireDefault(_StapleItem);
@@ -103,7 +101,7 @@ var getStapleItems = exports.getStapleItems = function () {
             _context3.t2 = _immutable.Map;
             _context3.t3 = _immutable2.default;
             _context3.next = 9;
-            return _loader.tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS());
+            return dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS());
 
           case 9:
             _context3.t4 = _context3.sent;

@@ -47,7 +47,7 @@ export default mutationWithClientMutationId({
           sessionToken,
         ),
       ]))[2]);
-      const shoppingListItems = (await getShoppingListItems(Map({ first: 1000 }), shoppingListId, sessionToken)).edges;
+      const shoppingListItems = (await getShoppingListItems(Map({ first: 1000 }), shoppingListId, dataLoaders, sessionToken)).edges;
       const shoppingListItemsToReturn = shoppingListItems
         .filter(shoppingListItem => newShoppingListItemIds.find(id => id.localeCompare(shoppingListItem.node.get('id')) === 0))
         .concat(shoppingListItems.filter(shoppingListItem =>

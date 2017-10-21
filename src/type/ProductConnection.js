@@ -5,7 +5,6 @@ import { connectionDefinitions } from 'graphql-relay';
 import { ProductPriceService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import Product from './Product';
-import { storeLoaderByKey, tagLoaderByKey } from '../loader';
 
 const getCriteria = async (searchArgs, dataLoaders) => {
   const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
@@ -85,10 +84,15 @@ const getProductPriceMatchCriteria = async (searchArgs, dataLoaders, sessionToke
 export const getProducts = async (searchArgs, dataLoaders, sessionToken) => {
   const finalSearchArgs = searchArgs
     .merge(searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
-      ? Map({ storeIds: Immutable.fromJS(await storeLoaderByKey.loadMany(searchArgs.get('storeKeys').toJS())).map(store => store.get('id')) })
+      ? Map({
+        storeIds: Immutable.fromJS(await dataLoaders.get('storeLoaderByKey').loadMany(searchArgs.get('storeKeys').toJS())).map(store =>
+          store.get('id')),
+      })
       : Map())
     .merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
-      ? Map({ tagIds: Immutable.fromJS(await tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')) })
+      ? Map({
+        tagIds: Immutable.fromJS(await dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')),
+      })
       : Map());
   const count = await getProductPriceCountMatchCriteria(finalSearchArgs, dataLoaders, sessionToken);
   const {

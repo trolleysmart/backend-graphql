@@ -2,7 +2,6 @@
 
 import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
-import { storeLoaderById } from '../loader';
 
 const ParentStore = new GraphQLObjectType({
   name: 'ParentStore',
@@ -56,11 +55,11 @@ export default new GraphQLObjectType({
     },
     parentStore: {
       type: ParentStore,
-      resolve: (_) => {
+      resolve: (_, args, { dataLoaders }) => {
         const parentStoreId = _.get('parentStoreId');
 
         if (parentStoreId) {
-          return storeLoaderById.load(parentStoreId);
+          return dataLoaders.get('storeLoaderById').load(parentStoreId);
         }
 
         const parentStore = _.get('parentStore');

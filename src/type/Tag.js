@@ -2,7 +2,6 @@
 
 import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
-import { tagLoaderById } from '../loader';
 
 const ParentTag = new GraphQLObjectType({
   name: 'ParentTag',
@@ -72,11 +71,11 @@ export default new GraphQLObjectType({
     },
     parentTag: {
       type: ParentTag,
-      resolve: (_) => {
+      resolve: (_, args, { dataLoaders }) => {
         const parentTagId = _.get('parentTagId');
 
         if (parentTagId) {
-          return tagLoaderById.load(parentTagId);
+          return dataLoaders.get('tagLoaderById').load(parentTagId);
         }
 
         const parentTag = _.get('parentTag');

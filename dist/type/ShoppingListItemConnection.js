@@ -15,8 +15,6 @@ var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common'
 
 var _Common = require('./Common');
 
-var _loader = require('../loader');
-
 var _ShoppingListItem = require('./ShoppingListItem');
 
 var _ShoppingListItem2 = _interopRequireDefault(_ShoppingListItem);
@@ -86,7 +84,7 @@ var getShoppingListItemsMatchCriteria = function () {
 }();
 
 var getShoppingListItems = exports.getShoppingListItems = function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(searchArgs, shoppingListId, sessionToken) {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(searchArgs, shoppingListId, dataLoaders, sessionToken) {
     var finalSearchArgs, shoppingListItems, stapleItems, productPrices, allShoppingListItems, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, indexedList, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -120,7 +118,7 @@ var getShoppingListItems = exports.getShoppingListItems = function () {
             _context2.t3 = _immutable.Map;
             _context2.t4 = _immutable2.default;
             _context2.next = 8;
-            return _loader.storeLoaderByKey.loadMany(searchArgs.get('storeKeys').toJS());
+            return dataLoaders.get('storeLoaderByKey').loadMany(searchArgs.get('storeKeys').toJS());
 
           case 8:
             _context2.t5 = _context2.sent;
@@ -152,7 +150,7 @@ var getShoppingListItems = exports.getShoppingListItems = function () {
             _context2.t11 = _immutable.Map;
             _context2.t12 = _immutable2.default;
             _context2.next = 23;
-            return _loader.tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS());
+            return dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS());
 
           case 23:
             _context2.t13 = _context2.sent;
@@ -229,7 +227,7 @@ var getShoppingListItems = exports.getShoppingListItems = function () {
     }, _callee2, undefined);
   }));
 
-  return function getShoppingListItems(_x4, _x5, _x6) {
+  return function getShoppingListItems(_x4, _x5, _x6, _x7) {
     return _ref2.apply(this, arguments);
   };
 }();
@@ -246,7 +244,7 @@ var getUserDefaultShoppingListItems = exports.getUserDefaultShoppingListItems = 
 
           case 2:
             shoppingListId = _context3.sent;
-            return _context3.abrupt('return', getShoppingListItems(searchArgs, shoppingListId, sessionToken));
+            return _context3.abrupt('return', getShoppingListItems(searchArgs, shoppingListId, dataLoaders, sessionToken));
 
           case 4:
           case 'end':
@@ -256,7 +254,7 @@ var getUserDefaultShoppingListItems = exports.getUserDefaultShoppingListItems = 
     }, _callee3, undefined);
   }));
 
-  return function getUserDefaultShoppingListItems(_x7, _x8, _x9) {
+  return function getUserDefaultShoppingListItems(_x8, _x9, _x10) {
     return _ref3.apply(this, arguments);
   };
 }();

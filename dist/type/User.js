@@ -201,12 +201,13 @@ exports.default = new _graphql.GraphQLObjectType({
       }),
       resolve: function () {
         var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref11) {
-          var request = _ref11.request;
+          var request = _ref11.request,
+              dataLoaders = _ref11.dataLoaders;
           return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
                 case 0:
-                  return _context5.abrupt('return', (0, _ShoppingListItemConnection.getShoppingListItems)(_immutable2.default.fromJS(args), args.shoppingListId, request.headers.authorization));
+                  return _context5.abrupt('return', (0, _ShoppingListItemConnection.getShoppingListItems)(_immutable2.default.fromJS(args), args.shoppingListId, dataLoaders, request.headers.authorization));
 
                 case 1:
                 case 'end':

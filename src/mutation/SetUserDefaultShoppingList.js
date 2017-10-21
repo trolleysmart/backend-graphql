@@ -26,7 +26,7 @@ export default mutationWithClientMutationId({
 
       await setUserDefaultShoppingList(shoppingListId, dataLoaders, sessionToken);
 
-      const shoppingListItems = (await getShoppingListItems(Map({ first: 1000 }), shoppingListId, sessionToken)).edges;
+      const shoppingListItems = (await getShoppingListItems(Map({ first: 1000 }), shoppingListId, dataLoaders, sessionToken)).edges;
 
       return Map({ shoppingListItems });
     } catch (ex) {

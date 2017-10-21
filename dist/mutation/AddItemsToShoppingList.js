@@ -80,7 +80,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
               _context.t1 = _context.sent[2];
               newShoppingListItemIds = _context.t0.fromJS.call(_context.t0, _context.t1);
               _context.next = 13;
-              return (0, _type.getShoppingListItems)((0, _immutable.Map)({ first: 1000 }), shoppingListId, sessionToken);
+              return (0, _type.getShoppingListItems)((0, _immutable.Map)({ first: 1000 }), shoppingListId, dataLoaders, sessionToken);
 
             case 13:
               shoppingListItems = _context.sent.edges;

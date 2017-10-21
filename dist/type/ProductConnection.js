@@ -19,8 +19,6 @@ var _Product = require('./Product');
 
 var _Product2 = _interopRequireDefault(_Product);
 
-var _loader = require('../loader');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -187,7 +185,7 @@ var getProducts = exports.getProducts = function () {
             _context4.t3 = _immutable.Map;
             _context4.t4 = _immutable2.default;
             _context4.next = 6;
-            return _loader.storeLoaderByKey.loadMany(searchArgs.get('storeKeys').toJS());
+            return dataLoaders.get('storeLoaderByKey').loadMany(searchArgs.get('storeKeys').toJS());
 
           case 6:
             _context4.t5 = _context4.sent;
@@ -219,7 +217,7 @@ var getProducts = exports.getProducts = function () {
             _context4.t11 = _immutable.Map;
             _context4.t12 = _immutable2.default;
             _context4.next = 21;
-            return _loader.tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS());
+            return dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS());
 
           case 21:
             _context4.t13 = _context4.sent;

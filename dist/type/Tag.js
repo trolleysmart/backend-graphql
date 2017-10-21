@@ -8,8 +8,6 @@ var _graphql = require('graphql');
 
 var _interface = require('../interface');
 
-var _loader = require('../loader');
-
 var ParentTag = new _graphql.GraphQLObjectType({
   name: 'ParentTag',
   fields: {
@@ -106,11 +104,13 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     parentTag: {
       type: ParentTag,
-      resolve: function resolve(_) {
+      resolve: function resolve(_, args, _ref) {
+        var dataLoaders = _ref.dataLoaders;
+
         var parentTagId = _.get('parentTagId');
 
         if (parentTagId) {
-          return _loader.tagLoaderById.load(parentTagId);
+          return dataLoaders.get('tagLoaderById').load(parentTagId);
         }
 
         var parentTag = _.get('parentTag');

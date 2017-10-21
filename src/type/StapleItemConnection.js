@@ -4,7 +4,6 @@ import Immutable, { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import { StapleItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
-import { tagLoaderByKey } from '../loader';
 import StapleItem from './StapleItem';
 
 const getCriteria = (searchArgs, userId) =>
@@ -33,7 +32,9 @@ const getStapleItemsMatchCriteria = async (searchArgs, userId, sessionToken, lim
 export const getStapleItems = async (searchArgs, dataLoaders, sessionToken) => {
   const userId = (await dataLoaders.get('userLoaderBySessionToken').load(sessionToken)).id;
   const finalSearchArgs = searchArgs.merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
-    ? Map({ tagIds: Immutable.fromJS(await tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')) })
+    ? Map({
+      tagIds: Immutable.fromJS(await dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')),
+    })
     : Map());
   const count = await getStapleItemsCountMatchCriteria(finalSearchArgs, userId, sessionToken);
   const {

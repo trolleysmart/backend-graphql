@@ -8,8 +8,6 @@ var _graphql = require('graphql');
 
 var _interface = require('../interface');
 
-var _loader = require('../loader');
-
 var ParentStore = new _graphql.GraphQLObjectType({
   name: 'ParentStore',
   fields: {
@@ -82,11 +80,13 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     parentStore: {
       type: ParentStore,
-      resolve: function resolve(_) {
+      resolve: function resolve(_, args, _ref) {
+        var dataLoaders = _ref.dataLoaders;
+
         var parentStoreId = _.get('parentStoreId');
 
         if (parentStoreId) {
-          return _loader.storeLoaderById.load(parentStoreId);
+          return dataLoaders.get('storeLoaderById').load(parentStoreId);
         }
 
         var parentStore = _.get('parentStore');

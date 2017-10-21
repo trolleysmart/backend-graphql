@@ -84,7 +84,8 @@ export default new GraphQLObjectType({
           type: new GraphQLList(GraphQLString),
         },
       },
-      resolve: async (_, args, { request }) => getShoppingListItems(Immutable.fromJS(args), args.shoppingListId, request.headers.authorization),
+      resolve: async (_, args, { request, dataLoaders }) =>
+        getShoppingListItems(Immutable.fromJS(args), args.shoppingListId, dataLoaders, request.headers.authorization),
     },
     stapleItems: {
       type: StapleItemConnection.connectionType,

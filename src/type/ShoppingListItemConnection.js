@@ -4,7 +4,6 @@ import Immutable, { List, Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
-import { storeLoaderByKey, tagLoaderByKey } from '../loader';
 import ShoppingListItem from './ShoppingListItem';
 import { getUserDefaultShoppingListId } from './ShoppingList';
 
@@ -40,7 +39,7 @@ const getShoppingListItemsMatchCriteria = async (searchArgs, shoppingListId, ses
   return shoppingListItems;
 };
 
-export const getShoppingListItems = async (searchArgs, shoppingListId, sessionToken) => {
+export const getShoppingListItems = async (searchArgs, shoppingListId, dataLoaders, sessionToken) => {
   if (!shoppingListId) {
     return {
       edges: [],
@@ -56,10 +55,15 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, sessionTo
 
   const finalSearchArgs = searchArgs
     .merge(searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
-      ? Map({ storeIds: Immutable.fromJS(await storeLoaderByKey.loadMany(searchArgs.get('storeKeys').toJS())).map(store => store.get('id')) })
+      ? Map({
+        storeIds: Immutable.fromJS(await dataLoaders.get('storeLoaderByKey').loadMany(searchArgs.get('storeKeys').toJS())).map(store =>
+          store.get('id')),
+      })
       : Map())
     .merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
-      ? Map({ tagIds: Immutable.fromJS(await tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')) })
+      ? Map({
+        tagIds: Immutable.fromJS(await dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')),
+      })
       : Map());
   const shoppingListItems = await getShoppingListItemsMatchCriteria(finalSearchArgs, shoppingListId, sessionToken);
   const stapleItems = shoppingListItems.filter(item => item.get('stapleItem')).groupBy(item => item.get('stapleItemId'));
@@ -106,7 +110,7 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, sessionTo
 export const getUserDefaultShoppingListItems = async (searchArgs, dataLoaders, sessionToken) => {
   const shoppingListId = await getUserDefaultShoppingListId(dataLoaders, sessionToken);
 
-  return getShoppingListItems(searchArgs, shoppingListId, sessionToken);
+  return getShoppingListItems(searchArgs, shoppingListId, dataLoaders, sessionToken);
 };
 
 export default connectionDefinitions({
