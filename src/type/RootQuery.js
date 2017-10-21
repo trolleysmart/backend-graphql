@@ -16,7 +16,7 @@ export default new GraphQLObjectType({
         const userLoaderBySessionToken = createUserLoaderBySessionToken();
         const userId = (await userLoaderBySessionToken.load(request.headers.authorization)).id;
 
-        return Map({ id: userId, userLoaderBySessionToken });
+        return Map({ id: userId, dataLoaders: Map({ userLoaderBySessionToken }) });
       },
     },
     viewer: {

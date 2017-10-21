@@ -14,7 +14,7 @@ const getAllShoppingListItemsContainProvidedStapleItem = async (stapleItemId, sh
 
 export const getShoppingListById = async (id, sessionToken) => new ShoppingListService().read(id, null, sessionToken);
 
-export const removeItemsFromShoppingList = async (shoppingListItemIds, userLoaderBySessionToken, shoppingListId, sessionToken) => {
+export const removeItemsFromShoppingList = async (shoppingListItemIds, dataLoaders, shoppingListId, sessionToken) => {
   if (shoppingListItemIds.isEmpty()) {
     return;
   }
@@ -45,7 +45,7 @@ export const removeItemsFromShoppingList = async (shoppingListItemIds, userLoade
       .toArray();
     const itemsToRemove = Immutable.fromJS(await Promise.all(itemsToRemovePromises)).flatMap(_ => _);
 
-    const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
+    const userId = (await dataLoaders.get('userLoaderBySessionToken').load(sessionToken)).id;
     await Promise.all(itemsToRemove.map(item => shoppingListItemService.update(item.set('removedByUserId', userId), sessionToken)).toArray());
   }
 
@@ -55,13 +55,13 @@ export const removeItemsFromShoppingList = async (shoppingListItemIds, userLoade
       .toArray();
     const itemsToRemove = Immutable.fromJS(await Promise.all(itemsToRemovePromises)).flatMap(_ => _);
 
-    const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
+    const userId = (await dataLoaders.get('userLoaderBySessionToken').load(sessionToken)).id;
     await Promise.all(itemsToRemove.map(item => shoppingListItemService.update(item.set('removedByUserId', userId), sessionToken)).toArray());
   }
 };
 
-export const addShoppingList = async (name, userLoaderBySessionToken, sessionToken) => {
-  const user = await userLoaderBySessionToken.load(sessionToken);
+export const addShoppingList = async (name, dataLoaders, sessionToken) => {
+  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
 
   return new ShoppingListService().create(Map({ name, user, status: 'A' }), ParseWrapperService.createACL(user), sessionToken);
 };
@@ -84,8 +84,8 @@ export const removeShoppingList = async (shoppingListId, sessionToken) => {
   return shoppingListService.update(shoppingList.set('status', 'I'), sessionToken);
 };
 
-export const setUserDefaultShoppingList = async (shoppingListId, userLoaderBySessionToken, sessionToken) => {
-  const user = await userLoaderBySessionToken.load(sessionToken);
+export const setUserDefaultShoppingList = async (shoppingListId, dataLoaders, sessionToken) => {
+  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
   const defaultShoppingListService = new DefaultShoppingListService();
   const defaultShoppingLists = await defaultShoppingListService.search(Map({ conditions: Map({ userId: user.id }) }), sessionToken);
 

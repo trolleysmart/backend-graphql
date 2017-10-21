@@ -103,8 +103,8 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, sessionTo
   };
 };
 
-export const getUserDefaultShoppingListItems = async (searchArgs, userLoaderBySessionToken, sessionToken) => {
-  const shoppingListId = await getUserDefaultShoppingListId(userLoaderBySessionToken, sessionToken);
+export const getUserDefaultShoppingListItems = async (searchArgs, dataLoaders, sessionToken) => {
+  const shoppingListId = await getUserDefaultShoppingListId(dataLoaders, sessionToken);
 
   return getShoppingListItems(searchArgs, shoppingListId, sessionToken);
 };

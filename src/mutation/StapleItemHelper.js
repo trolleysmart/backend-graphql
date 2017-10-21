@@ -46,12 +46,12 @@ const addStapleItemToShoppingList = async (stapleItemId, userId, shoppingListId,
   );
 };
 
-export const addStapleItemsToShoppingList = async (stapleItemIds, userLoaderBySessionToken, shoppingListId, sessionToken) => {
+export const addStapleItemsToShoppingList = async (stapleItemIds, dataLoaders, shoppingListId, sessionToken) => {
   if (stapleItemIds.isEmpty()) {
     return List();
   }
 
-  const user = await userLoaderBySessionToken.load(sessionToken);
+  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
   const acl = ParseWrapperService.createACL(user);
   const stapleItemIdsWithoutDuplicate = stapleItemIds
     .groupBy(_ => _)
@@ -63,7 +63,7 @@ export const addStapleItemsToShoppingList = async (stapleItemIds, userLoaderBySe
     .toArray()));
 };
 
-export const addNewStapleItemsToShoppingList = async (names, userLoaderBySessionToken, shoppingListId, sessionToken) => {
+export const addNewStapleItemsToShoppingList = async (names, dataLoaders, shoppingListId, sessionToken) => {
   if (names.isEmpty()) {
     return List();
   }
@@ -79,7 +79,7 @@ export const addNewStapleItemsToShoppingList = async (names, userLoaderBySession
     return List();
   }
 
-  const user = await userLoaderBySessionToken.load(sessionToken);
+  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
   const acl = ParseWrapperService.createACL(user);
   const stapleItemService = new StapleItemService();
 

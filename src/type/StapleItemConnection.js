@@ -30,8 +30,8 @@ const getStapleItemsMatchCriteria = async (searchArgs, userId, sessionToken, lim
     sessionToken,
   );
 
-export const getStapleItems = async (searchArgs, userLoaderBySessionToken, sessionToken) => {
-  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
+export const getStapleItems = async (searchArgs, dataLoaders, sessionToken) => {
+  const userId = (await dataLoaders.get('userLoaderBySessionToken').load(sessionToken)).id;
   const finalSearchArgs = searchArgs.merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
     ? Map({ tagIds: Immutable.fromJS(await tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')) })
     : Map());

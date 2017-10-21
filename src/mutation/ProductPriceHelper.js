@@ -25,12 +25,12 @@ const addProductPriceToShoppingList = async (productPriceId, userId, shoppingLis
   );
 };
 
-const addProductPricesToShoppingList = async (productPriceIds, userLoaderBySessionToken, shoppingListId, sessionToken) => {
+const addProductPricesToShoppingList = async (productPriceIds, dataLoaders, shoppingListId, sessionToken) => {
   if (productPriceIds.isEmpty()) {
     return List();
   }
 
-  const user = await userLoaderBySessionToken.load(sessionToken);
+  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
   const acl = ParseWrapperService.createACL(user);
   const productPriceIdsWithoutDuplicate = productPriceIds
     .groupBy(_ => _)

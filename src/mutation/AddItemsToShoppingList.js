@@ -38,13 +38,13 @@ export default mutationWithClientMutationId({
 
       const finalProductPriceIds = productPriceIds ? Immutable.fromJS(productPriceIds) : List();
       const finalStapleItemIds = stapleItemIds ? Immutable.fromJS(stapleItemIds) : List();
-      const userLoaderBySessionToken = createUserLoaderBySessionToken();
+      const dataLoaders = Map({ userLoaderBySessionToken: createUserLoaderBySessionToken() });
       const newShoppingListItemIds = Immutable.fromJS((await Promise.all([
-        addProductPricesToShoppingList(finalProductPriceIds, userLoaderBySessionToken, shoppingListId, sessionToken),
-        addStapleItemsToShoppingList(finalStapleItemIds, userLoaderBySessionToken, shoppingListId, sessionToken),
+        addProductPricesToShoppingList(finalProductPriceIds, dataLoaders, shoppingListId, sessionToken),
+        addStapleItemsToShoppingList(finalStapleItemIds, dataLoaders, shoppingListId, sessionToken),
         addNewStapleItemsToShoppingList(
           newStapleItemNames ? Immutable.fromJS(newStapleItemNames) : List(),
-          userLoaderBySessionToken,
+          dataLoaders,
           shoppingListId,
           sessionToken,
         ),

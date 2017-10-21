@@ -29,10 +29,10 @@ export default mutationWithClientMutationId({
 
       await updateShoppingList(shoppingListId, name, sessionToken);
 
-      const userLoaderBySessionToken = createUserLoaderBySessionToken();
+      const dataLoaders = Map({ userLoaderBySessionToken: createUserLoaderBySessionToken() });
 
       return Map({
-        shoppingList: (await getShoppingLists(Map({ shoppingListIds: List.of(shoppingListId) }), userLoaderBySessionToken, sessionToken)).edges[0],
+        shoppingList: (await getShoppingLists(Map({ shoppingListIds: List.of(shoppingListId) }), dataLoaders, sessionToken)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

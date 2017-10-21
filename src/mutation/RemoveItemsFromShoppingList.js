@@ -25,11 +25,11 @@ export default mutationWithClientMutationId({
       // Trying to read the shopping list to make sure user has access to...
       await getShoppingListById(shoppingListId, sessionToken);
 
-      const userLoaderBySessionToken = createUserLoaderBySessionToken();
+      const dataLoaders = Map({ userLoaderBySessionToken: createUserLoaderBySessionToken() });
 
       await removeItemsFromShoppingList(
         shoppingListItemIds ? Immutable.fromJS(shoppingListItemIds) : List(),
-        userLoaderBySessionToken,
+        dataLoaders,
         shoppingListId,
         sessionToken,
       );
