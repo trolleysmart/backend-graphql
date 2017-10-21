@@ -14,8 +14,6 @@ var _type = require('../type');
 
 var _ShoppingListHelper = require('./ShoppingListHelper');
 
-var _loader = require('../loader');
-
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
@@ -39,10 +37,12 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     }
   },
   mutateAndGetPayload: function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, request) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
       var shoppingListId = _ref2.shoppingListId,
           name = _ref2.name;
-      var sessionToken, dataLoaders;
+      var request = _ref3.request,
+          dataLoaders = _ref3.dataLoaders;
+      var sessionToken;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -53,29 +53,28 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
               return (0, _ShoppingListHelper.updateShoppingList)(shoppingListId, name, sessionToken);
 
             case 4:
-              dataLoaders = (0, _immutable.Map)({ userLoaderBySessionToken: (0, _loader.createUserLoaderBySessionToken)() });
               _context.t0 = _immutable.Map;
-              _context.next = 8;
+              _context.next = 7;
               return (0, _type.getShoppingLists)((0, _immutable.Map)({ shoppingListIds: _immutable.List.of(shoppingListId) }), dataLoaders, sessionToken);
 
-            case 8:
+            case 7:
               _context.t1 = _context.sent.edges[0];
               _context.t2 = {
                 shoppingList: _context.t1
               };
               return _context.abrupt('return', (0, _context.t0)(_context.t2));
 
-            case 13:
-              _context.prev = 13;
+            case 12:
+              _context.prev = 12;
               _context.t3 = _context['catch'](0);
               return _context.abrupt('return', (0, _immutable.Map)({ errorMessage: _context.t3 instanceof Error ? _context.t3.message : _context.t3 }));
 
-            case 16:
+            case 15:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 13]]);
+      }, _callee, undefined, [[0, 12]]);
     }));
 
     return function mutateAndGetPayload(_x, _x2) {

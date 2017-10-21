@@ -14,8 +14,6 @@ var _graphqlRelay = require('graphql-relay');
 
 var _ShoppingListHelper = require('./ShoppingListHelper');
 
-var _loader = require('../loader');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -35,10 +33,12 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     }
   },
   mutateAndGetPayload: function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, request) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
       var shoppingListId = _ref2.shoppingListId,
           shoppingListItemIds = _ref2.shoppingListItemIds;
-      var sessionToken, dataLoaders;
+      var request = _ref3.request,
+          dataLoaders = _ref3.dataLoaders;
+      var sessionToken;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -52,24 +52,23 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
               return (0, _ShoppingListHelper.getShoppingListById)(shoppingListId, sessionToken);
 
             case 4:
-              dataLoaders = (0, _immutable.Map)({ userLoaderBySessionToken: (0, _loader.createUserLoaderBySessionToken)() });
-              _context.next = 7;
+              _context.next = 6;
               return (0, _ShoppingListHelper.removeItemsFromShoppingList)(shoppingListItemIds ? _immutable2.default.fromJS(shoppingListItemIds) : (0, _immutable.List)(), dataLoaders, shoppingListId, sessionToken);
 
-            case 7:
+            case 6:
               return _context.abrupt('return', (0, _immutable.Map)());
 
-            case 10:
-              _context.prev = 10;
+            case 9:
+              _context.prev = 9;
               _context.t0 = _context['catch'](0);
               return _context.abrupt('return', (0, _immutable.Map)({ errorMessage: _context.t0 instanceof Error ? _context.t0.message : _context.t0 }));
 
-            case 13:
+            case 12:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 10]]);
+      }, _callee, undefined, [[0, 9]]);
     }));
 
     return function mutateAndGetPayload(_x, _x2) {

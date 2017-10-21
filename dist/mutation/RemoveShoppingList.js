@@ -28,8 +28,9 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     }
   },
   mutateAndGetPayload: function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, request) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
       var shoppingListId = _ref2.shoppingListId;
+      var request = _ref3.request;
       var sessionToken;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {

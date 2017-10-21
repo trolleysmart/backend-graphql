@@ -176,7 +176,8 @@ exports.default = new _graphql.GraphQLObjectType({
     totalItemsCount: {
       type: _graphql.GraphQLInt,
       resolve: function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, request) {
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref6) {
+          var request = _ref6.request;
           return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
@@ -217,7 +218,8 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, request) {
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref8) {
+          var request = _ref8.request;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
@@ -233,7 +235,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x12, _x13, _x14) {
-          return _ref6.apply(this, arguments);
+          return _ref7.apply(this, arguments);
         };
       }()
     }

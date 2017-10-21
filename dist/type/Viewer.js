@@ -51,7 +51,8 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, request) {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, _ref2) {
+          var request = _ref2.request;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
@@ -79,7 +80,8 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, request) {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref4) {
+          var request = _ref4.request;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
@@ -95,7 +97,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x4, _x5, _x6) {
-          return _ref2.apply(this, arguments);
+          return _ref3.apply(this, arguments);
         };
       }()
     }

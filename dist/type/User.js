@@ -64,12 +64,14 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, request) {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, _ref2) {
+          var request = _ref2.request,
+              dataLoaders = _ref2.dataLoaders;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  return _context.abrupt('return', (0, _ShoppingListConnection.getShoppingLists)(_immutable2.default.fromJS(args), _.get('dataLoaders'), request.headers.authorization));
+                  return _context.abrupt('return', (0, _ShoppingListConnection.getShoppingLists)(_immutable2.default.fromJS(args), dataLoaders, request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -87,12 +89,14 @@ exports.default = new _graphql.GraphQLObjectType({
     defaultShoppingList: {
       type: _ShoppingList2.default,
       resolve: function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, request) {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref4) {
+          var request = _ref4.request,
+              dataLoaders = _ref4.dataLoaders;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', (0, _ShoppingList.getUserDefaultShoppingList)(_.get('dataLoaders'), request.headers.authorization));
+                  return _context2.abrupt('return', (0, _ShoppingList.getUserDefaultShoppingList)(dataLoaders, request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -103,7 +107,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x4, _x5, _x6) {
-          return _ref2.apply(this, arguments);
+          return _ref3.apply(this, arguments);
         };
       }()
     },
@@ -115,8 +119,9 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       },
       resolve: function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref4, request) {
-          var shoppingListId = _ref4.shoppingListId;
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref6, _ref7) {
+          var shoppingListId = _ref6.shoppingListId;
+          var request = _ref7.request;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
@@ -132,7 +137,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x7, _x8, _x9) {
-          return _ref3.apply(this, arguments);
+          return _ref5.apply(this, arguments);
         };
       }()
     },
@@ -153,12 +158,14 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, request) {
+        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref9) {
+          var request = _ref9.request,
+              dataLoaders = _ref9.dataLoaders;
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', (0, _ShoppingListItemConnection.getUserDefaultShoppingListItems)(_immutable2.default.fromJS(args), _.get('dataLoaders'), request.headers.authorization));
+                  return _context4.abrupt('return', (0, _ShoppingListItemConnection.getUserDefaultShoppingListItems)(_immutable2.default.fromJS(args), dataLoaders, request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -169,7 +176,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x10, _x11, _x12) {
-          return _ref5.apply(this, arguments);
+          return _ref8.apply(this, arguments);
         };
       }()
     },
@@ -193,7 +200,8 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, request) {
+        var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref11) {
+          var request = _ref11.request;
           return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
@@ -209,7 +217,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x13, _x14, _x15) {
-          return _ref6.apply(this, arguments);
+          return _ref10.apply(this, arguments);
         };
       }()
     },
@@ -224,12 +232,14 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, request) {
+        var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref13) {
+          var request = _ref13.request,
+              dataLoaders = _ref13.dataLoaders;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), _.get('dataLoaders'), request.headers.authorization));
+                  return _context6.abrupt('return', (0, _StapleItemConnection.getStapleItems)(_immutable2.default.fromJS(args), dataLoaders, request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -240,7 +250,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x16, _x17, _x18) {
-          return _ref7.apply(this, arguments);
+          return _ref12.apply(this, arguments);
         };
       }()
     },
@@ -267,12 +277,14 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, request) {
+        var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, _ref15) {
+          var request = _ref15.request,
+              dataLoaders = _ref15.dataLoaders;
           return regeneratorRuntime.wrap(function _callee7$(_context7) {
             while (1) {
               switch (_context7.prev = _context7.next) {
                 case 0:
-                  return _context7.abrupt('return', (0, _ProductConnection.getProducts)(_immutable2.default.fromJS(args), _.get('dataLoaders'), request.headers.authorization));
+                  return _context7.abrupt('return', (0, _ProductConnection.getProducts)(_immutable2.default.fromJS(args), dataLoaders, request.headers.authorization));
 
                 case 1:
                 case 'end':
@@ -283,7 +295,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x19, _x20, _x21) {
-          return _ref8.apply(this, arguments);
+          return _ref14.apply(this, arguments);
         };
       }()
     },
@@ -295,8 +307,9 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       },
       resolve: function () {
-        var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, _ref10, request) {
-          var productId = _ref10.productId;
+        var _ref16 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, _ref17, _ref18) {
+          var productId = _ref17.productId;
+          var request = _ref18.request;
           return regeneratorRuntime.wrap(function _callee8$(_context8) {
             while (1) {
               switch (_context8.prev = _context8.next) {
@@ -312,7 +325,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x22, _x23, _x24) {
-          return _ref9.apply(this, arguments);
+          return _ref16.apply(this, arguments);
         };
       }()
     }
