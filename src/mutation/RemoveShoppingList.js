@@ -16,7 +16,7 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('errorMessage'),
     },
   },
-  mutateAndGetPayload: async ({ shoppingListId }, request) => {
+  mutateAndGetPayload: async ({ shoppingListId }, { request }) => {
     try {
       const sessionToken = request.headers.authorization;
 

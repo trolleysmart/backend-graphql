@@ -4,7 +4,6 @@ import Immutable, { List, Map } from 'immutable';
 import { GraphQLID, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import { getShoppingListById, removeItemsFromShoppingList } from './ShoppingListHelper';
-import { createUserLoaderBySessionToken } from '../loader';
 
 export default mutationWithClientMutationId({
   name: 'RemoveItemsFromShoppingList',
@@ -18,14 +17,12 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('errorMessage'),
     },
   },
-  mutateAndGetPayload: async ({ shoppingListId, shoppingListItemIds }, request) => {
+  mutateAndGetPayload: async ({ shoppingListId, shoppingListItemIds }, { request, dataLoaders }) => {
     try {
       const sessionToken = request.headers.authorization;
 
       // Trying to read the shopping list to make sure user has access to...
       await getShoppingListById(shoppingListId, sessionToken);
-
-      const dataLoaders = Map({ userLoaderBySessionToken: createUserLoaderBySessionToken() });
 
       await removeItemsFromShoppingList(
         shoppingListItemIds ? Immutable.fromJS(shoppingListItemIds) : List(),

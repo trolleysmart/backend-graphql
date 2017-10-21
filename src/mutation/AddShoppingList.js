@@ -5,7 +5,6 @@ import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import { ShoppingListConnection, getShoppingLists } from '../type';
 import { addShoppingList } from './ShoppingListHelper';
-import { createUserLoaderBySessionToken } from '../loader';
 
 export default mutationWithClientMutationId({
   name: 'AddShoppingList',
@@ -22,10 +21,9 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('shoppingList'),
     },
   },
-  mutateAndGetPayload: async ({ name }, request) => {
+  mutateAndGetPayload: async ({ name }, { request, dataLoaders }) => {
     try {
       const sessionToken = request.headers.authorization;
-      const dataLoaders = Map({ userLoaderBySessionToken: createUserLoaderBySessionToken() });
       const shoppingListId = await addShoppingList(name, dataLoaders, sessionToken);
 
       return Map({

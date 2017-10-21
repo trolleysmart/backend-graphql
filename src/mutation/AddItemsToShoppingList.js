@@ -7,7 +7,6 @@ import { ShoppingListItemConnection, getShoppingListItems } from '../type';
 import { getShoppingListById } from './ShoppingListHelper';
 import addProductPricesToShoppingList from './ProductPriceHelper';
 import { addStapleItemsToShoppingList, addNewStapleItemsToShoppingList } from './StapleItemHelper';
-import { createUserLoaderBySessionToken } from '../loader';
 
 export default mutationWithClientMutationId({
   name: 'AddItemsToShoppingList',
@@ -29,7 +28,7 @@ export default mutationWithClientMutationId({
   },
   mutateAndGetPayload: async ({
     shoppingListId, productPriceIds, stapleItemIds, newStapleItemNames,
-  }, request) => {
+  }, { request, dataLoaders }) => {
     try {
       const sessionToken = request.headers.authorization;
 
@@ -38,7 +37,6 @@ export default mutationWithClientMutationId({
 
       const finalProductPriceIds = productPriceIds ? Immutable.fromJS(productPriceIds) : List();
       const finalStapleItemIds = stapleItemIds ? Immutable.fromJS(stapleItemIds) : List();
-      const dataLoaders = Map({ userLoaderBySessionToken: createUserLoaderBySessionToken() });
       const newShoppingListItemIds = Immutable.fromJS((await Promise.all([
         addProductPricesToShoppingList(finalProductPriceIds, dataLoaders, shoppingListId, sessionToken),
         addStapleItemsToShoppingList(finalStapleItemIds, dataLoaders, shoppingListId, sessionToken),

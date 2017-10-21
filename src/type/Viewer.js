@@ -28,7 +28,7 @@ export default new GraphQLObjectType({
           type: GraphQLBoolean,
         },
       },
-      resolve: async (_, args, request) => getTags(Immutable.fromJS(args), request.headers.authorization),
+      resolve: async (_, args, { request }) => getTags(Immutable.fromJS(args), request.headers.authorization),
     },
     stores: {
       type: StoreConnection.connectionType,
@@ -38,7 +38,7 @@ export default new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: async (_, args, request) => getStores(Immutable.fromJS(args), request.headers.authorization),
+      resolve: async (_, args, { request }) => getStores(Immutable.fromJS(args), request.headers.authorization),
     },
   },
   interfaces: [NodeInterface],

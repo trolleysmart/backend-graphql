@@ -5,19 +5,16 @@ import { GraphQLObjectType } from 'graphql';
 import ViewerType from './Viewer';
 import UserType from './User';
 import { NodeField } from '../interface';
-import { createConfigLoader, createUserLoaderBySessionToken } from '../loader';
 
 export default new GraphQLObjectType({
   name: 'Query',
   fields: {
     user: {
       type: UserType,
-      resolve: async (_, args, request) => {
-        const configLoader = createConfigLoader();
-        const userLoaderBySessionToken = createUserLoaderBySessionToken();
-        const userId = (await userLoaderBySessionToken.load(request.headers.authorization)).id;
+      resolve: async (_, args, { request, dataLoaders }) => {
+        const userId = (await dataLoaders.get('userLoaderBySessionToken').load(request.headers.authorization)).id;
 
-        return Map({ id: userId, dataLoaders: Map({ configLoader, userLoaderBySessionToken }) });
+        return Map({ id: userId });
       },
     },
     viewer: {

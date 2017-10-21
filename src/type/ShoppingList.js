@@ -47,7 +47,7 @@ export default new GraphQLObjectType({
     },
     totalItemsCount: {
       type: GraphQLInt,
-      resolve: async (_, args, request) => (await getShoppingListItems(Map({ first: 1000 }), _.get('id'), request.headers.authorization)).count,
+      resolve: async (_, args, { request }) => (await getShoppingListItems(Map({ first: 1000 }), _.get('id'), request.headers.authorization)).count,
     },
     shoppingListItems: {
       type: ShoppingListItemConnection.connectionType,
@@ -66,7 +66,7 @@ export default new GraphQLObjectType({
           type: new GraphQLList(GraphQLString),
         },
       },
-      resolve: async (_, args, request) => getShoppingListItems(Immutable.fromJS(args), _.get('id'), request.headers.authorization),
+      resolve: async (_, args, { request }) => getShoppingListItems(Immutable.fromJS(args), _.get('id'), request.headers.authorization),
     },
   },
   interfaces: [NodeInterface],
