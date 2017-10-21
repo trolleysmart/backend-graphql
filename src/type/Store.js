@@ -20,7 +20,20 @@ const ParentStore = new GraphQLObjectType({
     },
     imageUrl: {
       type: GraphQLString,
-      resolve: _ => _.get('imageUrl'),
+      resolve: async (_, args, { dataLoaders }) => {
+        if (!_.has('id')) {
+          return '';
+        }
+
+        const storeKey = (await dataLoaders.get('storeLoaderById').load(_.get('id'))).get('key');
+        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+
+        if (productSearchConfig.get('storesKeyToExcludeStoreLogos').find(key => key.localeCompare(storeKey) === 0)) {
+          return '';
+        }
+
+        return _.get('imageUrl');
+      },
     },
     address: {
       type: GraphQLString,
@@ -47,7 +60,20 @@ export default new GraphQLObjectType({
     },
     imageUrl: {
       type: GraphQLString,
-      resolve: _ => _.get('imageUrl'),
+      resolve: async (_, args, { dataLoaders }) => {
+        if (!_.has('id')) {
+          return '';
+        }
+
+        const storeKey = (await dataLoaders.get('storeLoaderById').load(_.get('id'))).get('key');
+        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+
+        if (productSearchConfig.get('storesKeyToExcludeStoreLogos').find(key => key.localeCompare(storeKey) === 0)) {
+          return '';
+        }
+
+        return _.get('imageUrl');
+      },
     },
     address: {
       type: GraphQLString,
