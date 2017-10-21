@@ -91,7 +91,7 @@ exports.default = new _graphql.GraphQLObjectType({
                   return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
 
                 case 4:
-                  storeKey = _context2.sent;
+                  storeKey = _context2.sent.get('key');
                   _context2.next = 7;
                   return dataLoaders.get('configLoader').load('productSearch');
 
@@ -145,7 +145,7 @@ exports.default = new _graphql.GraphQLObjectType({
                   return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
 
                 case 4:
-                  storeKey = _context3.sent;
+                  storeKey = _context3.sent.get('key');
                   _context3.next = 7;
                   return dataLoaders.get('configLoader').load('productSearch');
 
@@ -211,7 +211,7 @@ exports.default = new _graphql.GraphQLObjectType({
                   return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
 
                 case 4:
-                  storeKey = _context4.sent;
+                  storeKey = _context4.sent.get('key');
                   _context4.next = 7;
                   return dataLoaders.get('configLoader').load('productSearch');
 
