@@ -29,11 +29,11 @@ export default new GraphQLObjectType({
           type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
       },
-      resolve: async (_, args, { request, dataLoaders }) => getShoppingLists(Immutable.fromJS(args), dataLoaders, request.headers.authorization),
+      resolve: async (_, args, { sessionToken, dataLoaders }) => getShoppingLists(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
     defaultShoppingList: {
       type: ShoppingList,
-      resolve: async (_, args, { request, dataLoaders }) => getUserDefaultShoppingList(dataLoaders, request.headers.authorization),
+      resolve: async (_, args, { sessionToken, dataLoaders }) => getUserDefaultShoppingList(dataLoaders, sessionToken),
     },
     shoppingList: {
       type: ShoppingList,
@@ -42,7 +42,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { shoppingListId }, { request }) => getShoppingList(shoppingListId, request.headers.authorization),
+      resolve: async (_, { shoppingListId }, { sessionToken }) => getShoppingList(shoppingListId, sessionToken),
     },
     defaultShoppingListItems: {
       type: ShoppingListItemConnection.connectionType,
@@ -61,8 +61,7 @@ export default new GraphQLObjectType({
           type: new GraphQLList(GraphQLString),
         },
       },
-      resolve: async (_, args, { request, dataLoaders }) =>
-        getUserDefaultShoppingListItems(Immutable.fromJS(args), dataLoaders, request.headers.authorization),
+      resolve: async (_, args, { sessionToken, dataLoaders }) => getUserDefaultShoppingListItems(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
     shoppingListItems: {
       type: ShoppingListItemConnection.connectionType,
@@ -84,8 +83,8 @@ export default new GraphQLObjectType({
           type: new GraphQLList(GraphQLString),
         },
       },
-      resolve: async (_, args, { request, dataLoaders }) =>
-        getShoppingListItems(Immutable.fromJS(args), args.shoppingListId, dataLoaders, request.headers.authorization),
+      resolve: async (_, args, { sessionToken, dataLoaders }) =>
+        getShoppingListItems(Immutable.fromJS(args), args.shoppingListId, dataLoaders, sessionToken),
     },
     stapleItems: {
       type: StapleItemConnection.connectionType,
@@ -98,7 +97,7 @@ export default new GraphQLObjectType({
           type: new GraphQLList(GraphQLString),
         },
       },
-      resolve: async (_, args, { request, dataLoaders }) => getStapleItems(Immutable.fromJS(args), dataLoaders, request.headers.authorization),
+      resolve: async (_, args, { sessionToken, dataLoaders }) => getStapleItems(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
     products: {
       type: ProductConnection.connectionType,
@@ -123,7 +122,7 @@ export default new GraphQLObjectType({
           type: GraphQLBoolean,
         },
       },
-      resolve: async (_, args, { request, dataLoaders }) => getProducts(Immutable.fromJS(args), dataLoaders, request.headers.authorization),
+      resolve: async (_, args, { sessionToken, dataLoaders }) => getProducts(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
     product: {
       type: Product,
@@ -132,7 +131,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { productId }, { request }) => getProduct(productId, request.headers.authorization),
+      resolve: async (_, { productId }, { sessionToken }) => getProduct(productId, sessionToken),
     },
   },
   interfaces: [NodeInterface],

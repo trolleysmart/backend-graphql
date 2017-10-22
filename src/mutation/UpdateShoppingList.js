@@ -22,10 +22,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('shoppingList'),
     },
   },
-  mutateAndGetPayload: async ({ shoppingListId, name }, { request, dataLoaders }) => {
+  mutateAndGetPayload: async ({ shoppingListId, name }, { sessionToken, dataLoaders }) => {
     try {
-      const sessionToken = request.headers.authorization;
-
       await updateShoppingList(shoppingListId, name, sessionToken);
 
       return Map({

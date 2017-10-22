@@ -16,10 +16,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('errorMessage'),
     },
   },
-  mutateAndGetPayload: async ({ shoppingListId }, { request }) => {
+  mutateAndGetPayload: async ({ shoppingListId }, { sessionToken }) => {
     try {
-      const sessionToken = request.headers.authorization;
-
       await removeShoppingList(shoppingListId, sessionToken);
 
       return Map();

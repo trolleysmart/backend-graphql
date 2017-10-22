@@ -28,10 +28,8 @@ export default mutationWithClientMutationId({
   },
   mutateAndGetPayload: async ({
     shoppingListId, productPriceIds, stapleItemIds, newStapleItemNames,
-  }, { request, dataLoaders }) => {
+  }, { sessionToken, dataLoaders }) => {
     try {
-      const sessionToken = request.headers.authorization;
-
       // Trying to read the shopping list to make sure user has access to...
       await getShoppingListById(shoppingListId, sessionToken);
 

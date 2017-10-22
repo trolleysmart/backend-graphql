@@ -17,10 +17,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('errorMessage'),
     },
   },
-  mutateAndGetPayload: async ({ shoppingListId, shoppingListItemIds }, { request, dataLoaders }) => {
+  mutateAndGetPayload: async ({ shoppingListId, shoppingListItemIds }, { sessionToken, dataLoaders }) => {
     try {
-      const sessionToken = request.headers.authorization;
-
       // Trying to read the shopping list to make sure user has access to...
       await getShoppingListById(shoppingListId, sessionToken);
 

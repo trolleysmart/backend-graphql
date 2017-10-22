@@ -20,10 +20,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('shoppingListItems'),
     },
   },
-  mutateAndGetPayload: async ({ shoppingListId }, { request, dataLoaders }) => {
+  mutateAndGetPayload: async ({ shoppingListId }, { sessionToken, dataLoaders }) => {
     try {
-      const sessionToken = request.headers.authorization;
-
       await setUserDefaultShoppingList(shoppingListId, dataLoaders, sessionToken);
 
       const shoppingListItems = (await getShoppingListItems(Map({ first: 1000 }), shoppingListId, dataLoaders, sessionToken)).edges;

@@ -11,8 +11,8 @@ export default new GraphQLObjectType({
   fields: {
     user: {
       type: UserType,
-      resolve: async (_, args, { request, dataLoaders }) => {
-        const userId = (await dataLoaders.userLoaderBySessionToken.load(request.headers.authorization)).id;
+      resolve: async (_, args, { sessionToken, dataLoaders }) => {
+        const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
 
         return Map({ id: userId });
       },

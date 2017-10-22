@@ -17,9 +17,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('errorMessage'),
     },
   },
-  mutateAndGetPayload: async ({ feedback }, { request, dataLoaders }) => {
+  mutateAndGetPayload: async ({ feedback }, { sessionToken, dataLoaders }) => {
     try {
-      const sessionToken = request.headers.authorization;
       const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
       const acl = ParseWrapperService.createACL(user);
 
