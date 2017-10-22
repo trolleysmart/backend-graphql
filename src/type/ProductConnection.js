@@ -5,6 +5,7 @@ import { connectionDefinitions } from 'graphql-relay';
 import { ProductPriceService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import Product from './Product';
+import { getAllStoresToFilterBy } from './Store';
 
 const getCriteria = async (searchArgs, dataLoaders) => {
   const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
@@ -85,8 +86,7 @@ export const getProducts = async (searchArgs, dataLoaders, sessionToken) => {
   const finalSearchArgs = searchArgs
     .merge(searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
       ? Map({
-        storeIds: Immutable.fromJS(await dataLoaders.get('storeLoaderByKey').loadMany(searchArgs.get('storeKeys').toJS())).map(store =>
-          store.get('id')),
+        storeIds: (await getAllStoresToFilterBy(searchArgs.get('storeKeys'), dataLoaders)).map(store => store.get('id')),
       })
       : Map())
     .merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')

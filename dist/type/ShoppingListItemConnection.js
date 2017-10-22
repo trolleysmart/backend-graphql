@@ -21,6 +21,8 @@ var _ShoppingListItem2 = _interopRequireDefault(_ShoppingListItem);
 
 var _ShoppingList = require('./ShoppingList');
 
+var _Store = require('./Store');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -111,72 +113,69 @@ var getShoppingListItems = exports.getShoppingListItems = function () {
             _context2.t1 = searchArgs;
 
             if (!(searchArgs.has('storeKeys') && searchArgs.get('storeKeys'))) {
-              _context2.next = 15;
+              _context2.next = 13;
               break;
             }
 
             _context2.t3 = _immutable.Map;
-            _context2.t4 = _immutable2.default;
-            _context2.next = 8;
-            return dataLoaders.get('storeLoaderByKey').loadMany(searchArgs.get('storeKeys').toJS());
+            _context2.next = 7;
+            return (0, _Store.getAllStoresToFilterBy)(searchArgs.get('storeKeys'), dataLoaders);
 
-          case 8:
-            _context2.t5 = _context2.sent;
-
-            _context2.t6 = function (store) {
+          case 7:
+            _context2.t4 = function (store) {
               return store.get('id');
             };
 
-            _context2.t7 = _context2.t4.fromJS.call(_context2.t4, _context2.t5).map(_context2.t6);
-            _context2.t8 = {
-              storeIds: _context2.t7
+            _context2.t5 = _context2.sent.map(_context2.t4);
+            _context2.t6 = {
+              storeIds: _context2.t5
             };
-            _context2.t2 = (0, _context2.t3)(_context2.t8);
-            _context2.next = 16;
+            _context2.t2 = (0, _context2.t3)(_context2.t6);
+            _context2.next = 14;
             break;
 
-          case 15:
+          case 13:
             _context2.t2 = (0, _immutable.Map)();
 
-          case 16:
-            _context2.t9 = _context2.t2;
-            _context2.t0 = _context2.t1.merge.call(_context2.t1, _context2.t9);
+          case 14:
+            _context2.t7 = _context2.t2;
+            _context2.t0 = _context2.t1.merge.call(_context2.t1, _context2.t7);
 
             if (!(searchArgs.has('tagKeys') && searchArgs.get('tagKeys'))) {
-              _context2.next = 30;
+              _context2.next = 28;
               break;
             }
 
-            _context2.t11 = _immutable.Map;
-            _context2.t12 = _immutable2.default;
-            _context2.next = 23;
+            _context2.t9 = _immutable.Map;
+            _context2.t10 = _immutable2.default;
+            _context2.next = 21;
             return dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS());
 
-          case 23:
-            _context2.t13 = _context2.sent;
+          case 21:
+            _context2.t11 = _context2.sent;
 
-            _context2.t14 = function (tag) {
+            _context2.t12 = function (tag) {
               return tag.get('id');
             };
 
-            _context2.t15 = _context2.t12.fromJS.call(_context2.t12, _context2.t13).map(_context2.t14);
-            _context2.t16 = {
-              tagIds: _context2.t15
+            _context2.t13 = _context2.t10.fromJS.call(_context2.t10, _context2.t11).map(_context2.t12);
+            _context2.t14 = {
+              tagIds: _context2.t13
             };
-            _context2.t10 = (0, _context2.t11)(_context2.t16);
-            _context2.next = 31;
+            _context2.t8 = (0, _context2.t9)(_context2.t14);
+            _context2.next = 29;
             break;
 
-          case 30:
-            _context2.t10 = (0, _immutable.Map)();
+          case 28:
+            _context2.t8 = (0, _immutable.Map)();
 
-          case 31:
-            _context2.t17 = _context2.t10;
-            finalSearchArgs = _context2.t0.merge.call(_context2.t0, _context2.t17);
-            _context2.next = 35;
+          case 29:
+            _context2.t15 = _context2.t8;
+            finalSearchArgs = _context2.t0.merge.call(_context2.t0, _context2.t15);
+            _context2.next = 33;
             return getShoppingListItemsMatchCriteria(finalSearchArgs, shoppingListId, sessionToken);
 
-          case 35:
+          case 33:
             shoppingListItems = _context2.sent;
             stapleItems = shoppingListItems.filter(function (item) {
               return item.get('stapleItem');
@@ -219,7 +218,7 @@ var getShoppingListItems = exports.getShoppingListItems = function () {
               }
             });
 
-          case 46:
+          case 44:
           case 'end':
             return _context2.stop();
         }

@@ -1,7 +1,46 @@
 // @flow
 
+import { List } from 'immutable';
 import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
+
+const getAllStoresToFilterByUsingId = async (storeIds, dataLoaders) => {
+  if (storeIds.isEmpty()) {
+    return List();
+  }
+
+  let storesToFilterBy = List();
+  const stores = await dataLoaders.get('storeLoaderById').loadMany(storeIds.toJS());
+
+  storesToFilterBy = storesToFilterBy.concat(stores);
+
+  const storesWithParentStores = stores.filter(store => store.get('parentStoreId'));
+
+  if (!storesWithParentStores.isEmpty()) {
+    const storesWithParentToAdd = await getAllStoresToFilterByUsingId(storesWithParentStores.map(store => store.get('id')), dataLoaders);
+
+    storesToFilterBy = storesToFilterBy.concat(storesWithParentToAdd);
+  }
+
+  return storesToFilterBy;
+};
+
+export const getAllStoresToFilterBy = async (storeKeys, dataLoaders) => {
+  let storesToFilterBy = List();
+  const stores = await dataLoaders.get('storeLoaderByKey').loadMany(storeKeys.toJS());
+
+  storesToFilterBy = storesToFilterBy.concat(stores);
+
+  const storesWithParentStores = stores.filter(store => store.get('parentStoreId'));
+
+  if (!storesWithParentStores.isEmpty()) {
+    const storesWithParentToAdd = await getAllStoresToFilterByUsingId(storesWithParentStores.map(store => store.get('id')), dataLoaders);
+
+    storesToFilterBy = storesToFilterBy.concat(storesWithParentToAdd);
+  }
+
+  return storesToFilterBy;
+};
 
 const ParentStore = new GraphQLObjectType({
   name: 'ParentStore',

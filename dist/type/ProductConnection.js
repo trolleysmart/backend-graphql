@@ -19,6 +19,8 @@ var _Product = require('./Product');
 
 var _Product2 = _interopRequireDefault(_Product);
 
+var _Store = require('./Store');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -178,78 +180,75 @@ var getProducts = exports.getProducts = function () {
             _context4.t1 = searchArgs;
 
             if (!(searchArgs.has('storeKeys') && searchArgs.get('storeKeys'))) {
-              _context4.next = 13;
+              _context4.next = 11;
               break;
             }
 
             _context4.t3 = _immutable.Map;
-            _context4.t4 = _immutable2.default;
-            _context4.next = 6;
-            return dataLoaders.get('storeLoaderByKey').loadMany(searchArgs.get('storeKeys').toJS());
+            _context4.next = 5;
+            return (0, _Store.getAllStoresToFilterBy)(searchArgs.get('storeKeys'), dataLoaders);
 
-          case 6:
-            _context4.t5 = _context4.sent;
-
-            _context4.t6 = function (store) {
+          case 5:
+            _context4.t4 = function (store) {
               return store.get('id');
             };
 
-            _context4.t7 = _context4.t4.fromJS.call(_context4.t4, _context4.t5).map(_context4.t6);
-            _context4.t8 = {
-              storeIds: _context4.t7
+            _context4.t5 = _context4.sent.map(_context4.t4);
+            _context4.t6 = {
+              storeIds: _context4.t5
             };
-            _context4.t2 = (0, _context4.t3)(_context4.t8);
-            _context4.next = 14;
+            _context4.t2 = (0, _context4.t3)(_context4.t6);
+            _context4.next = 12;
             break;
 
-          case 13:
+          case 11:
             _context4.t2 = (0, _immutable.Map)();
 
-          case 14:
-            _context4.t9 = _context4.t2;
-            _context4.t0 = _context4.t1.merge.call(_context4.t1, _context4.t9);
+          case 12:
+            _context4.t7 = _context4.t2;
+            _context4.t0 = _context4.t1.merge.call(_context4.t1, _context4.t7);
 
             if (!(searchArgs.has('tagKeys') && searchArgs.get('tagKeys'))) {
-              _context4.next = 28;
+              _context4.next = 26;
               break;
             }
 
-            _context4.t11 = _immutable.Map;
-            _context4.t12 = _immutable2.default;
-            _context4.next = 21;
+            _context4.t9 = _immutable.Map;
+            _context4.t10 = _immutable2.default;
+            _context4.next = 19;
             return dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS());
 
-          case 21:
-            _context4.t13 = _context4.sent;
+          case 19:
+            _context4.t11 = _context4.sent;
 
-            _context4.t14 = function (tag) {
+            _context4.t12 = function (tag) {
               return tag.get('id');
             };
 
-            _context4.t15 = _context4.t12.fromJS.call(_context4.t12, _context4.t13).map(_context4.t14);
-            _context4.t16 = {
-              tagIds: _context4.t15
+            _context4.t13 = _context4.t10.fromJS.call(_context4.t10, _context4.t11).map(_context4.t12);
+            _context4.t14 = {
+              tagIds: _context4.t13
             };
-            _context4.t10 = (0, _context4.t11)(_context4.t16);
-            _context4.next = 29;
+            _context4.t8 = (0, _context4.t9)(_context4.t14);
+            _context4.next = 27;
             break;
 
-          case 28:
-            _context4.t10 = (0, _immutable.Map)();
+          case 26:
+            _context4.t8 = (0, _immutable.Map)();
 
-          case 29:
-            _context4.t17 = _context4.t10;
-            finalSearchArgs = _context4.t0.merge.call(_context4.t0, _context4.t17);
-            _context4.next = 33;
+          case 27:
+            _context4.t15 = _context4.t8;
+            finalSearchArgs = _context4.t0.merge.call(_context4.t0, _context4.t15);
+            _context4.next = 31;
             return getProductPriceCountMatchCriteria(finalSearchArgs, dataLoaders, sessionToken);
 
-          case 33:
+          case 31:
             count = _context4.sent;
             _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(finalSearchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
-            _context4.next = 37;
+            _context4.next = 35;
             return getProductPriceMatchCriteria(finalSearchArgs, dataLoaders, sessionToken, limit, skip);
 
-          case 37:
+          case 35:
             productPriceItems = _context4.sent;
             indexedProductPriceItems = productPriceItems.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedProductPriceItems.map(function (indexedItem) {
@@ -271,7 +270,7 @@ var getProducts = exports.getProducts = function () {
               }
             });
 
-          case 43:
+          case 41:
           case 'end':
             return _context4.stop();
         }

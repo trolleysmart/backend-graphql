@@ -6,6 +6,7 @@ import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import ShoppingListItem from './ShoppingListItem';
 import { getUserDefaultShoppingListId } from './ShoppingList';
+import { getAllStoresToFilterBy } from './Store';
 
 const getShoppingListItemsMatchCriteria = async (searchArgs, shoppingListId, sessionToken) => {
   let shoppingListItems = List();
@@ -56,8 +57,7 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, dataLoade
   const finalSearchArgs = searchArgs
     .merge(searchArgs.has('storeKeys') && searchArgs.get('storeKeys')
       ? Map({
-        storeIds: Immutable.fromJS(await dataLoaders.get('storeLoaderByKey').loadMany(searchArgs.get('storeKeys').toJS())).map(store =>
-          store.get('id')),
+        storeIds: (await getAllStoresToFilterBy(searchArgs.get('storeKeys'), dataLoaders)).map(store => store.get('id')),
       })
       : Map())
     .merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
