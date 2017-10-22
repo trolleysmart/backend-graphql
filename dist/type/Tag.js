@@ -110,7 +110,7 @@ exports.default = new _graphql.GraphQLObjectType({
         var parentTagId = _.get('parentTagId');
 
         if (parentTagId) {
-          return dataLoaders.get('tagLoaderById').load(parentTagId);
+          return dataLoaders.tagLoaderById.load(parentTagId);
         }
 
         var parentTag = _.get('parentTag');

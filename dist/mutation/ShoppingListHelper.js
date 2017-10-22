@@ -171,7 +171,7 @@ var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function
 
             itemsToRemove = _context5.t2.fromJS.call(_context5.t2, _context5.t3).flatMap(_context5.t4);
             _context5.next = 22;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
           case 22:
             userId = _context5.sent.id;
@@ -202,7 +202,7 @@ var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function
 
             _itemsToRemove = _context5.t5.fromJS.call(_context5.t5, _context5.t6).flatMap(_context5.t7);
             _context5.next = 35;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
           case 35:
             _userId = _context5.sent.id;
@@ -232,7 +232,7 @@ var addShoppingList = exports.addShoppingList = function () {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
           case 2:
             user = _context6.sent;
@@ -324,7 +324,7 @@ var setUserDefaultShoppingList = exports.setUserDefaultShoppingList = function (
         switch (_context9.prev = _context9.next) {
           case 0:
             _context9.next = 2;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
           case 2:
             user = _context9.sent;

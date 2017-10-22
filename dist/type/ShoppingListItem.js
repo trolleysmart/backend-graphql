@@ -66,7 +66,7 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, _ref2) {
           var dataLoaders = _ref2.dataLoaders;
-          var storeKey, productSearchConfig;
+          var storeLoaderById, configLoader, storeKey, productSearchConfig;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
@@ -87,30 +87,31 @@ exports.default = new _graphql.GraphQLObjectType({
                   return _context.abrupt('return', '');
 
                 case 4:
-                  _context.next = 6;
-                  return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+                  storeLoaderById = dataLoaders.storeLoaderById, configLoader = dataLoaders.configLoader;
+                  _context.next = 7;
+                  return storeLoaderById.load(_.get('storeId'));
 
-                case 6:
+                case 7:
                   storeKey = _context.sent.get('key');
-                  _context.next = 9;
-                  return dataLoaders.get('configLoader').load('productSearch');
+                  _context.next = 10;
+                  return configLoader.load('productSearch');
 
-                case 9:
+                case 10:
                   productSearchConfig = _context.sent;
 
                   if (!productSearchConfig.get('storesKeyToExcludeProductsDescriptions').find(function (key) {
                     return key.localeCompare(storeKey) === 0;
                   })) {
-                    _context.next = 12;
+                    _context.next = 13;
                     break;
                   }
 
                   return _context.abrupt('return', '');
 
-                case 12:
+                case 13:
                   return _context.abrupt('return', _.get('description'));
 
-                case 13:
+                case 14:
                 case 'end':
                   return _context.stop();
               }
@@ -128,7 +129,7 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref4) {
           var dataLoaders = _ref4.dataLoaders;
-          var storeKey, productSearchConfig;
+          var storeLoaderById, configLoader, storeKey, productSearchConfig;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
@@ -149,30 +150,31 @@ exports.default = new _graphql.GraphQLObjectType({
                   return _context2.abrupt('return', '');
 
                 case 4:
-                  _context2.next = 6;
-                  return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+                  storeLoaderById = dataLoaders.storeLoaderById, configLoader = dataLoaders.configLoader;
+                  _context2.next = 7;
+                  return storeLoaderById.load(_.get('storeId'));
 
-                case 6:
+                case 7:
                   storeKey = _context2.sent.get('key');
-                  _context2.next = 9;
-                  return dataLoaders.get('configLoader').load('productSearch');
+                  _context2.next = 10;
+                  return configLoader.load('productSearch');
 
-                case 9:
+                case 10:
                   productSearchConfig = _context2.sent;
 
                   if (!productSearchConfig.get('storesKeyToExcludeProductsImages').find(function (key) {
                     return key.localeCompare(storeKey) === 0;
                   })) {
-                    _context2.next = 12;
+                    _context2.next = 13;
                     break;
                   }
 
                   return _context2.abrupt('return', '');
 
-                case 12:
+                case 13:
                   return _context2.abrupt('return', _.getIn(['productPrice', 'imageUrl']));
 
-                case 13:
+                case 14:
                 case 'end':
                   return _context2.stop();
               }
@@ -202,7 +204,7 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref6) {
           var dataLoaders = _ref6.dataLoaders;
-          var storeKey, productSearchConfig;
+          var storeLoaderById, configLoader, storeKey, productSearchConfig;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
@@ -223,30 +225,31 @@ exports.default = new _graphql.GraphQLObjectType({
                   return _context3.abrupt('return', '');
 
                 case 4:
-                  _context3.next = 6;
-                  return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+                  storeLoaderById = dataLoaders.storeLoaderById, configLoader = dataLoaders.configLoader;
+                  _context3.next = 7;
+                  return storeLoaderById.load(_.get('storeId'));
 
-                case 6:
+                case 7:
                   storeKey = _context3.sent.get('key');
-                  _context3.next = 9;
-                  return dataLoaders.get('configLoader').load('productSearch');
+                  _context3.next = 10;
+                  return configLoader.load('productSearch');
 
-                case 9:
+                case 10:
                   productSearchConfig = _context3.sent;
 
                   if (!productSearchConfig.get('storesKeyToExcludeProductsPageUrls').find(function (key) {
                     return key.localeCompare(storeKey) === 0;
                   })) {
-                    _context3.next = 12;
+                    _context3.next = 13;
                     break;
                   }
 
                   return _context3.abrupt('return', '');
 
-                case 12:
+                case 13:
                   return _context3.abrupt('return', _.getIn(['productPrice', 'productPageUrl']));
 
-                case 13:
+                case 14:
                 case 'end':
                   return _context3.stop();
               }

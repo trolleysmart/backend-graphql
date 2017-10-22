@@ -29,7 +29,7 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _User2.default,
       resolve: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, _ref2) {
-          var request = _ref2.request,
+          var sessionToken = _ref2.sessionToken,
               dataLoaders = _ref2.dataLoaders;
           var userId;
           return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -37,7 +37,7 @@ exports.default = new _graphql.GraphQLObjectType({
               switch (_context.prev = _context.next) {
                 case 0:
                   _context.next = 2;
-                  return dataLoaders.get('userLoaderBySessionToken').load(request.headers.authorization);
+                  return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
                 case 2:
                   userId = _context.sent.id;

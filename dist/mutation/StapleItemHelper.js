@@ -152,7 +152,7 @@ var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = functi
 
           case 2:
             _context6.next = 4;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
           case 4:
             user = _context6.sent;
@@ -234,7 +234,7 @@ var addNewStapleItemsToShoppingList = exports.addNewStapleItemsToShoppingList = 
 
           case 5:
             _context8.next = 7;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
           case 7:
             user = _context8.sent;

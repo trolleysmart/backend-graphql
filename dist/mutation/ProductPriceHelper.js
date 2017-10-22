@@ -89,7 +89,7 @@ var addProductPricesToShoppingList = function () {
 
           case 2:
             _context4.next = 4;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
           case 4:
             user = _context4.sent;

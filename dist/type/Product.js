@@ -74,7 +74,7 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
           var dataLoaders = _ref3.dataLoaders;
-          var storeKey, productSearchConfig;
+          var storeLoaderById, configLoader, storeKey, productSearchConfig;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
@@ -87,30 +87,31 @@ exports.default = new _graphql.GraphQLObjectType({
                   return _context2.abrupt('return', '');
 
                 case 2:
-                  _context2.next = 4;
-                  return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+                  storeLoaderById = dataLoaders.storeLoaderById, configLoader = dataLoaders.configLoader;
+                  _context2.next = 5;
+                  return storeLoaderById.load(_.get('storeId'));
 
-                case 4:
+                case 5:
                   storeKey = _context2.sent.get('key');
-                  _context2.next = 7;
-                  return dataLoaders.get('configLoader').load('productSearch');
+                  _context2.next = 8;
+                  return configLoader.load('productSearch');
 
-                case 7:
+                case 8:
                   productSearchConfig = _context2.sent;
 
                   if (!productSearchConfig.get('storesKeyToExcludeProductsDescriptions').find(function (key) {
                     return key.localeCompare(storeKey) === 0;
                   })) {
-                    _context2.next = 10;
+                    _context2.next = 11;
                     break;
                   }
 
                   return _context2.abrupt('return', '');
 
-                case 10:
+                case 11:
                   return _context2.abrupt('return', _.get('description'));
 
-                case 11:
+                case 12:
                 case 'end':
                   return _context2.stop();
               }
@@ -128,7 +129,7 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
           var dataLoaders = _ref5.dataLoaders;
-          var storeKey, productSearchConfig;
+          var storeLoaderById, configLoader, storeKey, productSearchConfig;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
@@ -141,30 +142,31 @@ exports.default = new _graphql.GraphQLObjectType({
                   return _context3.abrupt('return', '');
 
                 case 2:
-                  _context3.next = 4;
-                  return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+                  storeLoaderById = dataLoaders.storeLoaderById, configLoader = dataLoaders.configLoader;
+                  _context3.next = 5;
+                  return storeLoaderById.load(_.get('storeId'));
 
-                case 4:
+                case 5:
                   storeKey = _context3.sent.get('key');
-                  _context3.next = 7;
-                  return dataLoaders.get('configLoader').load('productSearch');
+                  _context3.next = 8;
+                  return configLoader.load('productSearch');
 
-                case 7:
+                case 8:
                   productSearchConfig = _context3.sent;
 
                   if (!productSearchConfig.get('storesKeyToExcludeProductsImages').find(function (key) {
                     return key.localeCompare(storeKey) === 0;
                   })) {
-                    _context3.next = 10;
+                    _context3.next = 11;
                     break;
                   }
 
                   return _context3.abrupt('return', '');
 
-                case 10:
+                case 11:
                   return _context3.abrupt('return', _.get('imageUrl'));
 
-                case 11:
+                case 12:
                 case 'end':
                   return _context3.stop();
               }
@@ -194,7 +196,7 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref7) {
           var dataLoaders = _ref7.dataLoaders;
-          var storeKey, productSearchConfig;
+          var storeLoaderById, configLoader, storeKey, productSearchConfig;
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
@@ -207,30 +209,31 @@ exports.default = new _graphql.GraphQLObjectType({
                   return _context4.abrupt('return', '');
 
                 case 2:
-                  _context4.next = 4;
-                  return dataLoaders.get('storeLoaderById').load(_.get('storeId'));
+                  storeLoaderById = dataLoaders.storeLoaderById, configLoader = dataLoaders.configLoader;
+                  _context4.next = 5;
+                  return storeLoaderById.load(_.get('storeId'));
 
-                case 4:
+                case 5:
                   storeKey = _context4.sent.get('key');
-                  _context4.next = 7;
-                  return dataLoaders.get('configLoader').load('productSearch');
+                  _context4.next = 8;
+                  return configLoader.load('productSearch');
 
-                case 7:
+                case 8:
                   productSearchConfig = _context4.sent;
 
                   if (!productSearchConfig.get('storesKeyToExcludeProductsPageUrls').find(function (key) {
                     return key.localeCompare(storeKey) === 0;
                   })) {
-                    _context4.next = 10;
+                    _context4.next = 11;
                     break;
                   }
 
                   return _context4.abrupt('return', '');
 
-                case 10:
+                case 11:
                   return _context4.abrupt('return', _.get('productPageUrl'));
 
-                case 11:
+                case 12:
                 case 'end':
                   return _context4.stop();
               }

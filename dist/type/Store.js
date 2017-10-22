@@ -23,7 +23,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var getAllStoresToFilterByUsingId = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(storeIds, dataLoaders) {
-    var storesToFilterBy, stores, storesWithParentStores, storesWithParentToAdd;
+    var storesToFilterBy, storeLoaderById, stores, storesWithParentStores, storesWithParentToAdd;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -37,11 +37,12 @@ var getAllStoresToFilterByUsingId = function () {
 
           case 2:
             storesToFilterBy = (0, _immutable.List)();
+            storeLoaderById = dataLoaders.storeLoaderById;
             _context.t0 = _immutable2.default;
-            _context.next = 6;
-            return dataLoaders.get('storeLoaderById').loadMany(storeIds.toJS());
+            _context.next = 7;
+            return storeLoaderById.loadMany(storeIds.toJS());
 
-          case 6:
+          case 7:
             _context.t1 = _context.sent;
             stores = _context.t0.fromJS.call(_context.t0, _context.t1);
 
@@ -53,25 +54,25 @@ var getAllStoresToFilterByUsingId = function () {
             });
 
             if (storesWithParentStores.isEmpty()) {
-              _context.next = 15;
+              _context.next = 16;
               break;
             }
 
-            _context.next = 13;
+            _context.next = 14;
             return getAllStoresToFilterByUsingId(storesWithParentStores.map(function (store) {
               return store.get('parentStoreId');
             }), dataLoaders);
 
-          case 13:
+          case 14:
             storesWithParentToAdd = _context.sent;
 
 
             storesToFilterBy = storesToFilterBy.concat(storesWithParentToAdd);
 
-          case 15:
+          case 16:
             return _context.abrupt('return', storesToFilterBy);
 
-          case 16:
+          case 17:
           case 'end':
             return _context.stop();
         }
@@ -86,17 +87,18 @@ var getAllStoresToFilterByUsingId = function () {
 
 var getAllStoresToFilterBy = exports.getAllStoresToFilterBy = function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(storeKeys, dataLoaders) {
-    var storesToFilterBy, stores, storesWithParentStores, storesWithParentToAdd;
+    var storesToFilterBy, storeLoaderByKey, stores, storesWithParentStores, storesWithParentToAdd;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             storesToFilterBy = (0, _immutable.List)();
+            storeLoaderByKey = dataLoaders.storeLoaderByKey;
             _context2.t0 = _immutable2.default;
-            _context2.next = 4;
-            return dataLoaders.get('storeLoaderByKey').loadMany(storeKeys.toJS());
+            _context2.next = 5;
+            return storeLoaderByKey.loadMany(storeKeys.toJS());
 
-          case 4:
+          case 5:
             _context2.t1 = _context2.sent;
             stores = _context2.t0.fromJS.call(_context2.t0, _context2.t1);
 
@@ -108,25 +110,25 @@ var getAllStoresToFilterBy = exports.getAllStoresToFilterBy = function () {
             });
 
             if (storesWithParentStores.isEmpty()) {
-              _context2.next = 13;
+              _context2.next = 14;
               break;
             }
 
-            _context2.next = 11;
+            _context2.next = 12;
             return getAllStoresToFilterByUsingId(storesWithParentStores.map(function (store) {
               return store.get('parentStoreId');
             }), dataLoaders);
 
-          case 11:
+          case 12:
             storesWithParentToAdd = _context2.sent;
 
 
             storesToFilterBy = storesToFilterBy.concat(storesWithParentToAdd);
 
-          case 13:
+          case 14:
             return _context2.abrupt('return', storesToFilterBy);
 
-          case 14:
+          case 15:
           case 'end':
             return _context2.stop();
         }
@@ -145,7 +147,7 @@ var getStore = exports.getStore = function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            return _context3.abrupt('return', dataLoaders.get('storeLoaderById').load(storeId));
+            return _context3.abrupt('return', dataLoaders.storeLoaderById.load(storeId));
 
           case 1:
           case 'end':
@@ -186,7 +188,7 @@ var ParentStore = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref5) {
           var dataLoaders = _ref5.dataLoaders;
-          var storeKey, productSearchConfig;
+          var storeLoaderById, configLoader, storeKey, productSearchConfig;
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
@@ -199,30 +201,31 @@ var ParentStore = new _graphql.GraphQLObjectType({
                   return _context4.abrupt('return', '');
 
                 case 2:
-                  _context4.next = 4;
-                  return dataLoaders.get('storeLoaderById').load(_.get('id'));
+                  storeLoaderById = dataLoaders.storeLoaderById, configLoader = dataLoaders.configLoader;
+                  _context4.next = 5;
+                  return storeLoaderById.load(_.get('id'));
 
-                case 4:
+                case 5:
                   storeKey = _context4.sent.get('key');
-                  _context4.next = 7;
-                  return dataLoaders.get('configLoader').load('productSearch');
+                  _context4.next = 8;
+                  return configLoader.load('productSearch');
 
-                case 7:
+                case 8:
                   productSearchConfig = _context4.sent;
 
                   if (!productSearchConfig.get('storesKeyToExcludeStoreLogos').find(function (key) {
                     return key.localeCompare(storeKey) === 0;
                   })) {
-                    _context4.next = 10;
+                    _context4.next = 11;
                     break;
                   }
 
                   return _context4.abrupt('return', '');
 
-                case 10:
+                case 11:
                   return _context4.abrupt('return', _.get('imageUrl'));
 
-                case 11:
+                case 12:
                 case 'end':
                   return _context4.stop();
               }
@@ -283,7 +286,7 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref7) {
           var dataLoaders = _ref7.dataLoaders;
-          var storeKey, productSearchConfig;
+          var storeLoaderById, configLoader, storeKey, productSearchConfig;
           return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
@@ -296,30 +299,31 @@ exports.default = new _graphql.GraphQLObjectType({
                   return _context5.abrupt('return', '');
 
                 case 2:
-                  _context5.next = 4;
-                  return dataLoaders.get('storeLoaderById').load(_.get('id'));
+                  storeLoaderById = dataLoaders.storeLoaderById, configLoader = dataLoaders.configLoader;
+                  _context5.next = 5;
+                  return storeLoaderById.load(_.get('id'));
 
-                case 4:
+                case 5:
                   storeKey = _context5.sent.get('key');
-                  _context5.next = 7;
-                  return dataLoaders.get('configLoader').load('productSearch');
+                  _context5.next = 8;
+                  return configLoader.load('productSearch');
 
-                case 7:
+                case 8:
                   productSearchConfig = _context5.sent;
 
                   if (!productSearchConfig.get('storesKeyToExcludeStoreLogos').find(function (key) {
                     return key.localeCompare(storeKey) === 0;
                   })) {
-                    _context5.next = 10;
+                    _context5.next = 11;
                     break;
                   }
 
                   return _context5.abrupt('return', '');
 
-                case 10:
+                case 11:
                   return _context5.abrupt('return', _.get('imageUrl'));
 
-                case 11:
+                case 12:
                 case 'end':
                   return _context5.stop();
               }
@@ -358,7 +362,7 @@ exports.default = new _graphql.GraphQLObjectType({
         var parentStoreId = _.get('parentStoreId');
 
         if (parentStoreId) {
-          return dataLoaders.get('storeLoaderById').load(parentStoreId);
+          return dataLoaders.storeLoaderById.load(parentStoreId);
         }
 
         var parentStore = _.get('parentStore');

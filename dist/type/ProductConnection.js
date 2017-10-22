@@ -33,7 +33,7 @@ var getCriteria = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return dataLoaders.get('configLoader').load('productSearch');
+            return dataLoaders.configLoader.load('productSearch');
 
           case 2:
             productSearchConfig = _context.sent;
@@ -216,7 +216,7 @@ var getProducts = exports.getProducts = function () {
             _context4.t9 = _immutable.Map;
             _context4.t10 = _immutable2.default;
             _context4.next = 19;
-            return dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS());
+            return dataLoaders.tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS());
 
           case 19:
             _context4.t11 = _context4.sent;

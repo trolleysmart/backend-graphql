@@ -38,42 +38,41 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   mutateAndGetPayload: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
       var name = _ref2.name;
-      var request = _ref3.request,
+      var sessionToken = _ref3.sessionToken,
           dataLoaders = _ref3.dataLoaders;
-      var sessionToken, shoppingListId;
+      var shoppingListId;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              sessionToken = request.headers.authorization;
-              _context.next = 4;
+              _context.next = 3;
               return (0, _ShoppingListHelper.addShoppingList)(name, dataLoaders, sessionToken);
 
-            case 4:
+            case 3:
               shoppingListId = _context.sent;
               _context.t0 = _immutable.Map;
-              _context.next = 8;
+              _context.next = 7;
               return (0, _type.getShoppingLists)((0, _immutable.Map)({ shoppingListIds: _immutable.List.of(shoppingListId) }), dataLoaders, sessionToken);
 
-            case 8:
+            case 7:
               _context.t1 = _context.sent.edges[0];
               _context.t2 = {
                 shoppingList: _context.t1
               };
               return _context.abrupt('return', (0, _context.t0)(_context.t2));
 
-            case 13:
-              _context.prev = 13;
+            case 12:
+              _context.prev = 12;
               _context.t3 = _context['catch'](0);
               return _context.abrupt('return', (0, _immutable.Map)({ errorMessage: _context.t3 instanceof Error ? _context.t3.message : _context.t3 }));
 
-            case 16:
+            case 15:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 13]]);
+      }, _callee, undefined, [[0, 12]]);
     }));
 
     return function mutateAndGetPayload(_x, _x2) {

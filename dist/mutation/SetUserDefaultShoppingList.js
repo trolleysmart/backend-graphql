@@ -35,37 +35,36 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   mutateAndGetPayload: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
       var shoppingListId = _ref2.shoppingListId;
-      var request = _ref3.request,
+      var sessionToken = _ref3.sessionToken,
           dataLoaders = _ref3.dataLoaders;
-      var sessionToken, shoppingListItems;
+      var shoppingListItems;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              sessionToken = request.headers.authorization;
-              _context.next = 4;
+              _context.next = 3;
               return (0, _ShoppingListHelper.setUserDefaultShoppingList)(shoppingListId, dataLoaders, sessionToken);
 
-            case 4:
-              _context.next = 6;
+            case 3:
+              _context.next = 5;
               return (0, _type.getShoppingListItems)((0, _immutable.Map)({ first: 1000 }), shoppingListId, dataLoaders, sessionToken);
 
-            case 6:
+            case 5:
               shoppingListItems = _context.sent.edges;
               return _context.abrupt('return', (0, _immutable.Map)({ shoppingListItems: shoppingListItems }));
 
-            case 10:
-              _context.prev = 10;
+            case 9:
+              _context.prev = 9;
               _context.t0 = _context['catch'](0);
               return _context.abrupt('return', (0, _immutable.Map)({ errorMessage: _context.t0 instanceof Error ? _context.t0.message : _context.t0 }));
 
-            case 13:
+            case 12:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 10]]);
+      }, _callee, undefined, [[0, 9]]);
     }));
 
     return function mutateAndGetPayload(_x, _x2) {

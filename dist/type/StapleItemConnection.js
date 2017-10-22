@@ -80,30 +80,31 @@ var getStapleItemsMatchCriteria = function () {
 
 var getStapleItems = exports.getStapleItems = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
-    var userId, finalSearchArgs, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, stapleItems, indexedStapleItems, edges, firstEdge, lastEdge;
+    var userLoaderBySessionToken, tagLoaderByKey, userId, finalSearchArgs, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, stapleItems, indexedStapleItems, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _context3.next = 2;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            userLoaderBySessionToken = dataLoaders.userLoaderBySessionToken, tagLoaderByKey = dataLoaders.tagLoaderByKey;
+            _context3.next = 3;
+            return userLoaderBySessionToken.load(sessionToken);
 
-          case 2:
+          case 3:
             userId = _context3.sent.id;
             _context3.t0 = searchArgs;
 
             if (!(searchArgs.has('tagKeys') && searchArgs.get('tagKeys'))) {
-              _context3.next = 16;
+              _context3.next = 17;
               break;
             }
 
             _context3.t2 = _immutable.Map;
             _context3.t3 = _immutable2.default;
-            _context3.next = 9;
-            return dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS());
+            _context3.next = 10;
+            return tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS());
 
-          case 9:
+          case 10:
             _context3.t4 = _context3.sent;
 
             _context3.t5 = function (tag) {
@@ -115,25 +116,25 @@ var getStapleItems = exports.getStapleItems = function () {
               tagIds: _context3.t6
             };
             _context3.t1 = (0, _context3.t2)(_context3.t7);
-            _context3.next = 17;
+            _context3.next = 18;
             break;
 
-          case 16:
+          case 17:
             _context3.t1 = (0, _immutable.Map)();
 
-          case 17:
+          case 18:
             _context3.t8 = _context3.t1;
             finalSearchArgs = _context3.t0.merge.call(_context3.t0, _context3.t8);
-            _context3.next = 21;
+            _context3.next = 22;
             return getStapleItemsCountMatchCriteria(finalSearchArgs, userId, sessionToken);
 
-          case 21:
+          case 22:
             count = _context3.sent;
             _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(finalSearchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
-            _context3.next = 25;
+            _context3.next = 26;
             return getStapleItemsMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
 
-          case 25:
+          case 26:
             stapleItems = _context3.sent;
             indexedStapleItems = stapleItems.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedStapleItems.map(function (indexedItem) {
@@ -155,7 +156,7 @@ var getStapleItems = exports.getStapleItems = function () {
               }
             });
 
-          case 31:
+          case 32:
           case 'end':
             return _context3.stop();
         }

@@ -149,7 +149,7 @@ var getShoppingListItems = exports.getShoppingListItems = function () {
             _context2.t9 = _immutable.Map;
             _context2.t10 = _immutable2.default;
             _context2.next = 21;
-            return dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS());
+            return dataLoaders.tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS());
 
           case 21:
             _context2.t11 = _context2.sent;

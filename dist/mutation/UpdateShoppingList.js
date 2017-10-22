@@ -40,41 +40,39 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
       var shoppingListId = _ref2.shoppingListId,
           name = _ref2.name;
-      var request = _ref3.request,
+      var sessionToken = _ref3.sessionToken,
           dataLoaders = _ref3.dataLoaders;
-      var sessionToken;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              sessionToken = request.headers.authorization;
-              _context.next = 4;
+              _context.next = 3;
               return (0, _ShoppingListHelper.updateShoppingList)(shoppingListId, name, sessionToken);
 
-            case 4:
+            case 3:
               _context.t0 = _immutable.Map;
-              _context.next = 7;
+              _context.next = 6;
               return (0, _type.getShoppingLists)((0, _immutable.Map)({ shoppingListIds: _immutable.List.of(shoppingListId) }), dataLoaders, sessionToken);
 
-            case 7:
+            case 6:
               _context.t1 = _context.sent.edges[0];
               _context.t2 = {
                 shoppingList: _context.t1
               };
               return _context.abrupt('return', (0, _context.t0)(_context.t2));
 
-            case 12:
-              _context.prev = 12;
+            case 11:
+              _context.prev = 11;
               _context.t3 = _context['catch'](0);
               return _context.abrupt('return', (0, _immutable.Map)({ errorMessage: _context.t3 instanceof Error ? _context.t3.message : _context.t3 }));
 
-            case 15:
+            case 14:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 12]]);
+      }, _callee, undefined, [[0, 11]]);
     }));
 
     return function mutateAndGetPayload(_x, _x2) {

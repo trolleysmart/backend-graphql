@@ -89,7 +89,7 @@ var getUserDefaultShoppingListId = exports.getUserDefaultShoppingListId = functi
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
           case 2:
             userId = _context3.sent.id;
@@ -177,14 +177,14 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _graphql.GraphQLInt,
       resolve: function () {
         var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref6) {
-          var request = _ref6.request,
+          var sessionToken = _ref6.sessionToken,
               dataLoaders = _ref6.dataLoaders;
           return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
                 case 0:
                   _context5.next = 2;
-                  return (0, _ShoppingListItemConnection.getShoppingListItems)((0, _immutable.Map)({ first: 1000 }), _.get('id'), dataLoaders, request.headers.authorization);
+                  return (0, _ShoppingListItemConnection.getShoppingListItems)((0, _immutable.Map)({ first: 1000 }), _.get('id'), dataLoaders, sessionToken);
 
                 case 2:
                   return _context5.abrupt('return', _context5.sent.count);
@@ -220,13 +220,13 @@ exports.default = new _graphql.GraphQLObjectType({
       }),
       resolve: function () {
         var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref8) {
-          var request = _ref8.request,
+          var sessionToken = _ref8.sessionToken,
               dataLoaders = _ref8.dataLoaders;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', (0, _ShoppingListItemConnection.getShoppingListItems)(_immutable2.default.fromJS(args), _.get('id'), dataLoaders, request.headers.authorization));
+                  return _context6.abrupt('return', (0, _ShoppingListItemConnection.getShoppingListItems)(_immutable2.default.fromJS(args), _.get('id'), dataLoaders, sessionToken));
 
                 case 1:
                 case 'end':

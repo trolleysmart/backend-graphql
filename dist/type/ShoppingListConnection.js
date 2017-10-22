@@ -84,7 +84,7 @@ var getShoppingLists = exports.getShoppingLists = function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
           case 2:
             userId = _context3.sent.id;

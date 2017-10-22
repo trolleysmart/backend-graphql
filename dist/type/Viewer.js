@@ -56,12 +56,12 @@ exports.default = new _graphql.GraphQLObjectType({
       }),
       resolve: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, _ref2) {
-          var request = _ref2.request;
+          var sessionToken = _ref2.sessionToken;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  return _context.abrupt('return', (0, _TagConnection.getTags)(_immutable2.default.fromJS(args), request.headers.authorization));
+                  return _context.abrupt('return', (0, _TagConnection.getTags)(_immutable2.default.fromJS(args), sessionToken));
 
                 case 1:
                 case 'end':
@@ -115,12 +115,12 @@ exports.default = new _graphql.GraphQLObjectType({
       }),
       resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref7) {
-          var request = _ref7.request;
+          var sessionToken = _ref7.sessionToken;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', (0, _StoreConnection.getStores)(_immutable2.default.fromJS(args), request.headers.authorization));
+                  return _context3.abrupt('return', (0, _StoreConnection.getStores)(_immutable2.default.fromJS(args), sessionToken));
 
                 case 1:
                 case 'end':
