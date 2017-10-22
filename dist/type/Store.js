@@ -7,9 +7,13 @@ exports.getAllStoresToFilterBy = undefined;
 
 var _immutable = require('immutable');
 
+var _immutable2 = _interopRequireDefault(_immutable);
+
 var _graphql = require('graphql');
 
 var _interface = require('../interface');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -29,11 +33,13 @@ var getAllStoresToFilterByUsingId = function () {
 
           case 2:
             storesToFilterBy = (0, _immutable.List)();
-            _context.next = 5;
+            _context.t0 = _immutable2.default;
+            _context.next = 6;
             return dataLoaders.get('storeLoaderById').loadMany(storeIds.toJS());
 
-          case 5:
-            stores = _context.sent;
+          case 6:
+            _context.t1 = _context.sent;
+            stores = _context.t0.fromJS.call(_context.t0, _context.t1);
 
 
             storesToFilterBy = storesToFilterBy.concat(stores);
@@ -43,25 +49,25 @@ var getAllStoresToFilterByUsingId = function () {
             });
 
             if (storesWithParentStores.isEmpty()) {
-              _context.next = 13;
+              _context.next = 15;
               break;
             }
 
-            _context.next = 11;
+            _context.next = 13;
             return getAllStoresToFilterByUsingId(storesWithParentStores.map(function (store) {
-              return store.get('id');
+              return store.get('parentStoreId');
             }), dataLoaders);
 
-          case 11:
+          case 13:
             storesWithParentToAdd = _context.sent;
 
 
             storesToFilterBy = storesToFilterBy.concat(storesWithParentToAdd);
 
-          case 13:
+          case 15:
             return _context.abrupt('return', storesToFilterBy);
 
-          case 14:
+          case 16:
           case 'end':
             return _context.stop();
         }
@@ -81,12 +87,16 @@ var getAllStoresToFilterBy = exports.getAllStoresToFilterBy = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            console.log(storeKeys);
+
             storesToFilterBy = (0, _immutable.List)();
-            _context2.next = 3;
+            _context2.t0 = _immutable2.default;
+            _context2.next = 5;
             return dataLoaders.get('storeLoaderByKey').loadMany(storeKeys.toJS());
 
-          case 3:
-            stores = _context2.sent;
+          case 5:
+            _context2.t1 = _context2.sent;
+            stores = _context2.t0.fromJS.call(_context2.t0, _context2.t1);
 
 
             storesToFilterBy = storesToFilterBy.concat(stores);
@@ -96,25 +106,25 @@ var getAllStoresToFilterBy = exports.getAllStoresToFilterBy = function () {
             });
 
             if (storesWithParentStores.isEmpty()) {
-              _context2.next = 11;
+              _context2.next = 14;
               break;
             }
 
-            _context2.next = 9;
+            _context2.next = 12;
             return getAllStoresToFilterByUsingId(storesWithParentStores.map(function (store) {
-              return store.get('id');
+              return store.get('parentStoreId');
             }), dataLoaders);
 
-          case 9:
+          case 12:
             storesWithParentToAdd = _context2.sent;
 
 
             storesToFilterBy = storesToFilterBy.concat(storesWithParentToAdd);
 
-          case 11:
+          case 14:
             return _context2.abrupt('return', storesToFilterBy);
 
-          case 12:
+          case 15:
           case 'end':
             return _context2.stop();
         }
