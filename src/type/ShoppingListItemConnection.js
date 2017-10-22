@@ -62,7 +62,7 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, dataLoade
       : Map())
     .merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
       ? Map({
-        tagIds: Immutable.fromJS(await dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')),
+        tagIds: Immutable.fromJS(await dataLoaders.tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')),
       })
       : Map());
   const shoppingListItems = await getShoppingListItemsMatchCriteria(finalSearchArgs, shoppingListId, sessionToken);

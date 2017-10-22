@@ -45,7 +45,7 @@ export const removeItemsFromShoppingList = async (shoppingListItemIds, dataLoade
       .toArray();
     const itemsToRemove = Immutable.fromJS(await Promise.all(itemsToRemovePromises)).flatMap(_ => _);
 
-    const userId = (await dataLoaders.get('userLoaderBySessionToken').load(sessionToken)).id;
+    const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
     await Promise.all(itemsToRemove.map(item => shoppingListItemService.update(item.set('removedByUserId', userId), sessionToken)).toArray());
   }
 
@@ -55,13 +55,13 @@ export const removeItemsFromShoppingList = async (shoppingListItemIds, dataLoade
       .toArray();
     const itemsToRemove = Immutable.fromJS(await Promise.all(itemsToRemovePromises)).flatMap(_ => _);
 
-    const userId = (await dataLoaders.get('userLoaderBySessionToken').load(sessionToken)).id;
+    const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
     await Promise.all(itemsToRemove.map(item => shoppingListItemService.update(item.set('removedByUserId', userId), sessionToken)).toArray());
   }
 };
 
 export const addShoppingList = async (name, dataLoaders, sessionToken) => {
-  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+  const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
   return new ShoppingListService().create(Map({ name, user, status: 'A' }), ParseWrapperService.createACL(user), sessionToken);
 };
@@ -85,7 +85,7 @@ export const removeShoppingList = async (shoppingListId, sessionToken) => {
 };
 
 export const setUserDefaultShoppingList = async (shoppingListId, dataLoaders, sessionToken) => {
-  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+  const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
   const defaultShoppingListService = new DefaultShoppingListService();
   const defaultShoppingLists = await defaultShoppingListService.search(Map({ conditions: Map({ userId: user.id }) }), sessionToken);
 

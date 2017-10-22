@@ -20,7 +20,7 @@ export default mutationWithClientMutationId({
   mutateAndGetPayload: async ({ feedback }, { request, dataLoaders }) => {
     try {
       const sessionToken = request.headers.authorization;
-      const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+      const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
       const acl = ParseWrapperService.createACL(user);
 
       await new UserFeedbackService().create(Map({ userId: user.id, feedback: Immutable.fromJS(JSON.parse(feedback)) }), acl, sessionToken);

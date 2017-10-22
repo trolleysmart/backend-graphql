@@ -41,8 +41,9 @@ export default new GraphQLObjectType({
           return '';
         }
 
-        const storeKey = (await dataLoaders.get('storeLoaderById').load(_.get('storeId'))).get('key');
-        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+        const { storeLoaderById, configLoader } = dataLoaders;
+        const storeKey = (await storeLoaderById.load(_.get('storeId'))).get('key');
+        const productSearchConfig = await configLoader.load('productSearch');
 
         if (productSearchConfig.get('storesKeyToExcludeProductsDescriptions').find(key => key.localeCompare(storeKey) === 0)) {
           return '';
@@ -62,8 +63,9 @@ export default new GraphQLObjectType({
           return '';
         }
 
-        const storeKey = (await dataLoaders.get('storeLoaderById').load(_.get('storeId'))).get('key');
-        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+        const { storeLoaderById, configLoader } = dataLoaders;
+        const storeKey = (await storeLoaderById.load(_.get('storeId'))).get('key');
+        const productSearchConfig = await configLoader.load('productSearch');
 
         if (productSearchConfig.get('storesKeyToExcludeProductsImages').find(key => key.localeCompare(storeKey) === 0)) {
           return '';
@@ -91,8 +93,9 @@ export default new GraphQLObjectType({
           return '';
         }
 
-        const storeKey = (await dataLoaders.get('storeLoaderById').load(_.get('storeId'))).get('key');
-        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+        const { storeLoaderById, configLoader } = dataLoaders;
+        const storeKey = (await storeLoaderById.load(_.get('storeId'))).get('key');
+        const productSearchConfig = await configLoader.load('productSearch');
 
         if (productSearchConfig.get('storesKeyToExcludeProductsPageUrls').find(key => key.localeCompare(storeKey) === 0)) {
           return '';

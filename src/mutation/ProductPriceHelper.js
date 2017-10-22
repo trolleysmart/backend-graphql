@@ -30,7 +30,7 @@ const addProductPricesToShoppingList = async (productPriceIds, dataLoaders, shop
     return List();
   }
 
-  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+  const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
   const acl = ParseWrapperService.createACL(user);
   const productPriceIdsWithoutDuplicate = productPriceIds
     .groupBy(_ => _)

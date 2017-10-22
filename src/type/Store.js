@@ -11,7 +11,8 @@ const getAllStoresToFilterByUsingId = async (storeIds, dataLoaders) => {
   }
 
   let storesToFilterBy = List();
-  const stores = Immutable.fromJS(await dataLoaders.get('storeLoaderById').loadMany(storeIds.toJS()));
+  const { storeLoaderById } = dataLoaders;
+  const stores = Immutable.fromJS(await storeLoaderById.loadMany(storeIds.toJS()));
 
   storesToFilterBy = storesToFilterBy.concat(stores);
 
@@ -28,7 +29,8 @@ const getAllStoresToFilterByUsingId = async (storeIds, dataLoaders) => {
 
 export const getAllStoresToFilterBy = async (storeKeys, dataLoaders) => {
   let storesToFilterBy = List();
-  const stores = Immutable.fromJS(await dataLoaders.get('storeLoaderByKey').loadMany(storeKeys.toJS()));
+  const { storeLoaderByKey } = dataLoaders;
+  const stores = Immutable.fromJS(await storeLoaderByKey.loadMany(storeKeys.toJS()));
 
   storesToFilterBy = storesToFilterBy.concat(stores);
 
@@ -43,7 +45,7 @@ export const getAllStoresToFilterBy = async (storeKeys, dataLoaders) => {
   return storesToFilterBy;
 };
 
-export const getStore = async (storeId, dataLoaders) => dataLoaders.get('storeLoaderById').load(storeId);
+export const getStore = async (storeId, dataLoaders) => dataLoaders.storeLoaderById.load(storeId);
 
 const ParentStore = new GraphQLObjectType({
   name: 'ParentStore',
@@ -67,8 +69,9 @@ const ParentStore = new GraphQLObjectType({
           return '';
         }
 
-        const storeKey = (await dataLoaders.get('storeLoaderById').load(_.get('id'))).get('key');
-        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+        const { storeLoaderById, configLoader } = dataLoaders;
+        const storeKey = (await storeLoaderById.load(_.get('id'))).get('key');
+        const productSearchConfig = await configLoader.load('productSearch');
 
         if (productSearchConfig.get('storesKeyToExcludeStoreLogos').find(key => key.localeCompare(storeKey) === 0)) {
           return '';
@@ -119,8 +122,9 @@ export default new GraphQLObjectType({
           return '';
         }
 
-        const storeKey = (await dataLoaders.get('storeLoaderById').load(_.get('id'))).get('key');
-        const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+        const { storeLoaderById, configLoader } = dataLoaders;
+        const storeKey = (await storeLoaderById.load(_.get('id'))).get('key');
+        const productSearchConfig = await configLoader.load('productSearch');
 
         if (productSearchConfig.get('storesKeyToExcludeStoreLogos').find(key => key.localeCompare(storeKey) === 0)) {
           return '';
@@ -151,7 +155,7 @@ export default new GraphQLObjectType({
         const parentStoreId = _.get('parentStoreId');
 
         if (parentStoreId) {
-          return dataLoaders.get('storeLoaderById').load(parentStoreId);
+          return dataLoaders.storeLoaderById.load(parentStoreId);
         }
 
         const parentStore = _.get('parentStore');

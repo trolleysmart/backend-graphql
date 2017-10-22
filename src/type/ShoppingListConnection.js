@@ -29,7 +29,7 @@ const getShoppingListMatchCriteria = async (searchArgs, userId, sessionToken, li
   );
 
 export const getShoppingLists = async (searchArgs, dataLoaders, sessionToken) => {
-  const userId = (await dataLoaders.get('userLoaderBySessionToken').load(sessionToken)).id;
+  const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
   let count = await getShoppingListCountMatchCriteria(searchArgs, userId, sessionToken);
 
   // Creating the default shopping list if no shopping list exists

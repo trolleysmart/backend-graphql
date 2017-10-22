@@ -8,7 +8,7 @@ import Product from './Product';
 import { getAllStoresToFilterBy } from './Store';
 
 const getCriteria = async (searchArgs, dataLoaders) => {
-  const productSearchConfig = await dataLoaders.get('configLoader').load('productSearch');
+  const productSearchConfig = await dataLoaders.configLoader.load('productSearch');
 
   return Map({
     include_store: true,
@@ -91,7 +91,7 @@ export const getProducts = async (searchArgs, dataLoaders, sessionToken) => {
       : Map())
     .merge(searchArgs.has('tagKeys') && searchArgs.get('tagKeys')
       ? Map({
-        tagIds: Immutable.fromJS(await dataLoaders.get('tagLoaderByKey').loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')),
+        tagIds: Immutable.fromJS(await dataLoaders.tagLoaderByKey.loadMany(searchArgs.get('tagKeys').toJS())).map(tag => tag.get('id')),
       })
       : Map());
   const count = await getProductPriceCountMatchCriteria(finalSearchArgs, dataLoaders, sessionToken);

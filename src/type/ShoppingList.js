@@ -19,7 +19,7 @@ export const createUserDefaultShoppingList = async (dataLoaders, sessionToken) =
 export const getShoppingList = async (shoppingListId, sessionToken) => new ShoppingListService().read(shoppingListId, null, sessionToken);
 
 export const getUserDefaultShoppingListId = async (dataLoaders, sessionToken) => {
-  const userId = (await dataLoaders.get('userLoaderBySessionToken').load(sessionToken)).id;
+  const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
   const defaultShoppingLists = await new DefaultShoppingListService().search(Map({ conditions: Map({ userId }) }), sessionToken);
 
   if (defaultShoppingLists.isEmpty()) {

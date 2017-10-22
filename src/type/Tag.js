@@ -75,7 +75,7 @@ export default new GraphQLObjectType({
         const parentTagId = _.get('parentTagId');
 
         if (parentTagId) {
-          return dataLoaders.get('tagLoaderById').load(parentTagId);
+          return dataLoaders.tagLoaderById.load(parentTagId);
         }
 
         const parentTag = _.get('parentTag');

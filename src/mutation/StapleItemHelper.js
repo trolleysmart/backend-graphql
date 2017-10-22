@@ -51,7 +51,7 @@ export const addStapleItemsToShoppingList = async (stapleItemIds, dataLoaders, s
     return List();
   }
 
-  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+  const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
   const acl = ParseWrapperService.createACL(user);
   const stapleItemIdsWithoutDuplicate = stapleItemIds
     .groupBy(_ => _)
@@ -79,7 +79,7 @@ export const addNewStapleItemsToShoppingList = async (names, dataLoaders, shoppi
     return List();
   }
 
-  const user = await dataLoaders.get('userLoaderBySessionToken').load(sessionToken);
+  const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
   const acl = ParseWrapperService.createACL(user);
   const stapleItemService = new StapleItemService();
 

@@ -12,7 +12,7 @@ export default new GraphQLObjectType({
     user: {
       type: UserType,
       resolve: async (_, args, { request, dataLoaders }) => {
-        const userId = (await dataLoaders.get('userLoaderBySessionToken').load(request.headers.authorization)).id;
+        const userId = (await dataLoaders.userLoaderBySessionToken.load(request.headers.authorization)).id;
 
         return Map({ id: userId });
       },
