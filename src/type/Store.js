@@ -1,7 +1,8 @@
 // @flow
 
-import Immutable, { List } from 'immutable';
+import Immutable, { List, Map } from 'immutable';
 import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import GeoLocation from './GeoLocation';
 import { NodeInterface } from '../interface';
 
 const getAllStoresToFilterByUsingId = async (storeIds, dataLoaders) => {
@@ -26,8 +27,6 @@ const getAllStoresToFilterByUsingId = async (storeIds, dataLoaders) => {
 };
 
 export const getAllStoresToFilterBy = async (storeKeys, dataLoaders) => {
-  console.log(storeKeys);
-
   let storesToFilterBy = List();
   const stores = Immutable.fromJS(await dataLoaders.get('storeLoaderByKey').loadMany(storeKeys.toJS()));
 
@@ -43,6 +42,8 @@ export const getAllStoresToFilterBy = async (storeKeys, dataLoaders) => {
 
   return storesToFilterBy;
 };
+
+export const getStore = async (storeId, dataLoaders) => dataLoaders.get('storeLoaderById').load(storeId);
 
 const ParentStore = new GraphQLObjectType({
   name: 'ParentStore',
@@ -79,6 +80,18 @@ const ParentStore = new GraphQLObjectType({
     address: {
       type: GraphQLString,
       resolve: _ => _.get('address'),
+    },
+    geoLocation: {
+      type: GeoLocation,
+      resolve: (_) => {
+        const geoLocation = _.get('geoLocation');
+
+        if (!geoLocation) {
+          return null;
+        }
+
+        return Map({ latitude: geoLocation.latitude, longitude: geoLocation.longitude });
+      },
     },
   },
   interfaces: [NodeInterface],
@@ -119,6 +132,18 @@ export default new GraphQLObjectType({
     address: {
       type: GraphQLString,
       resolve: _ => _.get('address'),
+    },
+    geoLocation: {
+      type: GeoLocation,
+      resolve: (_) => {
+        const geoLocation = _.get('geoLocation');
+
+        if (!geoLocation) {
+          return null;
+        }
+
+        return Map({ latitude: geoLocation.latitude, longitude: geoLocation.longitude });
+      },
     },
     parentStore: {
       type: ParentStore,

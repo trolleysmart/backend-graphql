@@ -15,7 +15,7 @@ const getCriteria = key =>
 export const storeLoaderById = new Dataloader(async (ids) => {
   const storeService = new StoreService();
 
-  return Promise.all(ids.map(async id => storeService.read(id, null)));
+  return Promise.all(ids.map(async id => storeService.read(id, Map({ include_parentStore: true }))));
 });
 
 export const storeLoaderByKey = new Dataloader(async (keys) => {

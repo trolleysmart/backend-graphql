@@ -40,7 +40,7 @@ var storeLoaderById = exports.storeLoaderById = new _dataloader2.default(functio
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        return _context.abrupt('return', storeService.read(id, null));
+                        return _context.abrupt('return', storeService.read(id, (0, _immutable.Map)({ include_parentStore: true })));
 
                       case 1:
                       case 'end':

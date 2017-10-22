@@ -23,6 +23,11 @@ type AddShoppingListPayload {
   clientMutationId: String
 }
 
+type GeoLocation {
+  latitude: Float
+  longitude: Float
+}
+
 type MultiBuy {
   awardQuantity: Int
   awardValue: Float
@@ -65,6 +70,7 @@ type ParentStore implements Node {
   name: String
   imageUrl: String
   address: String
+  geoLocation: GeoLocation
 }
 
 type ParentTag implements Node {
@@ -262,6 +268,7 @@ type Store implements Node {
   name: String
   imageUrl: String
   address: String
+  geoLocation: GeoLocation
   parentStore: ParentStore
 }
 
@@ -354,5 +361,6 @@ type User implements Node {
 type Viewer implements Node {
   id: ID!
   tags(after: String, first: Int, before: String, last: Int, name: String, level: Int, forDisplay: Boolean): TagTypeConnection
+  store(storeId: ID!): Store
   stores(after: String, first: Int, before: String, last: Int, name: String): StoreTypeConnection
 }
