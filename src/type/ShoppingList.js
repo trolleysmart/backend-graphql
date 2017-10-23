@@ -6,11 +6,16 @@ import { connectionArgs } from 'graphql-relay';
 import { ShoppingListService } from 'trolley-smart-parse-server-common';
 import { NodeInterface } from '../interface';
 import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
+import { createSessionTokenAndUserIdKeyCombination } from '../loader';
 
 export const getShoppingList = async (shoppingListId, sessionToken) => new ShoppingListService().read(shoppingListId, null, sessionToken);
 
-export const getUserDefaultShoppingList = async (dataLoaders, sessionToken) =>
-  getShoppingList(await dataLoaders.userDefaultShoppingListLoader.load(sessionToken), sessionToken);
+export const getUserDefaultShoppingList = async (dataLoaders, sessionToken) => {
+  const { userDefaultShoppingListLoader, userLoaderBySessionToken } = dataLoaders;
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
+
+  return getShoppingList(await userDefaultShoppingListLoader.load(createSessionTokenAndUserIdKeyCombination(sessionToken, userId)), sessionToken);
+};
 
 export default new GraphQLObjectType({
   name: 'ShoppingList',

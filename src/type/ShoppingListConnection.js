@@ -5,6 +5,7 @@ import { connectionDefinitions } from 'graphql-relay';
 import { ShoppingListService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import ShoppingList from './ShoppingList';
+import { createSessionTokenAndUserIdKeyCombination } from '../loader';
 
 const getCriteria = (searchArgs, userId) =>
   Map({
@@ -35,7 +36,8 @@ export const getShoppingLists = async (searchArgs, dataLoaders, sessionToken) =>
 
   // Creating the default shopping list if no shopping list exists
   if (count === 0) {
-    userDefaultShoppingListLoader.load(sessionToken);
+    await userDefaultShoppingListLoader.load(createSessionTokenAndUserIdKeyCombination(sessionToken, userId));
+
     count = 1;
   }
 

@@ -6,6 +6,7 @@ import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import ShoppingListItem from './ShoppingListItem';
 import { getAllStoresToFilterBy } from './Store';
+import { createSessionTokenAndUserIdKeyCombination } from '../loader';
 
 const getShoppingListItemsMatchCriteria = async (searchArgs, shoppingListId, sessionToken) => {
   let shoppingListItems = List();
@@ -107,7 +108,9 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, dataLoade
 };
 
 export const getUserDefaultShoppingListItems = async (searchArgs, dataLoaders, sessionToken) => {
-  const shoppingListId = await dataLoaders.userDefaultShoppingListLoader.load(sessionToken);
+  const { userDefaultShoppingListLoader, userLoaderBySessionToken } = dataLoaders;
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
+  const shoppingListId = await userDefaultShoppingListLoader.load(createSessionTokenAndUserIdKeyCombination(sessionToken, userId));
 
   return getShoppingListItems(searchArgs, shoppingListId, dataLoaders, sessionToken);
 };
