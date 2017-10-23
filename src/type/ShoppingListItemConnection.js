@@ -5,7 +5,6 @@ import { connectionDefinitions } from 'graphql-relay';
 import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import ShoppingListItem from './ShoppingListItem';
-import { getUserDefaultShoppingListId } from './ShoppingList';
 import { getAllStoresToFilterBy } from './Store';
 
 const getShoppingListItemsMatchCriteria = async (searchArgs, shoppingListId, sessionToken) => {
@@ -108,7 +107,7 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, dataLoade
 };
 
 export const getUserDefaultShoppingListItems = async (searchArgs, dataLoaders, sessionToken) => {
-  const shoppingListId = await getUserDefaultShoppingListId(dataLoaders, sessionToken);
+  const shoppingListId = await dataLoaders.userDefaultShoppingListLoader.load(sessionToken);
 
   return getShoppingListItems(searchArgs, shoppingListId, dataLoaders, sessionToken);
 };

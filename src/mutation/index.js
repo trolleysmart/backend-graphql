@@ -1,4 +1,9 @@
 // @flow
 
 export RootMutation from './RootMutation';
-export { addShoppingList, setUserDefaultShoppingList } from './ShoppingListHelper';
+export {
+  addShoppingListForProvidedUser,
+  addShoppingList,
+  setUserDefaultShoppingListForProvidedUser,
+  setUserDefaultShoppingList,
+} from './ShoppingListHelper';

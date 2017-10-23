@@ -60,10 +60,16 @@ export const removeItemsFromShoppingList = async (shoppingListItemIds, dataLoade
   }
 };
 
+export const addShoppingListForProvidedUser = async (name, user, sessionToken) => {
+  const acl = ParseWrapperService.createACL(user);
+
+  return new ShoppingListService().create(Map({ name, user, status: 'A' }), acl, sessionToken);
+};
+
 export const addShoppingList = async (name, dataLoaders, sessionToken) => {
   const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
-  return new ShoppingListService().create(Map({ name, user, status: 'A' }), ParseWrapperService.createACL(user), sessionToken);
+  return addShoppingListForProvidedUser(name, user, sessionToken);
 };
 
 export const updateShoppingList = async (shoppingListId, name, sessionToken) => {
@@ -84,8 +90,7 @@ export const removeShoppingList = async (shoppingListId, sessionToken) => {
   return shoppingListService.update(shoppingList.set('status', 'I'), sessionToken);
 };
 
-export const setUserDefaultShoppingList = async (shoppingListId, dataLoaders, sessionToken) => {
-  const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
+export const setUserDefaultShoppingListForProvidedUser = async (shoppingListId, user, sessionToken) => {
   const defaultShoppingListService = new DefaultShoppingListService();
   const defaultShoppingLists = await defaultShoppingListService.search(Map({ conditions: Map({ userId: user.id }) }), sessionToken);
 
@@ -96,4 +101,10 @@ export const setUserDefaultShoppingList = async (shoppingListId, dataLoaders, se
   }
 
   throw new Error('Multiple default shopping lists found.');
+};
+
+export const setUserDefaultShoppingList = async (shoppingListId, dataLoaders, sessionToken) => {
+  const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
+
+  return setUserDefaultShoppingListForProvidedUser(shoppingListId, user, sessionToken);
 };
