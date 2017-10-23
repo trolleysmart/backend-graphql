@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tagLoaderById = exports.tagLoaderByKey = exports.storeLoaderByKey = exports.storeLoaderById = exports.createUserLoaderBySessionToken = exports.createConfigLoader = exports.getRootSchema = undefined;
+exports.tagLoaderById = exports.tagLoaderByKey = exports.storeLoaderByKey = exports.storeLoaderById = exports.createUserLoaderBySessionToken = exports.createUserDefaultShoppingListLoader = exports.createConfigLoader = exports.getRootSchema = undefined;
 
 var _loader = require('./loader');
 
@@ -11,6 +11,12 @@ Object.defineProperty(exports, 'createConfigLoader', {
   enumerable: true,
   get: function get() {
     return _loader.createConfigLoader;
+  }
+});
+Object.defineProperty(exports, 'createUserDefaultShoppingListLoader', {
+  enumerable: true,
+  get: function get() {
+    return _loader.createUserDefaultShoppingListLoader;
   }
 });
 Object.defineProperty(exports, 'createUserLoaderBySessionToken', {

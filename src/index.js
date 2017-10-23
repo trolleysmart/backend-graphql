@@ -1,4 +1,12 @@
 // @flow
 
 export getRootSchema from './RootSchema';
-export { createConfigLoader, createUserLoaderBySessionToken, storeLoaderById, storeLoaderByKey, tagLoaderByKey, tagLoaderById } from './loader';
+export {
+  createConfigLoader,
+  createUserDefaultShoppingListLoader,
+  createUserLoaderBySessionToken,
+  storeLoaderById,
+  storeLoaderByKey,
+  tagLoaderByKey,
+  tagLoaderById,
+} from './loader';
