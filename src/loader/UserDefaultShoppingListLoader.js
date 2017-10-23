@@ -1,5 +1,6 @@
 // @flow
 
+import { Map } from 'immutable';
 import Dataloader from 'dataloader';
 import { UserService } from 'micro-business-parse-server-common';
 import { DefaultShoppingListService } from 'trolley-smart-parse-server-common';

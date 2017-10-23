@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createSessionTokenAndUserIdKeyCombination = undefined;
 
+var _immutable = require('immutable');
+
 var _dataloader = require('dataloader');
 
 var _dataloader2 = _interopRequireDefault(_dataloader);
@@ -82,7 +84,7 @@ var createUserDefaultShoppingListLoader = function createUserDefaultShoppingList
                         case 0:
                           _getSessionTokenAndUs = getSessionTokenAndUserIdFromKeyCombination(key), sessionToken = _getSessionTokenAndUs.sessionToken, userId = _getSessionTokenAndUs.userId;
                           _context2.next = 3;
-                          return new _trolleySmartParseServerCommon.DefaultShoppingListService().search(Map({ conditions: Map({ userId: userId }) }), sessionToken);
+                          return new _trolleySmartParseServerCommon.DefaultShoppingListService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ userId: userId }) }), sessionToken);
 
                         case 3:
                           defaultShoppingLists = _context2.sent;
