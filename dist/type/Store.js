@@ -277,7 +277,7 @@ var ParentStore = new _graphql.GraphQLObjectType({
         return (0, _immutable.Map)({ from: from, until: until });
       }
     },
-    phone: {
+    phones: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Phone2.default)),
       resolve: function resolve(_) {
         var phones = _.get('phones');
@@ -400,7 +400,7 @@ exports.default = new _graphql.GraphQLObjectType({
         return (0, _immutable.Map)({ from: from, until: until });
       }
     },
-    phone: {
+    phones: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Phone2.default)),
       resolve: function resolve(_) {
         var phones = _.get('phones');

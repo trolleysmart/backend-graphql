@@ -111,7 +111,7 @@ const ParentStore = new GraphQLObjectType({
         return Map({ from, until });
       },
     },
-    phone: {
+    phones: {
       type: new GraphQLList(new GraphQLNonNull(Phone)),
       resolve: (_) => {
         const phones = _.get('phones');
@@ -189,7 +189,7 @@ export default new GraphQLObjectType({
         return Map({ from, until });
       },
     },
-    phone: {
+    phones: {
       type: new GraphQLList(new GraphQLNonNull(Phone)),
       resolve: (_) => {
         const phones = _.get('phones');

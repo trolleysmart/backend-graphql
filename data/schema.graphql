@@ -77,7 +77,7 @@ type ParentStore implements Node {
   address: String
   geoLocation: GeoLocation
   openingHours: OpeningHours
-  phone: [Phone!]
+  phones: [Phone!]
 }
 
 type ParentTag implements Node {
@@ -282,7 +282,7 @@ type Store implements Node {
   address: String
   geoLocation: GeoLocation
   openingHours: OpeningHours
-  phone: [Phone!]
+  phones: [Phone!]
   parentStore: ParentStore
 }
 
