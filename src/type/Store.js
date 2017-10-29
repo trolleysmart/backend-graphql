@@ -1,8 +1,10 @@
 // @flow
 
 import Immutable, { List, Map } from 'immutable';
-import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import GeoLocation from './GeoLocation';
+import OpeningHours from './OpeningHours';
+import Phone from './Phone';
 import { NodeInterface } from '../interface';
 
 const getAllStoresToFilterByUsingId = async (storeIds, dataLoaders) => {
@@ -96,6 +98,31 @@ const ParentStore = new GraphQLObjectType({
         return Map({ latitude: geoLocation.latitude, longitude: geoLocation.longitude });
       },
     },
+    openingHours: {
+      type: OpeningHours,
+      resolve: (_) => {
+        const from = _.get('openFrom');
+        const until = _.get('openUntil');
+
+        if (!from || !until) {
+          return null;
+        }
+
+        return Map({ from, until });
+      },
+    },
+    phone: {
+      type: new GraphQLList(new GraphQLNonNull(Phone)),
+      resolve: (_) => {
+        const phones = _.get('phones');
+
+        if (!phones) {
+          return [];
+        }
+
+        return phones.toArray();
+      },
+    },
   },
   interfaces: [NodeInterface],
 });
@@ -147,6 +174,31 @@ export default new GraphQLObjectType({
         }
 
         return Map({ latitude: geoLocation.latitude, longitude: geoLocation.longitude });
+      },
+    },
+    openingHours: {
+      type: OpeningHours,
+      resolve: (_) => {
+        const from = _.get('openFrom');
+        const until = _.get('openUntil');
+
+        if (!from || !until) {
+          return null;
+        }
+
+        return Map({ from, until });
+      },
+    },
+    phone: {
+      type: new GraphQLList(new GraphQLNonNull(Phone)),
+      resolve: (_) => {
+        const phones = _.get('phones');
+
+        if (!phones) {
+          return [];
+        }
+
+        return phones.toArray();
       },
     },
     parentStore: {

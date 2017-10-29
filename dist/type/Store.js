@@ -15,6 +15,14 @@ var _GeoLocation = require('./GeoLocation');
 
 var _GeoLocation2 = _interopRequireDefault(_GeoLocation);
 
+var _OpeningHours = require('./OpeningHours');
+
+var _OpeningHours2 = _interopRequireDefault(_OpeningHours);
+
+var _Phone = require('./Phone');
+
+var _Phone2 = _interopRequireDefault(_Phone);
+
 var _interface = require('../interface');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -255,6 +263,31 @@ var ParentStore = new _graphql.GraphQLObjectType({
 
         return (0, _immutable.Map)({ latitude: geoLocation.latitude, longitude: geoLocation.longitude });
       }
+    },
+    openingHours: {
+      type: _OpeningHours2.default,
+      resolve: function resolve(_) {
+        var from = _.get('openFrom');
+        var until = _.get('openUntil');
+
+        if (!from || !until) {
+          return null;
+        }
+
+        return (0, _immutable.Map)({ from: from, until: until });
+      }
+    },
+    phone: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Phone2.default)),
+      resolve: function resolve(_) {
+        var phones = _.get('phones');
+
+        if (!phones) {
+          return [];
+        }
+
+        return phones.toArray();
+      }
     }
   },
   interfaces: [_interface.NodeInterface]
@@ -352,6 +385,31 @@ exports.default = new _graphql.GraphQLObjectType({
         }
 
         return (0, _immutable.Map)({ latitude: geoLocation.latitude, longitude: geoLocation.longitude });
+      }
+    },
+    openingHours: {
+      type: _OpeningHours2.default,
+      resolve: function resolve(_) {
+        var from = _.get('openFrom');
+        var until = _.get('openUntil');
+
+        if (!from || !until) {
+          return null;
+        }
+
+        return (0, _immutable.Map)({ from: from, until: until });
+      }
+    },
+    phone: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Phone2.default)),
+      resolve: function resolve(_) {
+        var phones = _.get('phones');
+
+        if (!phones) {
+          return [];
+        }
+
+        return phones.toArray();
       }
     },
     parentStore: {

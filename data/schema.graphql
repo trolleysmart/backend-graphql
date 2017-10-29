@@ -49,6 +49,11 @@ interface Node {
   id: ID!
 }
 
+type OpeningHours {
+  from: String
+  until: String
+}
+
 # Information about pagination in a connection.
 type PageInfo {
   # When paginating forwards, are there more items?
@@ -71,6 +76,8 @@ type ParentStore implements Node {
   imageUrl: String
   address: String
   geoLocation: GeoLocation
+  openingHours: OpeningHours
+  phone: [Phone!]
 }
 
 type ParentTag implements Node {
@@ -81,6 +88,11 @@ type ParentTag implements Node {
   imageUrl: String
   level: Int
   forDisplay: Boolean
+}
+
+type Phone {
+  label: String
+  number: String
 }
 
 type Product implements Node {
@@ -269,6 +281,8 @@ type Store implements Node {
   imageUrl: String
   address: String
   geoLocation: GeoLocation
+  openingHours: OpeningHours
+  phone: [Phone!]
   parentStore: ParentStore
 }
 
