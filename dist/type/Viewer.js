@@ -111,6 +111,9 @@ exports.default = new _graphql.GraphQLObjectType({
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString
+        },
+        forDisplay: {
+          type: _graphql.GraphQLBoolean
         }
       }),
       resolve: function () {

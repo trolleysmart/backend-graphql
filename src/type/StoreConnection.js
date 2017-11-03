@@ -17,6 +17,7 @@ const getCriteria = searchArgs =>
     orderByFieldAscending: 'name',
     conditions: Map({
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
+      forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,
     }),
   });
 

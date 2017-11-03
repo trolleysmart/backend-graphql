@@ -376,5 +376,5 @@ type Viewer implements Node {
   id: ID!
   tags(after: String, first: Int, before: String, last: Int, name: String, level: Int, forDisplay: Boolean): TagTypeConnection
   store(storeId: ID!): Store
-  stores(after: String, first: Int, before: String, last: Int, name: String): StoreTypeConnection
+  stores(after: String, first: Int, before: String, last: Int, name: String, forDisplay: Boolean): StoreTypeConnection
 }

@@ -47,6 +47,9 @@ export default new GraphQLObjectType({
         name: {
           type: GraphQLString,
         },
+        forDisplay: {
+          type: GraphQLBoolean,
+        },
       },
       resolve: async (_, args, { sessionToken }) => getStores(Immutable.fromJS(args), sessionToken),
     },

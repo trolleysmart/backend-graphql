@@ -31,7 +31,8 @@ var getCriteria = function getCriteria(searchArgs) {
     include_parentStore: true,
     orderByFieldAscending: 'name',
     conditions: (0, _immutable.Map)({
-      contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name'))
+      contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
+      forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined
     })
   });
 };
