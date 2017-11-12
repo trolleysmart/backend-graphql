@@ -40,6 +40,10 @@ var _StapleItemConnection = require('./StapleItemConnection');
 
 var _StapleItemConnection2 = _interopRequireDefault(_StapleItemConnection);
 
+var _OwnedStoreConnection = require('./OwnedStoreConnection');
+
+var _OwnedStoreConnection2 = _interopRequireDefault(_OwnedStoreConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -327,6 +331,39 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x22, _x23, _x24) {
           return _ref16.apply(this, arguments);
+        };
+      }()
+    },
+    ownedStores: {
+      type: _OwnedStoreConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        name: {
+          type: _graphql.GraphQLString
+        },
+        forDisplay: {
+          type: _graphql.GraphQLBoolean
+        }
+      }),
+      resolve: function () {
+        var _ref19 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(_, args, _ref20) {
+          var sessionToken = _ref20.sessionToken,
+              dataLoaders = _ref20.dataLoaders;
+          return regeneratorRuntime.wrap(function _callee9$(_context9) {
+            while (1) {
+              switch (_context9.prev = _context9.next) {
+                case 0:
+                  return _context9.abrupt('return', (0, _OwnedStoreConnection.getOwnedStores)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context9.stop();
+              }
+            }
+          }, _callee9, undefined);
+        }));
+
+        return function resolve(_x25, _x26, _x27) {
+          return _ref19.apply(this, arguments);
         };
       }()
     }

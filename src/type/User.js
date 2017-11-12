@@ -10,6 +10,7 @@ import ShoppingListItemConnection, { getUserDefaultShoppingListItems, getShoppin
 import Product, { getProduct } from './Product';
 import ProductConnection, { getProducts } from './ProductConnection';
 import StapleItemConnection, { getStapleItems } from './StapleItemConnection';
+import OwnedStoreConnection, { getOwnedStores } from './OwnedStoreConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -132,6 +133,19 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, { productId }, { sessionToken }) => getProduct(productId, sessionToken),
+    },
+    ownedStores: {
+      type: OwnedStoreConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        name: {
+          type: GraphQLString,
+        },
+        forDisplay: {
+          type: GraphQLBoolean,
+        },
+      },
+      resolve: async (_, args, { sessionToken, dataLoaders }) => getOwnedStores(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],

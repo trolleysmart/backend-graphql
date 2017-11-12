@@ -54,6 +54,36 @@ type OpeningHours {
   until: String
 }
 
+type OwnedStore implements Node {
+  id: ID!
+  key: String
+  name: String
+  imageUrl: String
+  address: String
+  geoLocation: GeoLocation
+  openingHours: OpeningHours
+  phones: [Phone!]
+  parentStore: ParentOwnedStore
+}
+
+# A connection to a list of items.
+type OwnedStoreTypeConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [OwnedStoreTypeEdge]
+}
+
+# An edge in a connection.
+type OwnedStoreTypeEdge {
+  # The item at the end of the edge
+  node: OwnedStore
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
 # Information about pagination in a connection.
 type PageInfo {
   # When paginating forwards, are there more items?
@@ -67,6 +97,17 @@ type PageInfo {
 
   # When paginating forwards, the cursor to continue.
   endCursor: String
+}
+
+type ParentOwnedStore implements Node {
+  id: ID!
+  key: String
+  name: String
+  imageUrl: String
+  address: String
+  geoLocation: GeoLocation
+  openingHours: OpeningHours
+  phones: [Phone!]
 }
 
 type ParentStore implements Node {
@@ -370,6 +411,7 @@ type User implements Node {
   stapleItems(after: String, first: Int, before: String, last: Int, name: String, tagKeys: [String]): StapleItemConnection
   products(after: String, first: Int, before: String, last: Int, name: String, description: String, sortOption: String, tagKeys: [String], storeKeys: [String], special: Boolean): ProductConnection
   product(productId: ID!): Product
+  ownedStores(after: String, first: Int, before: String, last: Int, name: String, forDisplay: Boolean): OwnedStoreTypeConnection
 }
 
 type Viewer implements Node {
