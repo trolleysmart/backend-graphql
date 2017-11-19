@@ -44,6 +44,14 @@ var _OwnedStoreConnection = require('./OwnedStoreConnection');
 
 var _OwnedStoreConnection2 = _interopRequireDefault(_OwnedStoreConnection);
 
+var _MyProduct = require('./MyProduct');
+
+var _MyProduct2 = _interopRequireDefault(_MyProduct);
+
+var _MyProductConnection = require('./MyProductConnection');
+
+var _MyProductConnection2 = _interopRequireDefault(_MyProductConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -334,14 +342,20 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    ownedStores: {
-      type: _OwnedStoreConnection2.default.connectionType,
+    myProducts: {
+      type: _MyProductConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         name: {
           type: _graphql.GraphQLString
         },
-        forDisplay: {
-          type: _graphql.GraphQLBoolean
+        description: {
+          type: _graphql.GraphQLString
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        },
+        tagKeys: {
+          type: new _graphql.GraphQLList(_graphql.GraphQLString)
         }
       }),
       resolve: function () {
@@ -352,7 +366,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context9.prev = _context9.next) {
                 case 0:
-                  return _context9.abrupt('return', (0, _OwnedStoreConnection.getOwnedStores)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+                  return _context9.abrupt('return', (0, _MyProductConnection.getMyProducts)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
 
                 case 1:
                 case 'end':
@@ -364,6 +378,69 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x25, _x26, _x27) {
           return _ref19.apply(this, arguments);
+        };
+      }()
+    },
+    myProduct: {
+      type: _MyProduct2.default,
+      args: {
+        myProductId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref21 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(_, _ref22, _ref23) {
+          var myProductId = _ref22.myProductId;
+          var sessionToken = _ref23.sessionToken;
+          return regeneratorRuntime.wrap(function _callee10$(_context10) {
+            while (1) {
+              switch (_context10.prev = _context10.next) {
+                case 0:
+                  return _context10.abrupt('return', (0, _MyProduct.getMyProduct)(myProductId, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context10.stop();
+              }
+            }
+          }, _callee10, undefined);
+        }));
+
+        return function resolve(_x28, _x29, _x30) {
+          return _ref21.apply(this, arguments);
+        };
+      }()
+    },
+    ownedStores: {
+      type: _OwnedStoreConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        name: {
+          type: _graphql.GraphQLString
+        },
+        forDisplay: {
+          type: _graphql.GraphQLBoolean
+        }
+      }),
+      resolve: function () {
+        var _ref24 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, args, _ref25) {
+          var sessionToken = _ref25.sessionToken,
+              dataLoaders = _ref25.dataLoaders;
+          return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            while (1) {
+              switch (_context11.prev = _context11.next) {
+                case 0:
+                  return _context11.abrupt('return', (0, _OwnedStoreConnection.getOwnedStores)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context11.stop();
+              }
+            }
+          }, _callee11, undefined);
+        }));
+
+        return function resolve(_x31, _x32, _x33) {
+          return _ref24.apply(this, arguments);
         };
       }()
     }

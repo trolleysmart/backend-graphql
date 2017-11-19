@@ -11,6 +11,8 @@ import Product, { getProduct } from './Product';
 import ProductConnection, { getProducts } from './ProductConnection';
 import StapleItemConnection, { getStapleItems } from './StapleItemConnection';
 import OwnedStoreConnection, { getOwnedStores } from './OwnedStoreConnection';
+import MyProduct, { getMyProduct } from './MyProduct';
+import MyProductConnection, { getMyProducts } from './MyProductConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -133,6 +135,34 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, { productId }, { sessionToken }) => getProduct(productId, sessionToken),
+    },
+    myProducts: {
+      type: MyProductConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        name: {
+          type: GraphQLString,
+        },
+        description: {
+          type: GraphQLString,
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+        tagKeys: {
+          type: new GraphQLList(GraphQLString),
+        },
+      },
+      resolve: async (_, args, { sessionToken, dataLoaders }) => getMyProducts(Immutable.fromJS(args), dataLoaders, sessionToken),
+    },
+    myProduct: {
+      type: MyProduct,
+      args: {
+        myProductId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { myProductId }, { sessionToken }) => getMyProduct(myProductId, sessionToken),
     },
     ownedStores: {
       type: OwnedStoreConnection.connectionType,

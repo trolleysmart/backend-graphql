@@ -1,12 +1,14 @@
 // @flow
 
 import Immutable from 'immutable';
-import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
 import TagConnection, { getTags } from './TagConnection';
 import Store, { getStore } from './Store';
 import StoreConnection, { getStores } from './StoreConnection';
+import MasterProduct, { getMasterProduct } from './MasterProduct';
+import MasterProductConnection, { getMasterProducts } from './MasterProductConnection';
 
 export default new GraphQLObjectType({
   name: 'Viewer',
@@ -52,6 +54,34 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, args, { sessionToken }) => getStores(Immutable.fromJS(args), sessionToken),
+    },
+    masterProducts: {
+      type: MasterProductConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        name: {
+          type: GraphQLString,
+        },
+        description: {
+          type: GraphQLString,
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+        tagKeys: {
+          type: new GraphQLList(GraphQLString),
+        },
+      },
+      resolve: async (_, args, { sessionToken, dataLoaders }) => getMasterProducts(Immutable.fromJS(args), dataLoaders, sessionToken),
+    },
+    masterProduct: {
+      type: MasterProduct,
+      args: {
+        masterProductId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { masterProductId }, { sessionToken }) => getMasterProduct(masterProductId, sessionToken),
     },
   },
   interfaces: [NodeInterface],

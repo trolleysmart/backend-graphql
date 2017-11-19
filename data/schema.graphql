@@ -28,6 +28,34 @@ type GeoLocation {
   longitude: Float
 }
 
+type MasterProduct implements Node {
+  id: ID!
+  name: String
+  description: String
+  imageUrl: String
+  barcode: String
+  size: String
+  tags: [Tag]
+}
+
+# A connection to a list of items.
+type MasterProductConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [MasterProductEdge]
+}
+
+# An edge in a connection.
+type MasterProductEdge {
+  # The item at the end of the edge
+  node: MasterProduct
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
 type MultiBuy {
   awardQuantity: Int
   awardValue: Float
@@ -41,6 +69,35 @@ type Mutation {
   setUserDefaultShoppingList(input: SetUserDefaultShoppingListInput!): SetUserDefaultShoppingListPayload
   submitUserFeedback(input: SubmitUserFeedbackInput!): SubmitUserFeedbackPayload
   updateShoppingList(input: UpdateShoppingListInput!): UpdateShoppingListPayload
+}
+
+type MyProduct implements Node {
+  id: ID!
+  name: String
+  description: String
+  imageUrl: String
+  barcode: String
+  size: String
+  productPageUrl: String
+  tags: [Tag]
+}
+
+# A connection to a list of items.
+type MyProductConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [MyProductEdge]
+}
+
+# An edge in a connection.
+type MyProductEdge {
+  # The item at the end of the edge
+  node: MyProduct
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 # An object with an ID
@@ -411,6 +468,8 @@ type User implements Node {
   stapleItems(after: String, first: Int, before: String, last: Int, name: String, tagKeys: [String]): StapleItemConnection
   products(after: String, first: Int, before: String, last: Int, name: String, description: String, sortOption: String, tagKeys: [String], storeKeys: [String], special: Boolean): ProductConnection
   product(productId: ID!): Product
+  myProducts(after: String, first: Int, before: String, last: Int, name: String, description: String, sortOption: String, tagKeys: [String]): MyProductConnection
+  myProduct(myProductId: ID!): MyProduct
   ownedStores(after: String, first: Int, before: String, last: Int, name: String, forDisplay: Boolean): OwnedStoreTypeConnection
 }
 
@@ -419,4 +478,6 @@ type Viewer implements Node {
   tags(after: String, first: Int, before: String, last: Int, name: String, level: Int, forDisplay: Boolean): TagTypeConnection
   store(storeId: ID!): Store
   stores(after: String, first: Int, before: String, last: Int, name: String, forDisplay: Boolean): StoreTypeConnection
+  masterProducts(after: String, first: Int, before: String, last: Int, name: String, description: String, sortOption: String, tagKeys: [String]): MasterProductConnection
+  masterProduct(masterProductId: ID!): MasterProduct
 }
