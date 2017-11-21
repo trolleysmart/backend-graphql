@@ -24,7 +24,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var getCriteria = function getCriteria(searchArgs) {
   return (0, _immutable.Map)({
     include_parentTag: true,
-    orderByFieldAscending: 'name',
     conditions: (0, _immutable.Map)({
       contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,
@@ -33,13 +32,41 @@ var getCriteria = function getCriteria(searchArgs) {
   });
 };
 
+var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption) {
+  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('DescriptionDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('DescriptionAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('LevelDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'level');
+  }
+
+  if (sortOption && sortOption.localeCompare('LevelAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'level');
+  }
+
+  return criteria.set('orderByFieldAscending', 'name');
+};
+
 var getTagsCountMatchCriteria = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, sessionToken) {
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.TagService().count(getCriteria(searchArgs), sessionToken));
+            return _context.abrupt('return', new _trolleySmartParseServerCommon.TagService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken));
 
           case 1:
           case 'end':
@@ -60,7 +87,7 @@ var getTagsMatchCriteria = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.TagService().search(getCriteria(searchArgs).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _trolleySmartParseServerCommon.TagService().search(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 1:
           case 'end':

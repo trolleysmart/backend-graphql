@@ -6,7 +6,7 @@ import { MyProductService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import MyProduct from './MyProduct';
 
-const getCriteria = async (searchArgs, ownedByUserId) =>
+const getCriteria = (searchArgs, ownedByUserId) =>
   Map({
     include_tags: true,
     conditions: Map({
@@ -25,20 +25,44 @@ const addSortOptionToCriteria = (criteria, sortOption) => {
     return criteria.set('orderByFieldAscending', 'name');
   }
 
+  if (sortOption && sortOption.localeCompare('DescriptionDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('DescriptionAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('BarcodeDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'barcode');
+  }
+
+  if (sortOption && sortOption.localeCompare('BarcodeAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'barcode');
+  }
+
+  if (sortOption && sortOption.localeCompare('SizeDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'size');
+  }
+
+  if (sortOption && sortOption.localeCompare('SizeAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'size');
+  }
+
   return criteria.set('orderByFieldAscending', 'name');
 };
 
 const getMyProductPriceCountMatchCriteria = async (searchArgs, dataLoaders, sessionToken) => {
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
 
-  return new MyProductService().count(addSortOptionToCriteria(await getCriteria(searchArgs), userId, searchArgs.get('sortOption')), sessionToken);
+  return new MyProductService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken);
 };
 
 const getMyProductPriceMatchCriteria = async (searchArgs, dataLoaders, sessionToken, limit, skip) => {
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
 
   return new MyProductService().search(
-    addSortOptionToCriteria(await getCriteria(searchArgs, userId), searchArgs.get('sortOption'))
+    addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption'))
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,

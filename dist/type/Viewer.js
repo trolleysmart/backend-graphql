@@ -60,6 +60,9 @@ exports.default = new _graphql.GraphQLObjectType({
         },
         forDisplay: {
           type: _graphql.GraphQLBoolean
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
         }
       }),
       resolve: function () {
@@ -122,6 +125,9 @@ exports.default = new _graphql.GraphQLObjectType({
         },
         forDisplay: {
           type: _graphql.GraphQLBoolean
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
         }
       }),
       resolve: function () {

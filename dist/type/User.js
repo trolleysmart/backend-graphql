@@ -73,6 +73,9 @@ exports.default = new _graphql.GraphQLObjectType({
         },
         shoppingListIds: {
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
         }
       }),
       resolve: function () {
@@ -242,6 +245,9 @@ exports.default = new _graphql.GraphQLObjectType({
         },
         tagKeys: {
           type: new _graphql.GraphQLList(_graphql.GraphQLString)
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
         }
       }),
       resolve: function () {
@@ -386,6 +392,9 @@ exports.default = new _graphql.GraphQLObjectType({
       args: {
         myProductId: {
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
         }
       },
       resolve: function () {
@@ -419,6 +428,9 @@ exports.default = new _graphql.GraphQLObjectType({
         },
         forDisplay: {
           type: _graphql.GraphQLBoolean
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
         }
       }),
       resolve: function () {

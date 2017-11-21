@@ -29,7 +29,6 @@ var OwnedStoreConnection = (0, _graphqlRelay.connectionDefinitions)({
 var getCriteria = function getCriteria(searchArgs, ownedByUserId) {
   return (0, _immutable.Map)({
     include_parentStore: true,
-    orderByFieldAscending: 'name',
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,
       contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
@@ -38,13 +37,33 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId) {
   });
 };
 
+var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption) {
+  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('AddressDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'address');
+  }
+
+  if (sortOption && sortOption.localeCompare('AddressAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'address');
+  }
+
+  return criteria.set('orderByFieldAscending', 'name');
+};
+
 var getOwnedStoresCountMatchCriteria = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, ownedByUserId, sessionToken) {
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.StoreService().count(getCriteria(searchArgs, ownedByUserId), sessionToken));
+            return _context.abrupt('return', new _trolleySmartParseServerCommon.StoreService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken));
 
           case 1:
           case 'end':
@@ -65,7 +84,7 @@ var getOwnedStoresMatchCriteria = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.StoreService().search(getCriteria(searchArgs, ownedByUserId).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _trolleySmartParseServerCommon.StoreService().search(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 1:
           case 'end':

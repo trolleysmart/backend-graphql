@@ -6,7 +6,7 @@ import { MasterProductService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import MasterProduct from './MasterProduct';
 
-const getCriteria = async searchArgs =>
+const getCriteria = searchArgs =>
   Map({
     include_tags: true,
     conditions: Map({
@@ -24,15 +24,39 @@ const addSortOptionToCriteria = (criteria, sortOption) => {
     return criteria.set('orderByFieldAscending', 'name');
   }
 
+  if (sortOption && sortOption.localeCompare('DescriptionDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('DescriptionAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('BarcodeDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'barcode');
+  }
+
+  if (sortOption && sortOption.localeCompare('BarcodeAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'barcode');
+  }
+
+  if (sortOption && sortOption.localeCompare('SizeDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'size');
+  }
+
+  if (sortOption && sortOption.localeCompare('SizeAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'size');
+  }
+
   return criteria.set('orderByFieldAscending', 'name');
 };
 
 const getMasterProductPriceCountMatchCriteria = async (searchArgs, sessionToken) =>
-  new MasterProductService().count(addSortOptionToCriteria(await getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken);
+  new MasterProductService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken);
 
 const getMasterProductPriceMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
   new MasterProductService().search(
-    addSortOptionToCriteria(await getCriteria(searchArgs), searchArgs.get('sortOption'))
+    addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption'))
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,

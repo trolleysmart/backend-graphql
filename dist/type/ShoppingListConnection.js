@@ -26,7 +26,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var getCriteria = function getCriteria(searchArgs, userId) {
   return (0, _immutable.Map)({
     ids: searchArgs.has('shoppingListIds') ? searchArgs.get('shoppingListIds') : undefined,
-    orderByFieldAscending: 'name',
     conditions: (0, _immutable.Map)({
       userId: userId,
       contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
@@ -35,13 +34,25 @@ var getCriteria = function getCriteria(searchArgs, userId) {
   });
 };
 
+var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption) {
+  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'name');
+  }
+
+  return criteria.set('orderByFieldAscending', 'name');
+};
+
 var getShoppingListCountMatchCriteria = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, userId, sessionToken) {
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().count(getCriteria(searchArgs, userId), sessionToken));
+            return _context.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken));
 
           case 1:
           case 'end':
@@ -62,7 +73,7 @@ var getShoppingListMatchCriteria = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().search(getCriteria(searchArgs, userId).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().search(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 1:
           case 'end':

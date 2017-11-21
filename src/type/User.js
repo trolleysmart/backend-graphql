@@ -31,6 +31,9 @@ export default new GraphQLObjectType({
         shoppingListIds: {
           type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
+        sortOption: {
+          type: GraphQLString,
+        },
       },
       resolve: async (_, args, { sessionToken, dataLoaders }) => getShoppingLists(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
@@ -99,6 +102,9 @@ export default new GraphQLObjectType({
         tagKeys: {
           type: new GraphQLList(GraphQLString),
         },
+        sortOption: {
+          type: GraphQLString,
+        },
       },
       resolve: async (_, args, { sessionToken, dataLoaders }) => getStapleItems(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
@@ -161,6 +167,9 @@ export default new GraphQLObjectType({
         myProductId: {
           type: new GraphQLNonNull(GraphQLID),
         },
+        sortOption: {
+          type: GraphQLString,
+        },
       },
       resolve: async (_, { myProductId }, { sessionToken }) => getMyProduct(myProductId, sessionToken),
     },
@@ -173,6 +182,9 @@ export default new GraphQLObjectType({
         },
         forDisplay: {
           type: GraphQLBoolean,
+        },
+        sortOption: {
+          type: GraphQLString,
         },
       },
       resolve: async (_, args, { sessionToken, dataLoaders }) => getOwnedStores(Immutable.fromJS(args), dataLoaders, sessionToken),

@@ -29,12 +29,31 @@ var StoreConnection = (0, _graphqlRelay.connectionDefinitions)({
 var getCriteria = function getCriteria(searchArgs) {
   return (0, _immutable.Map)({
     include_parentStore: true,
-    orderByFieldAscending: 'name',
     conditions: (0, _immutable.Map)({
       contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined
     })
   });
+};
+
+var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption) {
+  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('AddressDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'address');
+  }
+
+  if (sortOption && sortOption.localeCompare('AddressAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'address');
+  }
+
+  return criteria.set('orderByFieldAscending', 'name');
 };
 
 var getStoresCountMatchCriteria = function () {
@@ -43,7 +62,7 @@ var getStoresCountMatchCriteria = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.StoreService().count(getCriteria(searchArgs), sessionToken));
+            return _context.abrupt('return', new _trolleySmartParseServerCommon.StoreService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken));
 
           case 1:
           case 'end':
@@ -64,7 +83,7 @@ var getStoresMatchCriteria = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.StoreService().search(getCriteria(searchArgs).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _trolleySmartParseServerCommon.StoreService().search(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 1:
           case 'end':

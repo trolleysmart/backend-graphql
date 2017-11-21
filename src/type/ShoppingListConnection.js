@@ -10,7 +10,6 @@ import { createSessionTokenAndUserIdKeyCombination } from '../loader';
 const getCriteria = (searchArgs, userId) =>
   Map({
     ids: searchArgs.has('shoppingListIds') ? searchArgs.get('shoppingListIds') : undefined,
-    orderByFieldAscending: 'name',
     conditions: Map({
       userId,
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
@@ -18,12 +17,24 @@ const getCriteria = (searchArgs, userId) =>
     }),
   });
 
+const addSortOptionToCriteria = (criteria, sortOption) => {
+  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'name');
+  }
+
+  return criteria.set('orderByFieldAscending', 'name');
+};
+
 const getShoppingListCountMatchCriteria = async (searchArgs, userId, sessionToken) =>
-  new ShoppingListService().count(getCriteria(searchArgs, userId), sessionToken);
+  new ShoppingListService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken);
 
 const getShoppingListMatchCriteria = async (searchArgs, userId, sessionToken, limit, skip) =>
   new ShoppingListService().search(
-    getCriteria(searchArgs, userId)
+    addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption'))
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,

@@ -30,6 +30,9 @@ export default new GraphQLObjectType({
         forDisplay: {
           type: GraphQLBoolean,
         },
+        sortOption: {
+          type: GraphQLString,
+        },
       },
       resolve: async (_, args, { sessionToken }) => getTags(Immutable.fromJS(args), sessionToken),
     },
@@ -51,6 +54,9 @@ export default new GraphQLObjectType({
         },
         forDisplay: {
           type: GraphQLBoolean,
+        },
+        sortOption: {
+          type: GraphQLString,
         },
       },
       resolve: async (_, args, { sessionToken }) => getStores(Immutable.fromJS(args), sessionToken),

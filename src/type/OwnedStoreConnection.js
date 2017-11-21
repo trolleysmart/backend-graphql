@@ -14,7 +14,6 @@ const OwnedStoreConnection = connectionDefinitions({
 const getCriteria = (searchArgs, ownedByUserId) =>
   Map({
     include_parentStore: true,
-    orderByFieldAscending: 'name',
     conditions: Map({
       ownedByUserId,
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
@@ -22,13 +21,32 @@ const getCriteria = (searchArgs, ownedByUserId) =>
     }),
   });
 
-const getOwnedStoresCountMatchCriteria =
-    async (searchArgs, ownedByUserId, sessionToken) =>
-      new StoreService().count(getCriteria(searchArgs, ownedByUserId), sessionToken);
+const addSortOptionToCriteria = (criteria, sortOption) => {
+  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('AddressDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'address');
+  }
+
+  if (sortOption && sortOption.localeCompare('AddressAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'address');
+  }
+
+  return criteria.set('orderByFieldAscending', 'name');
+};
+
+const getOwnedStoresCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken) =>
+  new StoreService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken);
 
 const getOwnedStoresMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
   new StoreService().search(
-    getCriteria(searchArgs, ownedByUserId)
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption'))
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,

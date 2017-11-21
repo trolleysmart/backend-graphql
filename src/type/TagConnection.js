@@ -9,7 +9,6 @@ import Tag from './Tag';
 const getCriteria = searchArgs =>
   Map({
     include_parentTag: true,
-    orderByFieldAscending: 'name',
     conditions: Map({
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,
@@ -17,11 +16,40 @@ const getCriteria = searchArgs =>
     }),
   });
 
-const getTagsCountMatchCriteria = async (searchArgs, sessionToken) => new TagService().count(getCriteria(searchArgs), sessionToken);
+const addSortOptionToCriteria = (criteria, sortOption) => {
+  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('DescriptionDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('DescriptionAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('LevelDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'level');
+  }
+
+  if (sortOption && sortOption.localeCompare('LevelAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'level');
+  }
+
+  return criteria.set('orderByFieldAscending', 'name');
+};
+
+const getTagsCountMatchCriteria = async (searchArgs, sessionToken) =>
+  new TagService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken);
 
 const getTagsMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
   new TagService().search(
-    getCriteria(searchArgs)
+    addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption'))
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,
