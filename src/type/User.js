@@ -97,7 +97,7 @@ export default new GraphQLObjectType({
       args: {
         ...connectionArgs,
         stapleItemIds: {
-          type: new GraphQLNonNull(GraphQLID),
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
         name: {
           type: GraphQLString,
@@ -116,7 +116,7 @@ export default new GraphQLObjectType({
       args: {
         ...connectionArgs,
         productIds: {
-          type: new GraphQLNonNull(GraphQLID),
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
         name: {
           type: GraphQLString,
