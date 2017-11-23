@@ -2,6 +2,8 @@
 
 import { GraphQLObjectType } from 'graphql';
 import addItemsToShoppingList from './AddItemsToShoppingList';
+import addMasterProduct from './AddMasterProduct';
+import addMyProduct from './AddMyProduct';
 import addShoppingList from './AddShoppingList';
 import addStore from './AddStore';
 import removeItemsFromShoppingList from './RemoveItemsFromShoppingList';
@@ -15,6 +17,8 @@ export default new GraphQLObjectType({
   fields: {
     addItemsToShoppingList,
     addShoppingList,
+    addMasterProduct,
+    addMyProduct,
     addStore,
     removeItemsFromShoppingList,
     removeShoppingList,

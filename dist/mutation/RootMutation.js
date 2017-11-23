@@ -10,6 +10,14 @@ var _AddItemsToShoppingList = require('./AddItemsToShoppingList');
 
 var _AddItemsToShoppingList2 = _interopRequireDefault(_AddItemsToShoppingList);
 
+var _AddMasterProduct = require('./AddMasterProduct');
+
+var _AddMasterProduct2 = _interopRequireDefault(_AddMasterProduct);
+
+var _AddMyProduct = require('./AddMyProduct');
+
+var _AddMyProduct2 = _interopRequireDefault(_AddMyProduct);
+
 var _AddShoppingList = require('./AddShoppingList');
 
 var _AddShoppingList2 = _interopRequireDefault(_AddShoppingList);
@@ -45,6 +53,8 @@ exports.default = new _graphql.GraphQLObjectType({
   fields: {
     addItemsToShoppingList: _AddItemsToShoppingList2.default,
     addShoppingList: _AddShoppingList2.default,
+    addMasterProduct: _AddMasterProduct2.default,
+    addMyProduct: _AddMyProduct2.default,
     addStore: _AddStore2.default,
     removeItemsFromShoppingList: _RemoveItemsFromShoppingList2.default,
     removeShoppingList: _RemoveShoppingList2.default,

@@ -12,6 +12,35 @@ type AddItemsToShoppingListPayload {
   clientMutationId: String
 }
 
+input AddMasterProductInput {
+  name: String!
+  description: String
+  barcode: String
+  size: String
+  clientMutationId: String
+}
+
+type AddMasterProductPayload {
+  errorMessage: String
+  masterProduct: MasterProductEdge
+  clientMutationId: String
+}
+
+input AddMyProductInput {
+  name: String!
+  description: String
+  barcode: String
+  productPageUrl: String
+  size: String
+  clientMutationId: String
+}
+
+type AddMyProductPayload {
+  errorMessage: String
+  myProduct: MyProductEdge
+  clientMutationId: String
+}
+
 input AddShoppingListInput {
   name: String!
   clientMutationId: String
@@ -76,6 +105,8 @@ type MultiBuy {
 type Mutation {
   addItemsToShoppingList(input: AddItemsToShoppingListInput!): AddItemsToShoppingListPayload
   addShoppingList(input: AddShoppingListInput!): AddShoppingListPayload
+  addMasterProduct(input: AddMasterProductInput!): AddMasterProductPayload
+  addMyProduct(input: AddMyProductInput!): AddMyProductPayload
   addStore(input: AddStoreInput!): AddStorePayload
   removeItemsFromShoppingList(input: RemoveItemsFromShoppingListInput!): RemoveItemsFromShoppingListPayload
   removeShoppingList(input: RemoveShoppingListInput!): RemoveShoppingListPayload
