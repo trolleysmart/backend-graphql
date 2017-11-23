@@ -483,6 +483,20 @@
                   "defaultValue": null
                 },
                 {
+                  "name": "stapleItemIds",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
                   "name": "name",
                   "description": null,
                   "type": {
@@ -566,6 +580,20 @@
                     "kind": "SCALAR",
                     "name": "Int",
                     "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "productIds",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
                   },
                   "defaultValue": null
                 },
@@ -718,6 +746,24 @@
                   "defaultValue": null
                 },
                 {
+                  "name": "myProductIds",
+                  "description": null,
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "ID",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
                   "name": "name",
                   "description": null,
                   "type": {
@@ -848,6 +894,24 @@
                     "kind": "SCALAR",
                     "name": "Int",
                     "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "ownedStoreIds",
+                  "description": null,
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "ID",
+                        "ofType": null
+                      }
+                    }
                   },
                   "defaultValue": null
                 },
@@ -3526,6 +3590,24 @@
                   "defaultValue": null
                 },
                 {
+                  "name": "tagIds",
+                  "description": null,
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "ID",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
                   "name": "name",
                   "description": null,
                   "type": {
@@ -3646,6 +3728,24 @@
                   "defaultValue": null
                 },
                 {
+                  "name": "storeIds",
+                  "description": null,
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "ID",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
                   "name": "name",
                   "description": null,
                   "type": {
@@ -3725,6 +3825,24 @@
                     "kind": "SCALAR",
                     "name": "Int",
                     "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "masterProductIds",
+                  "description": null,
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "ID",
+                        "ofType": null
+                      }
+                    }
                   },
                   "defaultValue": null
                 },
@@ -4235,6 +4353,33 @@
               "deprecationReason": null
             },
             {
+              "name": "addStore",
+              "description": null,
+              "args": [
+                {
+                  "name": "input",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "AddStoreInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "AddStorePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "removeItemsFromShoppingList",
               "description": null,
               "args": [
@@ -4574,6 +4719,98 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "ShoppingListEdge",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "AddStoreInput",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "name",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "address",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AddStorePayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "errorMessage",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "store",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "OwnedStoreTypeEdge",
                 "ofType": null
               },
               "isDeprecated": false,

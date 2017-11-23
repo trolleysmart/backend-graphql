@@ -52,6 +52,9 @@ exports.default = new _graphql.GraphQLObjectType({
     tags: {
       type: _TagConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
+        tagIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
         name: {
           type: _graphql.GraphQLString
         },
@@ -120,6 +123,9 @@ exports.default = new _graphql.GraphQLObjectType({
     stores: {
       type: _StoreConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
+        storeIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
         name: {
           type: _graphql.GraphQLString
         },
@@ -155,6 +161,9 @@ exports.default = new _graphql.GraphQLObjectType({
     masterProducts: {
       type: _MasterProductConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
+        masterProductIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
         name: {
           type: _graphql.GraphQLString
         },

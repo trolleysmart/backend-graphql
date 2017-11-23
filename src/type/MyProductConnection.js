@@ -9,6 +9,7 @@ import MyProduct from './MyProduct';
 const getCriteria = (searchArgs, ownedByUserId) =>
   Map({
     include_tags: true,
+    ids: searchArgs.has('myProductIds') ? searchArgs.get('myProductIds') : undefined,
     conditions: Map({
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
       contains_descriptions: convertStringArgumentToSet(searchArgs.get('description')),

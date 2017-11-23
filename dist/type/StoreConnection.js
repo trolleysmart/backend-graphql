@@ -21,14 +21,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var StoreConnection = (0, _graphqlRelay.connectionDefinitions)({
-  name: 'StoreType',
-  nodeType: _Store2.default
-});
-
 var getCriteria = function getCriteria(searchArgs) {
   return (0, _immutable.Map)({
     include_parentStore: true,
+    ids: searchArgs.has('storeIds') ? searchArgs.get('storeIds') : undefined,
     conditions: (0, _immutable.Map)({
       contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined
@@ -150,4 +146,7 @@ var getStores = exports.getStores = function () {
   };
 }();
 
-exports.default = StoreConnection;
+exports.default = (0, _graphqlRelay.connectionDefinitions)({
+  name: 'StoreType',
+  nodeType: _Store2.default
+});

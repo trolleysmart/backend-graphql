@@ -6,14 +6,10 @@ import { StoreService } from 'trolley-smart-parse-server-common';
 import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import OwnedStore from './OwnedStore';
 
-const OwnedStoreConnection = connectionDefinitions({
-  name: 'OwnedStoreType',
-  nodeType: OwnedStore,
-});
-
 const getCriteria = (searchArgs, ownedByUserId) =>
   Map({
     include_parentStore: true,
+    ids: searchArgs.has('ownedStoreIds') ? searchArgs.get('ownedStoreIds') : undefined,
     conditions: Map({
       ownedByUserId,
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
@@ -81,4 +77,7 @@ export const getOwnedStores = async (searchArgs, dataLoaders, sessionToken) => {
   };
 };
 
-export default OwnedStoreConnection;
+export default connectionDefinitions({
+  name: 'OwnedStoreType',
+  nodeType: OwnedStore,
+});

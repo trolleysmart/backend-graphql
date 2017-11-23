@@ -41,6 +41,7 @@ var getCriteria = function () {
               include_store: true,
               include_tags: true,
               include_storeProduct: true,
+              ids: searchArgs.has('productIds') ? searchArgs.get('productIds') : undefined,
               conditions: (0, _immutable.Map)({
                 contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
                 contains_descriptions: (0, _Common.convertStringArgumentToSet)(searchArgs.get('description')),

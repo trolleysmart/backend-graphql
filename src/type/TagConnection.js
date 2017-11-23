@@ -9,6 +9,7 @@ import Tag from './Tag';
 const getCriteria = searchArgs =>
   Map({
     include_parentTag: true,
+    ids: searchArgs.has('tagIds') ? searchArgs.get('tagIds') : undefined,
     conditions: Map({
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,

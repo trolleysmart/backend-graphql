@@ -14,6 +14,10 @@ var _AddShoppingList = require('./AddShoppingList');
 
 var _AddShoppingList2 = _interopRequireDefault(_AddShoppingList);
 
+var _AddStore = require('./AddStore');
+
+var _AddStore2 = _interopRequireDefault(_AddStore);
+
 var _RemoveItemsFromShoppingList = require('./RemoveItemsFromShoppingList');
 
 var _RemoveItemsFromShoppingList2 = _interopRequireDefault(_RemoveItemsFromShoppingList);
@@ -41,6 +45,7 @@ exports.default = new _graphql.GraphQLObjectType({
   fields: {
     addItemsToShoppingList: _AddItemsToShoppingList2.default,
     addShoppingList: _AddShoppingList2.default,
+    addStore: _AddStore2.default,
     removeItemsFromShoppingList: _RemoveItemsFromShoppingList2.default,
     removeShoppingList: _RemoveShoppingList2.default,
     setUserDefaultShoppingList: _SetUserDefaultShoppingList2.default,

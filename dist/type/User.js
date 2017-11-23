@@ -240,6 +240,9 @@ exports.default = new _graphql.GraphQLObjectType({
     stapleItems: {
       type: _StapleItemConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
+        stapleItemIds: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        },
         name: {
           type: _graphql.GraphQLString
         },
@@ -276,6 +279,9 @@ exports.default = new _graphql.GraphQLObjectType({
     products: {
       type: _ProductConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
+        productIds: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        },
         name: {
           type: _graphql.GraphQLString
         },
@@ -351,6 +357,9 @@ exports.default = new _graphql.GraphQLObjectType({
     myProducts: {
       type: _MyProductConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
+        myProductIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
         name: {
           type: _graphql.GraphQLString
         },
@@ -423,6 +432,9 @@ exports.default = new _graphql.GraphQLObjectType({
     ownedStores: {
       type: _OwnedStoreConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
+        ownedStoreIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
         name: {
           type: _graphql.GraphQLString
         },

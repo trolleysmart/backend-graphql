@@ -9,7 +9,7 @@ import StapleItem from './StapleItem';
 const getCriteria = (searchArgs, userId) =>
   Map({
     include_tags: true,
-    orderByFieldAscending: 'name',
+    ids: searchArgs.has('stapleItemIds') ? searchArgs.get('stapleItemIds') : undefined,
     conditions: Map({
       userId,
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
@@ -18,12 +18,40 @@ const getCriteria = (searchArgs, userId) =>
     }),
   });
 
+const addSortOptionToCriteria = (criteria, sortOption) => {
+  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'name');
+  }
+
+  if (sortOption && sortOption.localeCompare('DescriptionDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('DescriptionAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'description');
+  }
+
+  if (sortOption && sortOption.localeCompare('PopularDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'popular');
+  }
+
+  if (sortOption && sortOption.localeCompare('PopularAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'popular');
+  }
+
+  return criteria.set('orderByFieldAscending', 'name');
+};
+
 const getStapleItemsCountMatchCriteria = async (searchArgs, userId, sessionToken) =>
-  new StapleItemService().count(getCriteria(searchArgs, userId), sessionToken);
+  new StapleItemService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken);
 
 const getStapleItemsMatchCriteria = async (searchArgs, userId, sessionToken, limit, skip) =>
   new StapleItemService().search(
-    getCriteria(searchArgs, userId)
+    addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption'))
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,

@@ -96,6 +96,9 @@ export default new GraphQLObjectType({
       type: StapleItemConnection.connectionType,
       args: {
         ...connectionArgs,
+        stapleItemIds: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
         name: {
           type: GraphQLString,
         },
@@ -112,6 +115,9 @@ export default new GraphQLObjectType({
       type: ProductConnection.connectionType,
       args: {
         ...connectionArgs,
+        productIds: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
         name: {
           type: GraphQLString,
         },
@@ -146,6 +152,9 @@ export default new GraphQLObjectType({
       type: MyProductConnection.connectionType,
       args: {
         ...connectionArgs,
+        myProductIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
         name: {
           type: GraphQLString,
         },
@@ -177,6 +186,9 @@ export default new GraphQLObjectType({
       type: OwnedStoreConnection.connectionType,
       args: {
         ...connectionArgs,
+        ownedStoreIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
         name: {
           type: GraphQLString,
         },

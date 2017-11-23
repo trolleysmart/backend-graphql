@@ -21,6 +21,9 @@ export default new GraphQLObjectType({
       type: TagConnection.connectionType,
       args: {
         ...connectionArgs,
+        tagIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
         name: {
           type: GraphQLString,
         },
@@ -49,6 +52,9 @@ export default new GraphQLObjectType({
       type: StoreConnection.connectionType,
       args: {
         ...connectionArgs,
+        storeIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
         name: {
           type: GraphQLString,
         },
@@ -65,6 +71,9 @@ export default new GraphQLObjectType({
       type: MasterProductConnection.connectionType,
       args: {
         ...connectionArgs,
+        masterProductIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
         name: {
           type: GraphQLString,
         },

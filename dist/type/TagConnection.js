@@ -24,6 +24,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var getCriteria = function getCriteria(searchArgs) {
   return (0, _immutable.Map)({
     include_parentTag: true,
+    ids: searchArgs.has('tagIds') ? searchArgs.get('tagIds') : undefined,
     conditions: (0, _immutable.Map)({
       contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,

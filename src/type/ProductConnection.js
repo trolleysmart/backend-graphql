@@ -14,6 +14,7 @@ const getCriteria = async (searchArgs, dataLoaders) => {
     include_store: true,
     include_tags: true,
     include_storeProduct: true,
+    ids: searchArgs.has('productIds') ? searchArgs.get('productIds') : undefined,
     conditions: Map({
       contains_names: convertStringArgumentToSet(searchArgs.get('name')),
       contains_descriptions: convertStringArgumentToSet(searchArgs.get('description')),
