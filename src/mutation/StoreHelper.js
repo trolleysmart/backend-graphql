@@ -5,7 +5,7 @@ import { ParseWrapperService } from 'micro-business-parse-server-common';
 import { StoreService } from 'trolley-smart-parse-server-common';
 import uuid from 'uuid/v4';
 
-export const addStoreForProvidedUser = async (name, address, user, sessionToken) => {
+export const addStoreForProvidedUser = async (name, address, googleMapUrl, user, sessionToken) => {
   const acl = ParseWrapperService.createACL(user);
 
   return new StoreService().create(
@@ -13,6 +13,7 @@ export const addStoreForProvidedUser = async (name, address, user, sessionToken)
       key: uuid(),
       name,
       address,
+      googleMapUrl,
       forDisplay: true,
       ownedByUser: user,
       status: 'I',

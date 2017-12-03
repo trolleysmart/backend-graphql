@@ -55,6 +55,7 @@ type AddShoppingListPayload {
 input AddStoreInput {
   name: String!
   address: String
+  googleMapUrl: String
   clientMutationId: String
 }
 
@@ -220,6 +221,7 @@ type ParentStore implements Node {
   geoLocation: GeoLocation
   openingHours: OpeningHours
   phones: [Phone!]
+  googleMapUrl: String
 }
 
 type ParentTag implements Node {
@@ -425,6 +427,7 @@ type Store implements Node {
   geoLocation: GeoLocation
   openingHours: OpeningHours
   phones: [Phone!]
+  googleMapUrl: String
   parentStore: ParentStore
 }
 

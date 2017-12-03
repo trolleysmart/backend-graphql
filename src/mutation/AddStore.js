@@ -11,6 +11,7 @@ export default mutationWithClientMutationId({
   inputFields: {
     name: { type: new GraphQLNonNull(GraphQLString) },
     address: { type: GraphQLString },
+    googleMapUrl: { type: GraphQLString },
   },
   outputFields: {
     errorMessage: {
@@ -22,9 +23,9 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('ownedStore'),
     },
   },
-  mutateAndGetPayload: async ({ name, address }, { sessionToken, dataLoaders }) => {
+  mutateAndGetPayload: async ({ name, address, googleMapUrl }, { sessionToken, dataLoaders }) => {
     try {
-      const storeId = await addStore(name, address, dataLoaders, sessionToken);
+      const storeId = await addStore(name, address, googleMapUrl, dataLoaders, sessionToken);
 
       return Map({
         ownedStore: (await getOwnedStores(Map({ ownedStoreIds: List.of(storeId) }), dataLoaders, sessionToken)).edges[0],

@@ -288,6 +288,12 @@ var ParentStore = new _graphql.GraphQLObjectType({
 
         return phones.toArray();
       }
+    },
+    googleMapUrl: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('googleMapUrl');
+      }
     }
   },
   interfaces: [_interface.NodeInterface]
@@ -410,6 +416,12 @@ exports.default = new _graphql.GraphQLObjectType({
         }
 
         return phones.toArray();
+      }
+    },
+    googleMapUrl: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('googleMapUrl');
       }
     },
     parentStore: {

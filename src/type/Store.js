@@ -123,6 +123,10 @@ const ParentStore = new GraphQLObjectType({
         return phones.toArray();
       },
     },
+    googleMapUrl: {
+      type: GraphQLString,
+      resolve: _ => _.get('googleMapUrl'),
+    },
   },
   interfaces: [NodeInterface],
 });
@@ -200,6 +204,10 @@ export default new GraphQLObjectType({
 
         return phones.toArray();
       },
+    },
+    googleMapUrl: {
+      type: GraphQLString,
+      resolve: _ => _.get('googleMapUrl'),
     },
     parentStore: {
       type: ParentStore,

@@ -20,7 +20,8 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'AddStore',
   inputFields: {
     name: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) },
-    address: { type: _graphql.GraphQLString }
+    address: { type: _graphql.GraphQLString },
+    googleMapUrl: { type: _graphql.GraphQLString }
   },
   outputFields: {
     errorMessage: {
@@ -39,7 +40,8 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   mutateAndGetPayload: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
       var name = _ref2.name,
-          address = _ref2.address;
+          address = _ref2.address,
+          googleMapUrl = _ref2.googleMapUrl;
       var sessionToken = _ref3.sessionToken,
           dataLoaders = _ref3.dataLoaders;
       var storeId;
@@ -49,7 +51,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return (0, _StoreHelper.addStore)(name, address, dataLoaders, sessionToken);
+              return (0, _StoreHelper.addStore)(name, address, googleMapUrl, dataLoaders, sessionToken);
 
             case 3:
               storeId = _context.sent;
