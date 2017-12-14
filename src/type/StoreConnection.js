@@ -2,8 +2,8 @@
 
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
+import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { StoreService } from 'trolley-smart-parse-server-common';
-import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import Store from './Store';
 
 const getCriteria = searchArgs =>
@@ -11,7 +11,7 @@ const getCriteria = searchArgs =>
     include_parentStore: true,
     ids: searchArgs.has('storeIds') ? searchArgs.get('storeIds') : undefined,
     conditions: Map({
-      contains_names: convertStringArgumentToSet(searchArgs.get('name')),
+      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,
     }),
   });
@@ -51,7 +51,7 @@ export const getStores = async (searchArgs, sessionToken) => {
   const count = await getStoresCountMatchCriteria(searchArgs, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const stores = await getStoresMatchCriteria(searchArgs, sessionToken, limit, skip);
   const indexedStores = stores.zip(Range(skip, skip + limit));
 

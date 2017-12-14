@@ -2,8 +2,8 @@
 
 import Immutable, { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
+import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { ProductPriceService } from 'trolley-smart-parse-server-common';
-import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import Product from './Product';
 import { getAllStoresToFilterBy } from './Store';
 
@@ -16,8 +16,8 @@ const getCriteria = async (searchArgs, dataLoaders) => {
     include_storeProduct: true,
     ids: searchArgs.has('productIds') ? searchArgs.get('productIds') : undefined,
     conditions: Map({
-      contains_names: convertStringArgumentToSet(searchArgs.get('name')),
-      contains_descriptions: convertStringArgumentToSet(searchArgs.get('description')),
+      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+      contains_descriptions: StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
       status: 'A',
     })
       .merge(productSearchConfig.get('returnCrawledProducts') ? Map() : Map({ createdByCrawler: false }))
@@ -99,7 +99,7 @@ export const getProducts = async (searchArgs, dataLoaders, sessionToken) => {
   const count = await getProductPriceCountMatchCriteria(finalSearchArgs, dataLoaders, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
   const productPriceItems = await getProductPriceMatchCriteria(finalSearchArgs, dataLoaders, sessionToken, limit, skip);
   const indexedProductPriceItems = productPriceItems.zip(Range(skip, skip + limit));
   const edges = indexedProductPriceItems.map(indexedItem => ({

@@ -2,8 +2,8 @@
 
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
+import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { TagService } from 'trolley-smart-parse-server-common';
-import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import Tag from './Tag';
 
 const getCriteria = searchArgs =>
@@ -11,7 +11,7 @@ const getCriteria = searchArgs =>
     include_parentTag: true,
     ids: searchArgs.has('tagIds') ? searchArgs.get('tagIds') : undefined,
     conditions: Map({
-      contains_names: convertStringArgumentToSet(searchArgs.get('name')),
+      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,
       level: searchArgs.has('level') ? searchArgs.get('level') : undefined,
     }),
@@ -60,7 +60,7 @@ export const getTags = async (searchArgs, sessionToken) => {
   const count = await getTagsCountMatchCriteria(searchArgs, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const tags = await getTagsMatchCriteria(searchArgs, sessionToken, limit, skip);
   const indexedTags = tags.zip(Range(skip, skip + limit));
   const edges = indexedTags.map(indexedItem => ({

@@ -11,9 +11,9 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _graphqlRelay = require('graphql-relay');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _microBusinessCommonJavascript = require('micro-business-common-javascript');
 
-var _Common = require('./Common');
+var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
 
 var _MasterProduct = require('./MasterProduct');
 
@@ -28,8 +28,8 @@ var getCriteria = function getCriteria(searchArgs) {
     include_tags: true,
     ids: searchArgs.has('masterProductIds') ? searchArgs.get('masterProductIds') : undefined,
     conditions: (0, _immutable.Map)({
-      contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
-      contains_descriptions: (0, _Common.convertStringArgumentToSet)(searchArgs.get('description'))
+      contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+      contains_descriptions: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('description'))
     }).merge(searchArgs.has('tagIds') ? (0, _immutable.Map)({ tagIds: searchArgs.get('tagIds') }) : (0, _immutable.Map)())
   });
 };
@@ -114,7 +114,7 @@ var getMasterProductPriceMatchCriteria = function () {
 
 var getMasterProducts = exports.getMasterProducts = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
-    var finalSearchArgs, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, productPriceItems, indexedMasterProductPriceItems, edges, firstEdge, lastEdge;
+    var finalSearchArgs, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, productPriceItems, indexedMasterProductPriceItems, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -158,7 +158,7 @@ var getMasterProducts = exports.getMasterProducts = function () {
 
           case 18:
             count = _context3.sent;
-            _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(finalSearchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
+            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 22;
             return getMasterProductPriceMatchCriteria(finalSearchArgs, sessionToken, limit, skip);
 

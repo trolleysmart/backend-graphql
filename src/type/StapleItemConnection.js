@@ -2,8 +2,8 @@
 
 import Immutable, { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
+import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { StapleItemService } from 'trolley-smart-parse-server-common';
-import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import StapleItem from './StapleItem';
 
 const getCriteria = (searchArgs, userId) =>
@@ -12,7 +12,7 @@ const getCriteria = (searchArgs, userId) =>
     ids: searchArgs.has('stapleItemIds') ? searchArgs.get('stapleItemIds') : undefined,
     conditions: Map({
       userId,
-      contains_names: convertStringArgumentToSet(searchArgs.get('name')),
+      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       tagIds: searchArgs.get('tagIds') ? searchArgs.get('tagIds') : undefined,
       popular: searchArgs.has('popular') ? searchArgs.get('popular') : undefined,
     }),
@@ -68,7 +68,7 @@ export const getStapleItems = async (searchArgs, dataLoaders, sessionToken) => {
   const count = await getStapleItemsCountMatchCriteria(finalSearchArgs, userId, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
   const stapleItems = await getStapleItemsMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
   const indexedStapleItems = stapleItems.zip(Range(skip, skip + limit));
   const edges = indexedStapleItems.map(indexedItem => ({

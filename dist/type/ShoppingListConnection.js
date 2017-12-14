@@ -9,9 +9,9 @@ var _immutable = require('immutable');
 
 var _graphqlRelay = require('graphql-relay');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _microBusinessCommonJavascript = require('micro-business-common-javascript');
 
-var _Common = require('./Common');
+var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
 
 var _ShoppingList = require('./ShoppingList');
 
@@ -28,7 +28,7 @@ var getCriteria = function getCriteria(searchArgs, userId) {
     ids: searchArgs.has('shoppingListIds') ? searchArgs.get('shoppingListIds') : undefined,
     conditions: (0, _immutable.Map)({
       userId: userId,
-      contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
+      contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       status: 'A'
     })
   });
@@ -90,7 +90,7 @@ var getShoppingListMatchCriteria = function () {
 
 var getShoppingLists = exports.getShoppingLists = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
-    var userDefaultShoppingListLoader, userLoaderBySessionToken, userId, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, shoppingLists, indexedShoppingLists, edges, firstEdge, lastEdge;
+    var userDefaultShoppingListLoader, userLoaderBySessionToken, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, shoppingLists, indexedShoppingLists, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -121,7 +121,7 @@ var getShoppingLists = exports.getShoppingLists = function () {
             count = 1;
 
           case 11:
-            _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(searchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
+            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 14;
             return getShoppingListMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 

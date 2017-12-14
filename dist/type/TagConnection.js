@@ -9,9 +9,9 @@ var _immutable = require('immutable');
 
 var _graphqlRelay = require('graphql-relay');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _microBusinessCommonJavascript = require('micro-business-common-javascript');
 
-var _Common = require('./Common');
+var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
 
 var _Tag = require('./Tag');
 
@@ -26,7 +26,7 @@ var getCriteria = function getCriteria(searchArgs) {
     include_parentTag: true,
     ids: searchArgs.has('tagIds') ? searchArgs.get('tagIds') : undefined,
     conditions: (0, _immutable.Map)({
-      contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
+      contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,
       level: searchArgs.has('level') ? searchArgs.get('level') : undefined
     })
@@ -105,7 +105,7 @@ var getTagsMatchCriteria = function () {
 
 var getTags = exports.getTags = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, sessionToken) {
-    var count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, tags, indexedTags, edges, firstEdge, lastEdge;
+    var count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, tags, indexedTags, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -116,7 +116,7 @@ var getTags = exports.getTags = function () {
 
           case 2:
             count = _context3.sent;
-            _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(searchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
+            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 6;
             return getTagsMatchCriteria(searchArgs, sessionToken, limit, skip);
 

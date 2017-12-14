@@ -2,8 +2,8 @@
 
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
+import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { StoreService } from 'trolley-smart-parse-server-common';
-import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import OwnedStore from './OwnedStore';
 
 const getCriteria = (searchArgs, ownedByUserId) =>
@@ -12,7 +12,7 @@ const getCriteria = (searchArgs, ownedByUserId) =>
     ids: searchArgs.has('ownedStoreIds') ? searchArgs.get('ownedStoreIds') : undefined,
     conditions: Map({
       ownedByUserId,
-      contains_names: convertStringArgumentToSet(searchArgs.get('name')),
+      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,
     }),
   });
@@ -53,7 +53,7 @@ export const getOwnedStores = async (searchArgs, dataLoaders, sessionToken) => {
   const count = await getOwnedStoresCountMatchCriteria(searchArgs, userId, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const stores = await getOwnedStoresMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
   const indexedOwnedStores = stores.zip(Range(skip, skip + limit));
 

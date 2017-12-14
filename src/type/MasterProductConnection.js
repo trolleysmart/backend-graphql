@@ -2,8 +2,8 @@
 
 import Immutable, { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
+import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { MasterProductService } from 'trolley-smart-parse-server-common';
-import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import MasterProduct from './MasterProduct';
 
 const getCriteria = searchArgs =>
@@ -11,8 +11,8 @@ const getCriteria = searchArgs =>
     include_tags: true,
     ids: searchArgs.has('masterProductIds') ? searchArgs.get('masterProductIds') : undefined,
     conditions: Map({
-      contains_names: convertStringArgumentToSet(searchArgs.get('name')),
-      contains_descriptions: convertStringArgumentToSet(searchArgs.get('description')),
+      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+      contains_descriptions: StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
     }).merge(searchArgs.has('tagIds') ? Map({ tagIds: searchArgs.get('tagIds') }) : Map()),
   });
 
@@ -72,7 +72,7 @@ export const getMasterProducts = async (searchArgs, dataLoaders, sessionToken) =
   const count = await getMasterProductPriceCountMatchCriteria(finalSearchArgs, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
   const productPriceItems = await getMasterProductPriceMatchCriteria(finalSearchArgs, sessionToken, limit, skip);
   const indexedMasterProductPriceItems = productPriceItems.zip(Range(skip, skip + limit));
   const edges = indexedMasterProductPriceItems.map(indexedItem => ({

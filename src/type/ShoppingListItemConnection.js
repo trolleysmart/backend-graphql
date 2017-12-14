@@ -2,8 +2,8 @@
 
 import Immutable, { List, Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
+import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
-import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import ShoppingListItem from './ShoppingListItem';
 import { getAllStoresToFilterBy } from './Store';
 import { createSessionTokenAndUserIdKeyCombination } from '../loader';
@@ -18,7 +18,7 @@ const getShoppingListItemsMatchCriteria = async (searchArgs, shoppingListId, ses
     conditions: Map({
       shoppingListId,
       addedByUserId: searchArgs.get('addedByUserId') ? searchArgs.get('addedByUserId') : undefined,
-      contains_names: convertStringArgumentToSet(searchArgs.get('name')),
+      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       doesNotExist_removedByUser: true,
       tagIds: searchArgs.get('tagIds') ? searchArgs.get('tagIds') : undefined,
       storeIds: searchArgs.get('storeIds') ? searchArgs.get('storeIds') : undefined,
@@ -83,7 +83,7 @@ export const getShoppingListItems = async (searchArgs, shoppingListId, dataLoade
   const count = allShoppingListItems.count();
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const indexedList = allShoppingListItems
     .skip(skip)
     .take(limit)

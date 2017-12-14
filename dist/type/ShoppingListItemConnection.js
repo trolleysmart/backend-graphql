@@ -11,9 +11,9 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _graphqlRelay = require('graphql-relay');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _microBusinessCommonJavascript = require('micro-business-common-javascript');
 
-var _Common = require('./Common');
+var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
 
 var _ShoppingListItem = require('./ShoppingListItem');
 
@@ -43,7 +43,7 @@ var getShoppingListItemsMatchCriteria = function () {
               conditions: (0, _immutable.Map)({
                 shoppingListId: shoppingListId,
                 addedByUserId: searchArgs.get('addedByUserId') ? searchArgs.get('addedByUserId') : undefined,
-                contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
+                contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
                 doesNotExist_removedByUser: true,
                 tagIds: searchArgs.get('tagIds') ? searchArgs.get('tagIds') : undefined,
                 storeIds: searchArgs.get('storeIds') ? searchArgs.get('storeIds') : undefined
@@ -87,7 +87,7 @@ var getShoppingListItemsMatchCriteria = function () {
 
 var getShoppingListItems = exports.getShoppingListItems = function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(searchArgs, shoppingListId, dataLoaders, sessionToken) {
-    var finalSearchArgs, shoppingListItems, stapleItems, productPrices, allShoppingListItems, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, indexedList, edges, firstEdge, lastEdge;
+    var finalSearchArgs, shoppingListItems, stapleItems, productPrices, allShoppingListItems, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, indexedList, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -197,7 +197,7 @@ var getShoppingListItems = exports.getShoppingListItems = function () {
               return groupedProductPrices.first().merge((0, _immutable.Map)({ quantity: groupedProductPrices.count(), itemType: 'ProductPrice' }));
             }));
             count = allShoppingListItems.count();
-            _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(searchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
+            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             indexedList = allShoppingListItems.skip(skip).take(limit).zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedList.map(function (indexedItem) {
               return {

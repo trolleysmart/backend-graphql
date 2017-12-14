@@ -2,8 +2,8 @@
 
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
+import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { ShoppingListService } from 'trolley-smart-parse-server-common';
-import { getLimitAndSkipValue, convertStringArgumentToSet } from './Common';
 import ShoppingList from './ShoppingList';
 import { createSessionTokenAndUserIdKeyCombination } from '../loader';
 
@@ -12,7 +12,7 @@ const getCriteria = (searchArgs, userId) =>
     ids: searchArgs.has('shoppingListIds') ? searchArgs.get('shoppingListIds') : undefined,
     conditions: Map({
       userId,
-      contains_names: convertStringArgumentToSet(searchArgs.get('name')),
+      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       status: 'A',
     }),
   });
@@ -54,7 +54,7 @@ export const getShoppingLists = async (searchArgs, dataLoaders, sessionToken) =>
 
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const shoppingLists = await getShoppingListMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
   const indexedShoppingLists = shoppingLists.zip(Range(skip, skip + limit));
   const edges = indexedShoppingLists.map(indexedItem => ({

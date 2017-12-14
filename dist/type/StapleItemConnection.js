@@ -11,9 +11,9 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _graphqlRelay = require('graphql-relay');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _microBusinessCommonJavascript = require('micro-business-common-javascript');
 
-var _Common = require('./Common');
+var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
 
 var _StapleItem = require('./StapleItem');
 
@@ -29,7 +29,7 @@ var getCriteria = function getCriteria(searchArgs, userId) {
     ids: searchArgs.has('stapleItemIds') ? searchArgs.get('stapleItemIds') : undefined,
     conditions: (0, _immutable.Map)({
       userId: userId,
-      contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
+      contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       tagIds: searchArgs.get('tagIds') ? searchArgs.get('tagIds') : undefined,
       popular: searchArgs.has('popular') ? searchArgs.get('popular') : undefined
     })
@@ -108,7 +108,7 @@ var getStapleItemsMatchCriteria = function () {
 
 var getStapleItems = exports.getStapleItems = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
-    var userLoaderBySessionToken, tagLoaderByKey, userId, finalSearchArgs, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, stapleItems, indexedStapleItems, edges, firstEdge, lastEdge;
+    var userLoaderBySessionToken, tagLoaderByKey, userId, finalSearchArgs, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, stapleItems, indexedStapleItems, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -158,7 +158,7 @@ var getStapleItems = exports.getStapleItems = function () {
 
           case 22:
             count = _context3.sent;
-            _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(finalSearchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
+            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 26;
             return getStapleItemsMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
 

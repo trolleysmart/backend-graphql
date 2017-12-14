@@ -9,9 +9,9 @@ var _immutable = require('immutable');
 
 var _graphqlRelay = require('graphql-relay');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _microBusinessCommonJavascript = require('micro-business-common-javascript');
 
-var _Common = require('./Common');
+var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
 
 var _OwnedStore = require('./OwnedStore');
 
@@ -27,7 +27,7 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId) {
     ids: searchArgs.has('ownedStoreIds') ? searchArgs.get('ownedStoreIds') : undefined,
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,
-      contains_names: (0, _Common.convertStringArgumentToSet)(searchArgs.get('name')),
+      contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined
     })
   });
@@ -97,7 +97,7 @@ var getOwnedStoresMatchCriteria = function () {
 
 var getOwnedStores = exports.getOwnedStores = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
-    var userId, count, _getLimitAndSkipValue, limit, skip, hasNextPage, hasPreviousPage, stores, indexedOwnedStores, edges, firstEdge, lastEdge;
+    var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, stores, indexedOwnedStores, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -113,7 +113,7 @@ var getOwnedStores = exports.getOwnedStores = function () {
 
           case 5:
             count = _context3.sent;
-            _getLimitAndSkipValue = (0, _Common.getLimitAndSkipValue)(searchArgs, count, 10, 1000), limit = _getLimitAndSkipValue.limit, skip = _getLimitAndSkipValue.skip, hasNextPage = _getLimitAndSkipValue.hasNextPage, hasPreviousPage = _getLimitAndSkipValue.hasPreviousPage;
+            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 9;
             return getOwnedStoresMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 
