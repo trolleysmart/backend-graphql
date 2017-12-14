@@ -6,7 +6,7 @@ import { connectionArgs } from 'graphql-relay';
 import { ShoppingListService } from 'trolley-smart-parse-server-common';
 import { NodeInterface } from '../interface';
 import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
-import { createSessionTokenAndUserIdKeyCombination } from '../loader';
+import { createSessionTokenAndUserIdKeyCombination } from '../loaders';
 
 export const getShoppingList = async (shoppingListId, sessionToken) => new ShoppingListService().read(shoppingListId, null, sessionToken);
 

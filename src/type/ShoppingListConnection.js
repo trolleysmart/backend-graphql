@@ -5,7 +5,7 @@ import { connectionDefinitions } from 'graphql-relay';
 import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { ShoppingListService } from 'trolley-smart-parse-server-common';
 import ShoppingList from './ShoppingList';
-import { createSessionTokenAndUserIdKeyCombination } from '../loader';
+import { createSessionTokenAndUserIdKeyCombination } from '../loaders';
 
 const getCriteria = (searchArgs, userId) =>
   Map({

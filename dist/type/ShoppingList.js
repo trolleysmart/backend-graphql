@@ -23,7 +23,7 @@ var _ShoppingListItemConnection = require('./ShoppingListItemConnection');
 
 var _ShoppingListItemConnection2 = _interopRequireDefault(_ShoppingListItemConnection);
 
-var _loader = require('../loader');
+var _loaders = require('../loaders');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65,7 +65,7 @@ var getUserDefaultShoppingList = exports.getUserDefaultShoppingList = function (
             userId = _context2.sent.id;
             _context2.t0 = getShoppingList;
             _context2.next = 7;
-            return userDefaultShoppingListLoader.load((0, _loader.createSessionTokenAndUserIdKeyCombination)(sessionToken, userId));
+            return userDefaultShoppingListLoader.load((0, _loaders.createSessionTokenAndUserIdKeyCombination)(sessionToken, userId));
 
           case 7:
             _context2.t1 = _context2.sent;

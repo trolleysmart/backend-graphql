@@ -17,7 +17,7 @@ var _ShoppingList = require('./ShoppingList');
 
 var _ShoppingList2 = _interopRequireDefault(_ShoppingList);
 
-var _loader = require('../loader');
+var _loaders = require('../loaders');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -114,7 +114,7 @@ var getShoppingLists = exports.getShoppingLists = function () {
             }
 
             _context3.next = 10;
-            return userDefaultShoppingListLoader.load((0, _loader.createSessionTokenAndUserIdKeyCombination)(sessionToken, userId));
+            return userDefaultShoppingListLoader.load((0, _loaders.createSessionTokenAndUserIdKeyCombination)(sessionToken, userId));
 
           case 10:
 

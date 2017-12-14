@@ -6,7 +6,7 @@ import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
 import ShoppingListItem from './ShoppingListItem';
 import { getAllStoresToFilterBy } from './Store';
-import { createSessionTokenAndUserIdKeyCombination } from '../loader';
+import { createSessionTokenAndUserIdKeyCombination } from '../loaders';
 
 const getShoppingListItemsMatchCriteria = async (searchArgs, shoppingListId, sessionToken) => {
   let shoppingListItems = List();
