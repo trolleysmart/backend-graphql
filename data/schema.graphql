@@ -80,21 +80,21 @@ type MasterProduct implements Node {
   tags: [Tag]
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type MasterProductConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [MasterProductEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type MasterProductEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: MasterProduct
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
@@ -127,27 +127,27 @@ type MyProduct implements Node {
   tags: [Tag]
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type MyProductConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [MyProductEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type MyProductEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: MyProduct
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
-"""An object with an ID"""
+# An object with an ID
 interface Node {
-  """The id of the object."""
+  # The id of the object.
   id: ID!
 }
 
@@ -168,36 +168,36 @@ type OwnedStore implements Node {
   parentStore: ParentOwnedStore
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type OwnedStoreTypeConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [OwnedStoreTypeEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type OwnedStoreTypeEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: OwnedStore
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
-"""Information about pagination in a connection."""
+# Information about pagination in a connection.
 type PageInfo {
-  """When paginating forwards, are there more items?"""
+  # When paginating forwards, are there more items?
   hasNextPage: Boolean!
 
-  """When paginating backwards, are there more items?"""
+  # When paginating backwards, are there more items?
   hasPreviousPage: Boolean!
 
-  """When paginating backwards, the cursor to continue."""
+  # When paginating backwards, the cursor to continue.
   startCursor: String
 
-  """When paginating forwards, the cursor to continue."""
+  # When paginating forwards, the cursor to continue.
   endCursor: String
 }
 
@@ -261,21 +261,21 @@ type Product implements Node {
   tags: [Tag]
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type ProductConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [ProductEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type ProductEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: Product
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
@@ -283,9 +283,9 @@ type Query {
   user: User
   viewer: Viewer
 
-  """Fetches an object given its ID"""
+  # Fetches an object given its ID
   node(
-    """The ID of an object"""
+    # The ID of an object
     id: ID!
   ): Node
 }
@@ -329,21 +329,21 @@ type ShoppingList implements Node {
   shoppingListItems(after: String, first: Int, before: String, last: Int, name: String, addedByUserId: ID, tagKeys: [String], storeKeys: [String]): ShoppingListItemConnection
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type ShoppingListConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [ShoppingListEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type ShoppingListEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: ShoppingList
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
@@ -373,21 +373,21 @@ type ShoppingListItem implements Node {
   tags: [Tag]
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type ShoppingListItemConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [ShoppingListItemEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type ShoppingListItemEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: ShoppingListItem
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
@@ -400,21 +400,21 @@ type StapleItem implements Node {
   tags: [Tag]
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type StapleItemConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [StapleItemEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type StapleItemEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: StapleItem
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
@@ -431,21 +431,21 @@ type Store implements Node {
   parentStore: ParentStore
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type StoreTypeConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [StoreTypeEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type StoreTypeEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: Store
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
@@ -470,21 +470,21 @@ type Tag implements Node {
   parentTag: ParentTag
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type TagTypeConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [TagTypeEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type TagTypeEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: Tag
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
