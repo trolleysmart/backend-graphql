@@ -15,7 +15,7 @@ var _graphql = require('graphql');
 
 var _graphqlRelay = require('graphql-relay');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon = require('@trolleysmart/parse-server-common');
 
 var _interface = require('../interface');
 
@@ -35,7 +35,7 @@ var getShoppingList = exports.getShoppingList = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().read(shoppingListId, null, sessionToken));
+            return _context.abrupt('return', new _parseServerCommon.ShoppingListService().read(shoppingListId, null, sessionToken));
 
           case 1:
           case 'end':

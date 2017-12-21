@@ -11,9 +11,9 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _graphqlRelay = require('graphql-relay');
 
-var _microBusinessCommonJavascript = require('micro-business-common-javascript');
+var _commonJavascript = require('@microbusiness/common-javascript');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon = require('@trolleysmart/parse-server-common');
 
 var _MyProduct = require('./MyProduct');
 
@@ -28,8 +28,8 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId) {
     include_tags: true,
     ids: searchArgs.has('myProductIds') ? searchArgs.get('myProductIds') : undefined,
     conditions: (0, _immutable.Map)({
-      contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
-      contains_descriptions: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
+      contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+      contains_descriptions: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
       ownedByUserId: ownedByUserId
     }).merge(searchArgs.has('tagIds') ? (0, _immutable.Map)({ tagIds: searchArgs.get('tagIds') }) : (0, _immutable.Map)())
   });
@@ -83,7 +83,7 @@ var getMyProductPriceCountMatchCriteria = function () {
 
           case 2:
             userId = _context.sent.id;
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.MyProductService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken));
+            return _context.abrupt('return', new _parseServerCommon.MyProductService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken));
 
           case 4:
           case 'end':
@@ -110,7 +110,7 @@ var getMyProductPriceMatchCriteria = function () {
 
           case 2:
             userId = _context2.sent.id;
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.MyProductService().search(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _parseServerCommon.MyProductService().search(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 4:
           case 'end':
@@ -171,7 +171,7 @@ var getMyProducts = exports.getMyProducts = function () {
 
           case 18:
             count = _context3.sent;
-            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
+            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 22;
             return getMyProductPriceMatchCriteria(finalSearchArgs, dataLoaders, sessionToken, limit, skip);
 

@@ -11,9 +11,9 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _graphqlRelay = require('graphql-relay');
 
-var _microBusinessCommonJavascript = require('micro-business-common-javascript');
+var _commonJavascript = require('@microbusiness/common-javascript');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon = require('@trolleysmart/parse-server-common');
 
 var _StapleItem = require('./StapleItem');
 
@@ -29,7 +29,7 @@ var getCriteria = function getCriteria(searchArgs, userId) {
     ids: searchArgs.has('stapleItemIds') ? searchArgs.get('stapleItemIds') : undefined,
     conditions: (0, _immutable.Map)({
       userId: userId,
-      contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+      contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       tagIds: searchArgs.get('tagIds') ? searchArgs.get('tagIds') : undefined,
       popular: searchArgs.has('popular') ? searchArgs.get('popular') : undefined
     })
@@ -70,7 +70,7 @@ var getStapleItemsCountMatchCriteria = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.StapleItemService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken));
+            return _context.abrupt('return', new _parseServerCommon.StapleItemService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken));
 
           case 1:
           case 'end':
@@ -91,7 +91,7 @@ var getStapleItemsMatchCriteria = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.StapleItemService().search(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _parseServerCommon.StapleItemService().search(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 1:
           case 'end':
@@ -158,7 +158,7 @@ var getStapleItems = exports.getStapleItems = function () {
 
           case 22:
             count = _context3.sent;
-            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
+            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 26;
             return getStapleItemsMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
 

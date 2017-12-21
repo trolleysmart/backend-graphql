@@ -3,7 +3,7 @@
 import Immutable, { Map } from 'immutable';
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
-import { ShoppingListService } from 'trolley-smart-parse-server-common';
+import { ShoppingListService } from '@trolleysmart/parse-server-common';
 import { NodeInterface } from '../interface';
 import ShoppingListItemConnection, { getShoppingListItems } from './ShoppingListItemConnection';
 import { createSessionTokenAndUserIdKeyCombination } from '../loaders';

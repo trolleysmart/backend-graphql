@@ -2,8 +2,8 @@
 
 import Immutable, { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
-import { MyProductService } from 'trolley-smart-parse-server-common';
+import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { MyProductService } from '@trolleysmart/parse-server-common';
 import MyProduct from './MyProduct';
 
 const getCriteria = (searchArgs, ownedByUserId) =>

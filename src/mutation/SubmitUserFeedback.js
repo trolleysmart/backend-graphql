@@ -3,8 +3,8 @@
 import Immutable, { Map } from 'immutable';
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
-import { ParseWrapperService } from 'micro-business-parse-server-common';
-import { UserFeedbackService } from 'trolley-smart-parse-server-common';
+import { ParseWrapperService } from '@microbusiness/parse-server-common';
+import { UserFeedbackService } from '@trolleysmart/parse-server-common';
 
 export default mutationWithClientMutationId({
   name: 'SubmitUserFeedback',

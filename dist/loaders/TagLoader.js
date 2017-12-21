@@ -11,7 +11,7 @@ var _dataloader = require('dataloader');
 
 var _dataloader2 = _interopRequireDefault(_dataloader);
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon = require('@trolleysmart/parse-server-common');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33,7 +33,7 @@ var tagLoaderById = exports.tagLoaderById = new _dataloader2.default(function ()
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            tagService = new _trolleySmartParseServerCommon.TagService();
+            tagService = new _parseServerCommon.TagService();
             return _context2.abrupt('return', Promise.all(ids.map(function () {
               var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(id) {
                 return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -75,7 +75,7 @@ var tagLoaderByKey = exports.tagLoaderByKey = new _dataloader2.default(function 
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            tagService = new _trolleySmartParseServerCommon.TagService();
+            tagService = new _parseServerCommon.TagService();
             return _context4.abrupt('return', Promise.all(keys.map(function () {
               var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(key) {
                 var tags;

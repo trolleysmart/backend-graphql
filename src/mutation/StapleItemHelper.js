@@ -1,8 +1,8 @@
 // @flow
 
 import Immutable, { List, Map } from 'immutable';
-import { ParseWrapperService } from 'micro-business-parse-server-common';
-import { StapleItemService, StapleTemplateItemService, ShoppingListItemService } from 'trolley-smart-parse-server-common';
+import { ParseWrapperService } from '@microbusiness/parse-server-common';
+import { StapleItemService, StapleTemplateItemService, ShoppingListItemService } from '@trolleysmart/parse-server-common';
 
 const removeNameInvalidCharacters = (name) => {
   if (name) {

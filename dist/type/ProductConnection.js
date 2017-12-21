@@ -11,9 +11,9 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _graphqlRelay = require('graphql-relay');
 
-var _microBusinessCommonJavascript = require('micro-business-common-javascript');
+var _commonJavascript = require('@microbusiness/common-javascript');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon = require('@trolleysmart/parse-server-common');
 
 var _Product = require('./Product');
 
@@ -43,8 +43,8 @@ var getCriteria = function () {
               include_storeProduct: true,
               ids: searchArgs.has('productIds') ? searchArgs.get('productIds') : undefined,
               conditions: (0, _immutable.Map)({
-                contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
-                contains_descriptions: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
+                contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+                contains_descriptions: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
                 status: 'A'
               }).merge(productSearchConfig.get('returnCrawledProducts') ? (0, _immutable.Map)() : (0, _immutable.Map)({ createdByCrawler: false })).merge(productSearchConfig.get('returnUnauthorizedProductToDisplay') ? (0, _immutable.Map)() : (0, _immutable.Map)({ authorizedToDisplay: true })).merge(productSearchConfig.get('returnProductsOnSpecialOnly') ? (0, _immutable.Map)({ special: true }) : (0, _immutable.Map)()).merge(!productSearchConfig.get('returnProductsOnSpecialOnly') && searchArgs.has('special') ? (0, _immutable.Map)({ special: searchArgs.get('special') }) : (0, _immutable.Map)()).merge(searchArgs.has('tagIds') ? (0, _immutable.Map)({ tagIds: searchArgs.get('tagIds') }) : (0, _immutable.Map)()).merge(searchArgs.has('storeIds') ? (0, _immutable.Map)({ storeIds: searchArgs.get('storeIds') }) : (0, _immutable.Map)())
             }));
@@ -112,7 +112,7 @@ var getProductPriceCountMatchCriteria = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.t0 = new _trolleySmartParseServerCommon.ProductPriceService();
+            _context2.t0 = new _parseServerCommon.ProductPriceService();
             _context2.t1 = addSortOptionToCriteria;
             _context2.next = 4;
             return getCriteria(searchArgs, dataLoaders);
@@ -143,7 +143,7 @@ var getProductPriceMatchCriteria = function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _context3.t0 = new _trolleySmartParseServerCommon.ProductPriceService();
+            _context3.t0 = new _parseServerCommon.ProductPriceService();
             _context3.t1 = addSortOptionToCriteria;
             _context3.next = 4;
             return getCriteria(searchArgs, dataLoaders);
@@ -245,7 +245,7 @@ var getProducts = exports.getProducts = function () {
 
           case 31:
             count = _context4.sent;
-            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
+            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context4.next = 35;
             return getProductPriceMatchCriteria(finalSearchArgs, dataLoaders, sessionToken, limit, skip);
 

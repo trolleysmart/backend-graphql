@@ -12,9 +12,9 @@ var _graphql = require('graphql');
 
 var _graphqlRelay = require('graphql-relay');
 
-var _microBusinessParseServerCommon = require('micro-business-parse-server-common');
+var _parseServerCommon = require('@microbusiness/parse-server-common');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon2 = require('@trolleysmart/parse-server-common');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,9 +49,9 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
 
             case 3:
               user = _context.sent;
-              acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
+              acl = _parseServerCommon.ParseWrapperService.createACL(user);
               _context.next = 7;
-              return new _trolleySmartParseServerCommon.UserFeedbackService().create((0, _immutable.Map)({ userId: user.id, feedback: _immutable2.default.fromJS(JSON.parse(feedback)) }), acl, sessionToken);
+              return new _parseServerCommon2.UserFeedbackService().create((0, _immutable.Map)({ userId: user.id, feedback: _immutable2.default.fromJS(JSON.parse(feedback)) }), acl, sessionToken);
 
             case 7:
               return _context.abrupt('return', (0, _immutable.Map)());

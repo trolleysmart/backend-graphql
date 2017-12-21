@@ -7,7 +7,7 @@ exports.addMasterProduct = exports.addMasterProductForProvidedUser = undefined;
 
 var _immutable = require('immutable');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon = require('@trolleysmart/parse-server-common');
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -17,7 +17,7 @@ var addMasterProductForProvidedUser = exports.addMasterProductForProvidedUser = 
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.MasterProductService().create((0, _immutable.Map)({
+            return _context.abrupt('return', new _parseServerCommon.MasterProductService().create((0, _immutable.Map)({
               name: name,
               description: description,
               barcode: barcode,

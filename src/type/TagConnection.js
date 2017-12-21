@@ -2,8 +2,8 @@
 
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
-import { TagService } from 'trolley-smart-parse-server-common';
+import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { TagService } from '@trolleysmart/parse-server-common';
 import Tag from './Tag';
 
 const getCriteria = searchArgs =>

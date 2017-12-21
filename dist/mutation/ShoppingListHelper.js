@@ -9,9 +9,9 @@ var _immutable = require('immutable');
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _microBusinessParseServerCommon = require('micro-business-parse-server-common');
+var _parseServerCommon = require('@microbusiness/parse-server-common');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon2 = require('@trolleysmart/parse-server-common');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23,7 +23,7 @@ var getShoppingListItemById = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListItemService().read(id, null, sessionToken));
+            return _context.abrupt('return', new _parseServerCommon2.ShoppingListItemService().read(id, null, sessionToken));
 
           case 1:
           case 'end':
@@ -44,7 +44,7 @@ var getAllShoppingListItemsContainProvidedProductPrice = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListItemService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ productPriceId: productPriceId, shoppingListId: shoppingListId, doesNotExist_removedByUser: true }) }), sessionToken));
+            return _context2.abrupt('return', new _parseServerCommon2.ShoppingListItemService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ productPriceId: productPriceId, shoppingListId: shoppingListId, doesNotExist_removedByUser: true }) }), sessionToken));
 
           case 1:
           case 'end':
@@ -65,7 +65,7 @@ var getAllShoppingListItemsContainProvidedStapleItem = function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            return _context3.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListItemService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ stapleItemId: stapleItemId, shoppingListId: shoppingListId, doesNotExist_removedByUser: true }) }), sessionToken));
+            return _context3.abrupt('return', new _parseServerCommon2.ShoppingListItemService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ stapleItemId: stapleItemId, shoppingListId: shoppingListId, doesNotExist_removedByUser: true }) }), sessionToken));
 
           case 1:
           case 'end':
@@ -86,7 +86,7 @@ var getShoppingListById = exports.getShoppingListById = function () {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            return _context4.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().read(id, null, sessionToken));
+            return _context4.abrupt('return', new _parseServerCommon2.ShoppingListService().read(id, null, sessionToken));
 
           case 1:
           case 'end':
@@ -148,7 +148,7 @@ var removeItemsFromShoppingList = exports.removeItemsFromShoppingList = function
             }).map(function (_) {
               return _.first();
             }).valueSeq().toList();
-            shoppingListItemService = new _trolleySmartParseServerCommon.ShoppingListItemService();
+            shoppingListItemService = new _parseServerCommon2.ShoppingListItemService();
 
             if (productPriceIds.isEmpty()) {
               _context5.next = 25;
@@ -231,8 +231,8 @@ var addShoppingListForProvidedUser = exports.addShoppingListForProvidedUser = fu
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
-            return _context6.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().create((0, _immutable.Map)({ name: name, user: user, status: 'A' }), acl, sessionToken));
+            acl = _parseServerCommon.ParseWrapperService.createACL(user);
+            return _context6.abrupt('return', new _parseServerCommon2.ShoppingListService().create((0, _immutable.Map)({ name: name, user: user, status: 'A' }), acl, sessionToken));
 
           case 2:
           case 'end':
@@ -281,7 +281,7 @@ var updateShoppingList = exports.updateShoppingList = function () {
       while (1) {
         switch (_context8.prev = _context8.next) {
           case 0:
-            shoppingListService = new _trolleySmartParseServerCommon.ShoppingListService();
+            shoppingListService = new _parseServerCommon2.ShoppingListService();
             _context8.next = 3;
             return shoppingListService.read(shoppingListId, null, sessionToken);
 
@@ -318,7 +318,7 @@ var removeShoppingList = exports.removeShoppingList = function () {
       while (1) {
         switch (_context9.prev = _context9.next) {
           case 0:
-            shoppingListService = new _trolleySmartParseServerCommon.ShoppingListService();
+            shoppingListService = new _parseServerCommon2.ShoppingListService();
             _context9.next = 3;
             return shoppingListService.read(shoppingListId, null, sessionToken);
 
@@ -346,7 +346,7 @@ var setUserDefaultShoppingListForProvidedUser = exports.setUserDefaultShoppingLi
       while (1) {
         switch (_context10.prev = _context10.next) {
           case 0:
-            defaultShoppingListService = new _trolleySmartParseServerCommon.DefaultShoppingListService();
+            defaultShoppingListService = new _parseServerCommon2.DefaultShoppingListService();
             _context10.next = 3;
             return defaultShoppingListService.search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ userId: user.id }) }), sessionToken);
 
@@ -358,7 +358,7 @@ var setUserDefaultShoppingListForProvidedUser = exports.setUserDefaultShoppingLi
               break;
             }
 
-            return _context10.abrupt('return', defaultShoppingListService.create((0, _immutable.Map)({ user: user, shoppingListId: shoppingListId }), _microBusinessParseServerCommon.ParseWrapperService.createACL(user), sessionToken));
+            return _context10.abrupt('return', defaultShoppingListService.create((0, _immutable.Map)({ user: user, shoppingListId: shoppingListId }), _parseServerCommon.ParseWrapperService.createACL(user), sessionToken));
 
           case 8:
             if (!(defaultShoppingLists.count() === 1)) {

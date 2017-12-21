@@ -7,9 +7,9 @@ exports.addStore = exports.addStoreForProvidedUser = undefined;
 
 var _immutable = require('immutable');
 
-var _microBusinessParseServerCommon = require('micro-business-parse-server-common');
+var _parseServerCommon = require('@microbusiness/parse-server-common');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon2 = require('@trolleysmart/parse-server-common');
 
 var _v = require('uuid/v4');
 
@@ -26,8 +26,8 @@ var addStoreForProvidedUser = exports.addStoreForProvidedUser = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.StoreService().create((0, _immutable.Map)({
+            acl = _parseServerCommon.ParseWrapperService.createACL(user);
+            return _context.abrupt('return', new _parseServerCommon2.StoreService().create((0, _immutable.Map)({
               key: (0, _v2.default)(),
               name: name,
               address: address,

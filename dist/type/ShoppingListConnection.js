@@ -9,9 +9,9 @@ var _immutable = require('immutable');
 
 var _graphqlRelay = require('graphql-relay');
 
-var _microBusinessCommonJavascript = require('micro-business-common-javascript');
+var _commonJavascript = require('@microbusiness/common-javascript');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon = require('@trolleysmart/parse-server-common');
 
 var _ShoppingList = require('./ShoppingList');
 
@@ -28,7 +28,7 @@ var getCriteria = function getCriteria(searchArgs, userId) {
     ids: searchArgs.has('shoppingListIds') ? searchArgs.get('shoppingListIds') : undefined,
     conditions: (0, _immutable.Map)({
       userId: userId,
-      contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+      contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       status: 'A'
     })
   });
@@ -52,7 +52,7 @@ var getShoppingListCountMatchCriteria = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken));
+            return _context.abrupt('return', new _parseServerCommon.ShoppingListService().count(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')), sessionToken));
 
           case 1:
           case 'end':
@@ -73,7 +73,7 @@ var getShoppingListMatchCriteria = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListService().search(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _parseServerCommon.ShoppingListService().search(addSortOptionToCriteria(getCriteria(searchArgs, userId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 1:
           case 'end':
@@ -121,7 +121,7 @@ var getShoppingLists = exports.getShoppingLists = function () {
             count = 1;
 
           case 11:
-            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
+            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 14;
             return getShoppingListMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 

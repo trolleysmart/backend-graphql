@@ -9,9 +9,9 @@ var _immutable = require('immutable');
 
 var _graphqlRelay = require('graphql-relay');
 
-var _microBusinessCommonJavascript = require('micro-business-common-javascript');
+var _commonJavascript = require('@microbusiness/common-javascript');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon = require('@trolleysmart/parse-server-common');
 
 var _Store = require('./Store');
 
@@ -26,7 +26,7 @@ var getCriteria = function getCriteria(searchArgs) {
     include_parentStore: true,
     ids: searchArgs.has('storeIds') ? searchArgs.get('storeIds') : undefined,
     conditions: (0, _immutable.Map)({
-      contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+      contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined
     })
   });
@@ -58,7 +58,7 @@ var getStoresCountMatchCriteria = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.StoreService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken));
+            return _context.abrupt('return', new _parseServerCommon.StoreService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken));
 
           case 1:
           case 'end':
@@ -79,7 +79,7 @@ var getStoresMatchCriteria = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.StoreService().search(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _parseServerCommon.StoreService().search(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 1:
           case 'end':
@@ -107,7 +107,7 @@ var getStores = exports.getStores = function () {
 
           case 2:
             count = _context3.sent;
-            _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
+            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 6;
             return getStoresMatchCriteria(searchArgs, sessionToken, limit, skip);
 

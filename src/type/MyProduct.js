@@ -2,7 +2,7 @@
 
 import { Map } from 'immutable';
 import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
-import { MyProductService } from 'trolley-smart-parse-server-common';
+import { MyProductService } from '@trolleysmart/parse-server-common';
 import { NodeInterface } from '../interface';
 import Tag from './Tag';
 

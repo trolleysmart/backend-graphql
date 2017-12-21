@@ -9,9 +9,9 @@ var _immutable = require('immutable');
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _microBusinessParseServerCommon = require('micro-business-parse-server-common');
+var _parseServerCommon = require('@microbusiness/parse-server-common');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon2 = require('@trolleysmart/parse-server-common');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43,7 +43,7 @@ var getStapleItems = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.StapleItemService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ userId: userId, name: name }) }), sessionToken));
+            return _context.abrupt('return', new _parseServerCommon2.StapleItemService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ userId: userId, name: name }) }), sessionToken));
 
           case 1:
           case 'end':
@@ -64,7 +64,7 @@ var getStapleTemplateItems = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _trolleySmartParseServerCommon.StapleTemplateItemService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ name: name }) }), sessionToken));
+            return _context2.abrupt('return', new _parseServerCommon2.StapleTemplateItemService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ name: name }) }), sessionToken));
 
           case 1:
           case 'end':
@@ -85,7 +85,7 @@ var getStapleItemById = function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            return _context3.abrupt('return', new _trolleySmartParseServerCommon.StapleItemService().read(id, null, sessionToken));
+            return _context3.abrupt('return', new _parseServerCommon2.StapleItemService().read(id, null, sessionToken));
 
           case 1:
           case 'end':
@@ -112,7 +112,7 @@ var addStapleItemToShoppingList = function () {
 
           case 2:
             stapleItem = _context4.sent;
-            return _context4.abrupt('return', new _trolleySmartParseServerCommon.ShoppingListItemService().create((0, _immutable.Map)({
+            return _context4.abrupt('return', new _parseServerCommon2.ShoppingListItemService().create((0, _immutable.Map)({
               name: stapleItem.get('name'),
               description: stapleItem.get('description'),
               imageUrl: stapleItem.get('imageUrl'),
@@ -156,7 +156,7 @@ var addStapleItemsToShoppingList = exports.addStapleItemsToShoppingList = functi
 
           case 4:
             user = _context6.sent;
-            acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
+            acl = _parseServerCommon.ParseWrapperService.createACL(user);
             stapleItemIdsWithoutDuplicate = stapleItemIds.groupBy(function (_) {
               return _;
             }).map(function (_) {
@@ -238,8 +238,8 @@ var addNewStapleItemsToShoppingList = exports.addNewStapleItemsToShoppingList = 
 
           case 7:
             user = _context8.sent;
-            acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
-            stapleItemService = new _trolleySmartParseServerCommon.StapleItemService();
+            acl = _parseServerCommon.ParseWrapperService.createACL(user);
+            stapleItemService = new _parseServerCommon2.StapleItemService();
             _context8.t0 = _immutable2.default;
             _context8.next = 13;
             return Promise.all(trimmedNamesWithoutDuplicate.map(function () {

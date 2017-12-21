@@ -2,8 +2,8 @@
 
 import Immutable, { List, Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
-import { ShoppingListItemService } from 'trolley-smart-parse-server-common';
+import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { ShoppingListItemService } from '@trolleysmart/parse-server-common';
 import ShoppingListItem from './ShoppingListItem';
 import { getAllStoresToFilterBy } from './Store';
 import { createSessionTokenAndUserIdKeyCombination } from '../loaders';

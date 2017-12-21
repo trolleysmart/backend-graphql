@@ -7,9 +7,9 @@ exports.addMyProduct = exports.addMyProductForProvidedUser = undefined;
 
 var _immutable = require('immutable');
 
-var _microBusinessParseServerCommon = require('micro-business-parse-server-common');
+var _parseServerCommon = require('@microbusiness/parse-server-common');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon2 = require('@trolleysmart/parse-server-common');
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -20,8 +20,8 @@ var addMyProductForProvidedUser = exports.addMyProductForProvidedUser = function
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.MyProductService().create((0, _immutable.Map)({
+            acl = _parseServerCommon.ParseWrapperService.createACL(user);
+            return _context.abrupt('return', new _parseServerCommon2.MyProductService().create((0, _immutable.Map)({
               name: name,
               description: description,
               barcode: barcode,

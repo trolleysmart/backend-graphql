@@ -1,8 +1,8 @@
 // @flow
 
 import Immutable, { List, Map } from 'immutable';
-import { ParseWrapperService } from 'micro-business-parse-server-common';
-import { ProductPriceService, ShoppingListItemService } from 'trolley-smart-parse-server-common';
+import { ParseWrapperService } from '@microbusiness/parse-server-common';
+import { ProductPriceService, ShoppingListItemService } from '@trolleysmart/parse-server-common';
 
 const getProductPriceById = async (id, sessionToken) => new ProductPriceService().read(id, null, sessionToken);
 

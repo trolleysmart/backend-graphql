@@ -2,7 +2,7 @@
 
 import { Map } from 'immutable';
 import Dataloader from 'dataloader';
-import { TagService } from 'trolley-smart-parse-server-common';
+import { TagService } from '@trolleysmart/parse-server-common';
 
 const getCriteria = key =>
   Map({

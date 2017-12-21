@@ -11,9 +11,9 @@ var _dataloader = require('dataloader');
 
 var _dataloader2 = _interopRequireDefault(_dataloader);
 
-var _microBusinessParseServerCommon = require('micro-business-parse-server-common');
+var _parseServerCommon = require('@microbusiness/parse-server-common');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon2 = require('@trolleysmart/parse-server-common');
 
 var _mutation = require('../mutation');
 
@@ -84,7 +84,7 @@ var createUserDefaultShoppingListLoader = function createUserDefaultShoppingList
                         case 0:
                           _getSessionTokenAndUs = getSessionTokenAndUserIdFromKeyCombination(key), sessionToken = _getSessionTokenAndUs.sessionToken, userId = _getSessionTokenAndUs.userId;
                           _context2.next = 3;
-                          return new _trolleySmartParseServerCommon.DefaultShoppingListService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ userId: userId }) }), sessionToken);
+                          return new _parseServerCommon2.DefaultShoppingListService().search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ userId: userId }) }), sessionToken);
 
                         case 3:
                           defaultShoppingLists = _context2.sent;
@@ -95,7 +95,7 @@ var createUserDefaultShoppingListLoader = function createUserDefaultShoppingList
                           }
 
                           _context2.next = 7;
-                          return _microBusinessParseServerCommon.UserService.getUserForProvidedSessionToken(sessionToken);
+                          return _parseServerCommon.UserService.getUserForProvidedSessionToken(sessionToken);
 
                         case 7:
                           user = _context2.sent;

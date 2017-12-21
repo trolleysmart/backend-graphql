@@ -2,7 +2,7 @@
 
 import { Map } from 'immutable';
 import { GraphQLID, GraphQLFloat, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
-import { ProductPriceService } from 'trolley-smart-parse-server-common';
+import { ProductPriceService } from '@trolleysmart/parse-server-common';
 import { NodeInterface } from '../interface';
 import MultiBuy from './MultiBuy';
 import unitPriceType from './UnitPrice';

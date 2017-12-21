@@ -2,8 +2,8 @@
 
 import { Map } from 'immutable';
 import Dataloader from 'dataloader';
-import { UserService } from 'micro-business-parse-server-common';
-import { DefaultShoppingListService } from 'trolley-smart-parse-server-common';
+import { UserService } from '@microbusiness/parse-server-common';
+import { DefaultShoppingListService } from '@trolleysmart/parse-server-common';
 import { addShoppingListForProvidedUser, setUserDefaultShoppingListForProvidedUser } from '../mutation';
 
 const sessionTokenAndUserIdSeparator = '76ae3866-6977-411c-8443-d711ba8b86d3';

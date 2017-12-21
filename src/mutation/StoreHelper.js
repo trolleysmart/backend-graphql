@@ -1,8 +1,8 @@
 // @flow
 
 import { Map } from 'immutable';
-import { ParseWrapperService } from 'micro-business-parse-server-common';
-import { StoreService } from 'trolley-smart-parse-server-common';
+import { ParseWrapperService } from '@microbusiness/parse-server-common';
+import { StoreService } from '@trolleysmart/parse-server-common';
 import uuid from 'uuid/v4';
 
 export const addStoreForProvidedUser = async (name, address, googleMapUrl, user, sessionToken) => {

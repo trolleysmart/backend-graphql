@@ -9,7 +9,7 @@ var _immutable = require('immutable');
 
 var _graphql = require('graphql');
 
-var _trolleySmartParseServerCommon = require('trolley-smart-parse-server-common');
+var _parseServerCommon = require('@trolleysmart/parse-server-common');
 
 var _interface = require('../interface');
 
@@ -27,7 +27,7 @@ var getMasterProduct = exports.getMasterProduct = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _trolleySmartParseServerCommon.MasterProductService().read(masterProductId, (0, _immutable.Map)({ include_tags: true }), sessionToken));
+            return _context.abrupt('return', new _parseServerCommon.MasterProductService().read(masterProductId, (0, _immutable.Map)({ include_tags: true }), sessionToken));
 
           case 1:
           case 'end':

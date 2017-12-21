@@ -1,7 +1,7 @@
 // @flow
 
 import { Map } from 'immutable';
-import { MasterProductService } from 'trolley-smart-parse-server-common';
+import { MasterProductService } from '@trolleysmart/parse-server-common';
 
 export const addMasterProductForProvidedUser = async (name, description, barcode, size, sessionToken) =>
   new MasterProductService().create(
