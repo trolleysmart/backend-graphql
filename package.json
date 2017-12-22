@@ -1,6 +1,6 @@
 {
   "name": "@trolleysmart/backend-graphql",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Trolley Smart Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
@@ -23,11 +23,11 @@
     "@trolleysmart/parse-server-common": "^1.1.5",
     "bluebird": "^3.5.1",
     "dataloader": "^1.3.0",
-    "graphql": "0.11.7",
+    "graphql": "0.12.3",
     "graphql-fields": "^1.0.2",
     "graphql-relay": "^0.5.4",
     "immutable": "^4.0.0-rc.9",
-    "moment": "^2.19.4",
+    "moment": "^2.20.1",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
     "eslint-plugin-react": "^7.5.1",
     "flow-bin": "^0.61.0",
     "husky": "^0.14.3",
-    "jest": "^21.2.1",
+    "jest": "^22.0.4",
     "lint-staged": "^6.0.0",
     "parse": "^1.11.0",
     "prettier": "^1.9.2"
